@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JEE Smart Tracker</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="tracker-dashboard">
-        
+
         <header class="dashboard-header">
             <h1>JEE 2029 Smart Progress Engine</h1>
             <div class="global-stats">
@@ -18,7 +20,7 @@
         </header>
 
         <main class="dashboard-body">
-            
+
             <section class="panel sidebar-explorer">
                 <h3>Syllabus Explorer</h3>
                 <div class="subject-selectors">
@@ -27,25 +29,28 @@
                     <button class="sub-btn" data-subject="math">Math Matrix</button>
                 </div>
                 <div id="chapter-list-tree" class="list-tree">
-                    </div>
+                </div>
             </section>
 
             <section class="panel focus-workspace">
                 <div id="active-topic-header">
                     <h2>Select a Chapter Subpart to Initialize Metrics</h2>
                 </div>
-                
+
                 <div class="workspace-grid">
                     <div class="card test-box">
                         <h3>Mastery Question Tester</h3>
-                        <p class="section-desc">Validate assignment thresholds to clear subpart weights:</p>
-                        <ul id="tester-checklist" class="check-list">
-                            </ul>
+                        <p class="section-desc">Pass the conceptual gatekeeper test to unlock subpart weightage:</p>
+                        <div id="mcq-test-zone">
+                            <p class="status-msg">Select a subpart item from the explorer tree to launch diagnostic
+                                testing.</p>
+                        </div>
                     </div>
 
                     <div class="card notes-box">
                         <h3>Chapter Revision Notes Pad</h3>
-                        <textarea id="note-input" placeholder="Type core derivation bottlenecks, formulas, or left-over checklist notes..."></textarea>
+                        <textarea id="note-input"
+                            placeholder="Type core derivation bottlenecks, formulas, or left-over checklist notes..."></textarea>
                         <button id="save-note-btn">Save Notes to Database</button>
                         <div id="save-status" class="status-msg"></div>
                     </div>
@@ -57,4 +62,5 @@
     </div>
     <script src="app.js"></script>
 </body>
+
 </html>
