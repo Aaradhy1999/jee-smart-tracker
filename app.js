@@ -137,3 +137,19 @@ function evaluateProgress() {
 }
 
 renderChapters('physics');
+document.getElementById('save-note-btn').addEventListener('click', () => {
+    if (!activeSubpartId) {
+        document.getElementById('save-status').innerText = "Select a subpart first!";
+        return;
+    }
+    const noteText = document.getElementById('note-input').value;
+    localStorage.setItem(`note-${activeSubpartId}`, noteText);
+    
+    const statusEl = document.getElementById('save-status');
+    statusEl.innerText = "Notes saved locally!";
+    statusEl.style.color = "var(--accent-aqua)";
+    
+    setTimeout(() => {
+        statusEl.innerText = "";
+    }, 3000);
+});
