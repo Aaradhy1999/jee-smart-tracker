@@ -1,26 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JEE Smart Tracker</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
     <div class="tracker-dashboard">
-
         <header class="dashboard-header">
-            <h1>JEE 2029 Smart Progress Engine</h1>
+            <h1>JEE Smart Progress Engine</h1>
             <div class="global-stats">
-                <span>Total Study: <strong id="total-hours">0</strong> hrs</span>
                 <span>Syllabus Mastered: <strong id="global-percent">0%</strong></span>
+                <button id="toggle-vault-btn" onclick="toggleNotesVault()">Open Global Notes Vault</button>
             </div>
         </header>
 
         <main class="dashboard-body">
-
             <section class="panel sidebar-explorer">
                 <h3>Syllabus Explorer</h3>
                 <div class="subject-selectors">
@@ -28,39 +24,41 @@
                     <button class="sub-btn" data-subject="chemistry">Chemistry Matrix</button>
                     <button class="sub-btn" data-subject="math">Math Matrix</button>
                 </div>
-                <div id="chapter-list-tree" class="list-tree">
-                </div>
+                <div id="chapter-list-tree" class="list-tree"></div>
             </section>
 
             <section class="panel focus-workspace">
                 <div id="active-topic-header">
                     <h2>Select a Chapter Subpart to Initialize Metrics</h2>
                 </div>
-
+                
                 <div class="workspace-grid">
                     <div class="card test-box">
                         <h3>Mastery Question Tester</h3>
-                        <p class="section-desc">Pass the conceptual gatekeeper test to unlock subpart weightage:</p>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                            <p class="section-desc" style="margin:0;">Pass the conceptual gatekeeper test:</p>
+                            <button id="reset-module-btn">Reset Test</button>
+                        </div>
                         <div id="mcq-test-zone">
-                            <p class="status-msg">Select a subpart item from the explorer tree to launch diagnostic
-                                testing.</p>
+                            <p class="status-msg">Select a subpart item from the explorer tree to launch diagnostic testing.</p>
                         </div>
                     </div>
 
                     <div class="card notes-box">
                         <h3>Chapter Revision Notes Pad</h3>
-                        <textarea id="note-input"
-                            placeholder="Type core derivation bottlenecks, formulas, or left-over checklist notes..."></textarea>
+                        <textarea id="note-input" placeholder="Type core derivation bottlenecks, formulas, or left-over checklist notes..."></textarea>
                         <button id="save-note-btn">Save Notes to Database</button>
                         <div id="save-status" class="status-msg"></div>
                     </div>
                 </div>
+
+                <div id="global-vault-view" class="card" style="display: none; margin-top: 20px;">
+                    <h3>Global Revision Vault</h3>
+                    <div id="vault-notes-container"></div>
+                </div>
             </section>
-
         </main>
-
     </div>
     <script src="app.js"></script>
 </body>
-
 </html>

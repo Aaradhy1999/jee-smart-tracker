@@ -97,17 +97,6 @@ const jeeSyllabusData = {
     ]
 };
 
-const masterQuestionPool = {
-    "p-pm-1": [
-        { q: "What is the dimensional formula for Universal Gravitational Constant G?", options: ["M^-1 L^3 T^-2", "M^1 L^2 T^-2", "M^-1 L^2 T^-1", "M^-2 L^3 T^-1"], correct: 0 },
-        { q: "If error in measuring radius of a sphere is 2%, what is error in volume?", options: ["2%", "4%", "6%", "8%"], correct: 2 }
-    ],
-    "p-pm-2": [
-        { q: "Find dot product of A = 2i + 3j and B = i - 2j.", options: ["-4", "4", "8", "-2"], correct: 0 },
-        { q: "If cross product of two vectors is zero, the vectors are:", options: ["Perpendicular", "Parallel", "Equal", "Opposite"], correct: 1 }
-    ]
-};
-
 let activeSubpartId = null;
 
 document.querySelectorAll('.sub-btn').forEach(button => {
@@ -175,29 +164,55 @@ function selectSubpart(subpartId, subpartName) {
 
     document.getElementById('active-topic-header').innerHTML = `<h2>${subpartName} Workspace</h2>`;
     
-    generateRandomizedQuestions(subpartId);
+    generateRandomizedQuestions(subpartId, subpartName);
 
     const savedNote = localStorage.getItem(`note-${subpartId}`) || '';
     document.getElementById('note-input').value = savedNote;
     document.getElementById('save-status').innerText = '';
 }
 
-function generateRandomizedQuestions(subpartId) {
+function generateRandomizedQuestions(subpartId, subpartName) {
     const testZone = document.getElementById('mcq-test-zone');
     testZone.innerHTML = '';
     
-    let pool = masterQuestionPool[subpartId] || [];
-    
-    while(pool.length < 5) {
-        let fallbackIndex = pool.length + 1;
+    let pool = [];
+    const questionTemplates = [
+        "Which of the following describes the absolute core definition of matching parameters for: ",
+        "Identify the primary core governing equation formulation used when solving system problems for: ",
+        "What is the most common mathematical limitation or baseline boundary condition encountered in: ",
+        "In a standard JEE question setup, which option correctly pairs the fundamental property with: ",
+        "Which of the following statements represents the accurate vector orientation/behavior rule concerning: "
+    ];
+
+    for(let i = 0; i < 5; i++) {
         pool.push({
-            q: `Automated Core Diagnostic Concept Question Profile Variant Q${fallbackIndex}`,
-            options: ["Option A Variant", "Option B Variant (Correct Key)", "Option C Variant", "Option D Variant"],
+            q: `${questionTemplates[i]} ${subpartName}?`,
+            options: [
+                `Incorrect alternative explanation profile variant option A`,
+                `The standard correct conceptual match value variant key`,
+                `Incorrect alternative explanation profile variant option C`,
+                `Incorrect alternative explanation profile variant option D`
+            ],
             correct: 1
         });
     }
 
-    let randomizedSet = [...pool].sort(() => 0.5 - Math.random()).slice(0, 5);
+    let seed = localStorage.getItem(`seed-${subpartId}`);
+    if (!seed) {
+        seed = Math.random().toString();
+        localStorage.setItem(`seed-${subpartId}`, seed);
+    }
+
+    let randomizedSet = [];
+    let tempPool = [...pool];
+    let pseudoRandom = parseFloat(seed) || 0.5;
+
+    for(let i=0; i<5; i++) {
+        let index = Math.floor(pseudoRandom * tempPool.length);
+        randomizedSet.push(tempPool.splice(index, 1)[0]);
+        pseudoRandom = (pseudoRandom * 9301 + 49297) % 233280 / 233280;
+    }
+
     const scoreState = JSON.parse(localStorage.getItem(`score-${subpartId}`)) || {};
 
     randomizedSet.forEach((q, qIdx) => {
@@ -226,7 +241,7 @@ function generateRandomizedQuestions(subpartId) {
                 if (scoreState[qIdx] === optIdx && optIdx !== q.correct) btn.style.background = 'rgba(255, 0, 0, 0.2)';
                 btn.disabled = true;
             } else {
-                btn.onclick = () => verifyMCQAnswer(subpartId, qIdx, optIdx, q.correct);
+                btn.onclick = () => verifyMCQAnswer(subpartId, subpartName, qIdx, optIdx, q.correct);
             }
             qCard.appendChild(btn);
         });
@@ -234,7 +249,7 @@ function generateRandomizedQuestions(subpartId) {
     });
 }
 
-function verifyMCQAnswer(subpartId, qIdx, selectedIdx, correctIdx) {
+function verifyMCQAnswer(subpartId, subpartName, qIdx, selectedIdx, correctIdx) {
     let scoreState = JSON.parse(localStorage.getItem(`score-${subpartId}`)) || {};
     scoreState[qIdx] = selectedIdx;
     localStorage.setItem(`score-${subpartId}`, JSON.stringify(scoreState));
@@ -245,7 +260,7 @@ function verifyMCQAnswer(subpartId, qIdx, selectedIdx, correctIdx) {
         localStorage.setItem(`check-${subpartId}`, JSON.stringify(savedState));
     }
     
-    generateRandomizedQuestions(subpartId);
+    generateRandomizedQuestions(subpartId, subpartName);
     evaluatePercentages();
 }
 
@@ -299,6 +314,18 @@ function updateGlobalMetrics() {
     const globalPercentEl = document.getElementById('global-percent');
     if (globalPercentEl) globalPercentEl.innerText = `${overallPercent}%`;
 }
+
+document.getElementById('reset-module-btn').addEventListener('click', () => {
+    if (!activeSubpartId) return;
+    
+    localStorage.removeItem(`score-${activeSubpartId}`);
+    localStorage.removeItem(`check-${activeSubpartId}`);
+    localStorage.removeItem(`seed-${activeSubpartId}`);
+    
+    const activeItem = document.getElementById(`item-${activeSubpartId}`);
+    generateRandomizedQuestions(activeSubpartId, activeItem ? activeItem.innerText : "");
+    evaluatePercentages();
+});
 
 document.getElementById('save-note-btn').addEventListener('click', () => {
     if (!activeSubpartId) {
