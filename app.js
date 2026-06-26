@@ -89,7 +89,9 @@ function renderChapters(subject) {
         });
 
         container.appendChild(chapterDiv);
+        updateChapterProgressUI(chapter.id);
     });
+    updateGlobalMetrics();
 }
 
 function toggleSubparts(chapterId) {
@@ -116,11 +118,14 @@ function selectSubpart(subpartId, subpartName) {
     const checklistContainer = document.getElementById('tester-checklist');
     checklistContainer.innerHTML = '';
     
+    const savedState = JSON.parse(localStorage.getItem(`check-${subpartId}`)) || [false, false, false, false, false];
+    
     for (let i = 1; i <= 5; i++) {
         const li = document.createElement('li');
+        const isChecked = savedState[i - 1] ? 'checked' : '';
         li.innerHTML = `
             <label>
-                <input type="checkbox" data-subpart="${subpartId}" data-index="${i}" onchange="evaluateProgress()">
+                <input type="checkbox" data-index="${i - 1}" ${isChecked} onchange="saveChecklistState(this)">
                 Concept Verification Profile Q${i}
             </label>
         `;
@@ -132,11 +137,75 @@ function selectSubpart(subpartId, subpartName) {
     document.getElementById('save-status').innerText = '';
 }
 
-function evaluateProgress() {
-    console.log("Evaluating assignment checkpoints...");
+function saveChecklistState(checkbox) {
+    const index = parseInt(checkbox.dataset.index);
+    let savedState = JSON.parse(localStorage.getItem(`check-${activeSubpartId}`)) || [false, false, false, false, false];
+    savedState[index] = checkbox.checked;
+    localStorage.setItem(`check-${activeSubpartId}`, JSON.stringify(savedState));
+    
+    evaluatePercentages();
 }
 
-renderChapters('physics');
+function evaluatePercentages() {
+    let activeSubject = document.querySelector('.sub-btn.active').dataset.subject;
+    jeeSyllabusData[activeSubject].forEach(chapter => {
+        updateChapterProgressUI(chapter.id);
+    });
+    updateGlobalMetrics();
+}
+
+function updateChapterProgressUI(chapterId) {
+    let chapter = null;
+    let foundSubject = null;
+    
+    for (let sub in jeeSyllabusData) {
+        chapter = jeeSyllabusData[sub].find(c => c.id === chapterId);
+        if (chapter) {
+            foundSubject = sub;
+            break;
+        }
+    }
+    
+    if (!chapter) return;
+
+    let totalChapterProgress = 0;
+    
+    chapter.subparts.forEach(sub => {
+        const checkState = JSON.parse(localStorage.getItem(`check-${sub.id}`)) || [false, false, false, false, false];
+        const checkedCount = checkState.filter(Boolean).length;
+        const subpartCompletionRatio = checkedCount / 5;
+        totalChapterProgress += subpartCompletionRatio * sub.weight;
+    });
+
+    const finalPercent = Math.round(totalChapterProgress);
+    
+    const bar = document.getElementById(`bar-${chapterId}`);
+    const text = document.getElementById(`text-${chapterId}`);
+    
+    if (bar) bar.style.width = `${finalPercent}%`;
+    if (text) text.innerText = `${finalPercent}%`;
+}
+
+function updateGlobalMetrics() {
+    let totalSyllabusWeight = 0;
+    let totalEarnedWeight = 0;
+
+    for (let sub in jeeSyllabusData) {
+        jeeSyllabusData[sub].forEach(chapter => {
+            chapter.subparts.forEach(subpart => {
+                totalSyllabusWeight += 100; 
+                const checkState = JSON.parse(localStorage.getItem(`check-${subpart.id}`)) || [false, false, false, false, false];
+                const checkedCount = checkState.filter(Boolean).length;
+                totalEarnedWeight += (checkedCount / 5) * 100;
+            });
+        });
+    }
+
+    const overallPercent = totalSyllabusWeight > 0 ? Math.round((totalEarnedWeight / totalSyllabusWeight) * 100) : 0;
+    const globalPercentEl = document.getElementById('global-percent');
+    if (globalPercentEl) globalPercentEl.innerText = `${overallPercent}%`;
+}
+
 document.getElementById('save-note-btn').addEventListener('click', () => {
     if (!activeSubpartId) {
         document.getElementById('save-status').innerText = "Select a subpart first!";
@@ -153,3 +222,5 @@ document.getElementById('save-note-btn').addEventListener('click', () => {
         statusEl.innerText = "";
     }, 3000);
 });
+
+renderChapters('physics');
