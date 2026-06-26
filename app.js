@@ -43,7 +43,8 @@ const jeeSyllabusData = {
     ]
 };
 
-console.log("Syllabus configuration initialized successfully.");
+let activeSubpartId = null;
+
 document.querySelectorAll('.sub-btn').forEach(button => {
     button.addEventListener('click', (e) => {
         document.querySelectorAll('.sub-btn').forEach(btn => btn.classList.remove('active'));
@@ -71,15 +72,19 @@ function renderChapters(subject) {
                 </div>
                 <span class="progress-text" id="text-${chapter.id}">0%</span>
             </div>
-            <div class="subparts-tree" id="tree-${chapter.id}" style="display: none;">
-                </div>
+            <div class="subparts-tree" id="tree-${chapter.id}" style="display: none;"></div>
         `;
         
         const treeContainer = chapterDiv.querySelector(`#tree-${chapter.id}`);
         chapter.subparts.forEach(sub => {
             const subRow = document.createElement('div');
             subRow.className = 'subpart-item';
-            subRow.innerText = `${sub.name} (${sub.weight}%)`;
+            subRow.id = `item-${sub.id}`;
+            subRow.innerText = `${sub.name}`;
+            subRow.onclick = (e) => {
+                e.stopPropagation();
+                selectSubpart(sub.id, sub.name);
+            };
             treeContainer.appendChild(subRow);
         });
 
@@ -97,6 +102,38 @@ function toggleSubparts(chapterId) {
         tree.style.display = 'none';
         arrow.style.transform = 'rotate(0deg)';
     }
+}
+
+function selectSubpart(subpartId, subpartName) {
+    activeSubpartId = subpartId;
+    
+    document.querySelectorAll('.subpart-item').forEach(item => item.classList.remove('selected'));
+    const activeItem = document.getElementById(`item-${subpartId}`);
+    if (activeItem) activeItem.classList.add('selected');
+
+    document.getElementById('active-topic-header').innerHTML = `<h2>${subpartName} Workspace</h2>`;
+    
+    const checklistContainer = document.getElementById('tester-checklist');
+    checklistContainer.innerHTML = '';
+    
+    for (let i = 1; i <= 5; i++) {
+        const li = document.createElement('li');
+        li.innerHTML = `
+            <label>
+                <input type="checkbox" data-subpart="${subpartId}" data-index="${i}" onchange="evaluateProgress()">
+                Concept Verification Profile Q${i}
+            </label>
+        `;
+        checklistContainer.appendChild(li);
+    }
+    
+    const savedNote = localStorage.getItem(`note-${subpartId}`) || '';
+    document.getElementById('note-input').value = savedNote;
+    document.getElementById('save-status').innerText = '';
+}
+
+function evaluateProgress() {
+    console.log("Evaluating assignment checkpoints...");
 }
 
 renderChapters('physics');

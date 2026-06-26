@@ -151,3 +151,9 @@ body {
     color: var(--text-main);
     background: rgba(255, 255, 255, 0.02);
 }
+.subpart-item.selected {
+    color: var(--accent-aqua);
+    background: rgba(0, 240, 255, 0.05);
+    border-left: 2px solid var(--accent-aqua);
+    font-weight: 500;
+}
