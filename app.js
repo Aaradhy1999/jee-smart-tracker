@@ -1,97 +1,241 @@
 const jeeSyllabusData = {
     physics: [
         {
-            id: "p-physics-math",
-            name: "Physics Core Basics & Vectors",
+            id: "p-units-dimensions",
+            name: "Units, Dimensions & Errors",
             subparts: [
-                { id: "p-pm-1", name: "Dimensions & Dimensional Analysis Error Limits", weight: 30 },
-                { id: "p-pm-2", name: "Vector Properties Cross & Dot Products", weight: 40 },
-                { id: "p-pm-3", name: "Calculus Applications in Kinematics Rules", weight: 30 }
+                { id: "p-ud-1", name: "Dimensional Analysis & Application", weight: 35 },
+                { id: "p-ud-2", name: "Least Count & Significant Figures", weight: 35 },
+                { id: "p-ud-3", name: "Error Analysis & Propagation", weight: 30 }
             ]
         },
         {
             id: "p-kinematics",
-            name: "Kinematics & Motion Parameters",
+            name: "Kinematics",
             subparts: [
-                { id: "p-kin-1", name: "Rectilinear Motion Equations & Graphs", weight: 30 },
-                { id: "p-kin-2", name: "Projectile Motion Components & Trajectories", weight: 40 },
-                { id: "p-kin-3", name: "Relative Velocity & River-Man Cases", weight: 30 }
+                { id: "p-kin-1", name: "Rectilinear Motion & Graphs", weight: 30 },
+                { id: "p-kin-2", name: "Projectile Motion Trajectories", weight: 40 },
+                { id: "p-kin-3", name: "Relative Velocity & River-Man Problems", weight: 30 }
             ]
         },
         {
             id: "p-nlm",
-            name: "Laws of Motion & Mechanics",
+            name: "Laws of Motion & Friction",
             subparts: [
-                { id: "p-nlm-1", name: "Newton Laws & Free Body Equilibrium Diagrams", weight: 35 },
-                { id: "p-nlm-2", name: "Static & Kinetic Friction Constraints", weight: 35 },
-                { id: "p-nlm-3", name: "Circular Motion Kinetics & Banking Angles", weight: 30 }
+                { id: "p-nlm-1", name: "Newton Laws & Free Body Diagrams", weight: 40 },
+                { id: "p-nlm-2", name: "Static & Kinetic Friction Constraints", weight: 30 },
+                { id: "p-nlm-3", name: "Circular Motion Dynamics & Banking", weight: 30 }
             ]
         },
         {
             id: "p-wep",
-            name: "Work, Energy & Power Dynamics",
+            name: "Work, Energy & Power",
             subparts: [
-                { id: "p-wep-1", name: "Work Energy Theorem Verification", weight: 40 },
-                { id: "p-wep-2", name: "Conservative Forces & Potential Profiles", weight: 30 },
+                { id: "p-wep-1", name: "Work-Energy Theorem Application", weight: 40 },
+                { id: "p-wep-2", name: "Conservative Forces & Potential Energy", weight: 30 },
                 { id: "p-wep-3", name: "Vertical Circular Motion Parameters", weight: 30 }
+            ]
+        },
+        {
+            id: "p-com",
+            name: "Center of Mass & Collision",
+            subparts: [
+                { id: "p-com-1", name: "Discrete & Continuous COM Calculation", weight: 30 },
+                { id: "p-com-2", name: "Conservation of Linear Momentum", weight: 35 },
+                { id: "p-com-3", name: "Elastic & Inelastic Collisions", weight: 35 }
+            ]
+        },
+        {
+            id: "p-rotational",
+            name: "Rotational Mechanics",
+            subparts: [
+                { id: "p-rot-1", name: "Moment of Inertia Theorems", weight: 30 },
+                { id: "p-rot-2", name: "Torque & Angular Momentum Conservation", weight: 40 },
+                { id: "p-rot-3", name: "Pure Rolling & Slipping Dynamics", weight: 30 }
+            ]
+        },
+        {
+            id: "p-gravitation",
+            name: "Gravitation",
+            subparts: [
+                { id: "p-grav-1", name: "Gravitational Field & Potential", weight: 40 },
+                { id: "p-grav-2", name: "Kepler Laws & Planetary Motion", weight: 30 },
+                { id: "p-grav-3", name: "Escape Velocity & Satellite Orbitals", weight: 30 }
+            ]
+        },
+        {
+            id: "p-solids-fluids",
+            name: "Properties of Matter",
+            subparts: [
+                { id: "p-sf-1", name: "Elasticity Modulus & Hooke Law", weight: 30 },
+                { id: "p-sf-2", name: "Fluid Statics & Pascal Principle", weight: 35 },
+                { id: "p-sf-3", name: "Surface Tension & Viscosity Mechanics", weight: 35 }
+            ]
+        },
+        {
+            id: "p-thermodynamics",
+            name: "Thermodynamics & KTG",
+            subparts: [
+                { id: "p-thm-1", name: "Kinetic Theory of Gases & Gas Laws", weight: 30 },
+                { id: "p-thm-2", name: "First Law & Thermodynamic Processes", weight: 40 },
+                { id: "p-thm-3", name: "Heat Engines & Second Law Limits", weight: 30 }
+            ]
+        },
+        {
+            id: "p-shm-waves",
+            name: "Oscillations & Waves",
+            subparts: [
+                { id: "p-wav-1", name: "Simple Harmonic Motion Equations", weight: 40 },
+                { id: "p-wav-2", name: "Wave Speed & String Vibrations", weight: 30 },
+                { id: "p-wav-3", name: "Doppler Effect & Sound Waves", weight: 30 }
             ]
         }
     ],
     chemistry: [
         {
             id: "c-mole",
-            name: "Mole Concept Core Fundamentals",
+            name: "Some Basic Concepts in Chemistry",
             subparts: [
-                { id: "c-mole-1", name: "Empirical Equations & Molecular Formulas", weight: 30 },
-                { id: "c-mole-2", name: "Limiting Reagent Mass Conversions", weight: 40 },
-                { id: "c-mole-3", name: "Concentration Metrics Molarity & Normality", weight: 30 }
+                { id: "c-mole-1", name: "Empirical & Molecular Formulas", weight: 30 },
+                { id: "c-mole-2", name: "Limiting Reagent Calculations", weight: 40 },
+                { id: "c-mole-3", name: "Molarity, Molality & Normality Metrics", weight: 30 }
             ]
         },
         {
             id: "c-atomic",
-            name: "Atomic Structure Parameters",
+            name: "Atomic Structure",
             subparts: [
-                { id: "c-at-1", name: "Bohr Atomic Model Orbits & Emission Profiles", weight: 40 },
-                { id: "c-at-2", name: "Quantum Numbers Shell Configurations", weight: 40 },
-                { id: "c-at-3", name: "De Broglie Mechanics & Heisenberg Balance", weight: 20 }
+                { id: "c-at-1", name: "Bohr Model & Hydrogen Spectrum", weight: 40 },
+                { id: "c-at-2", name: "Quantum Numbers & Configurations", weight: 40 },
+                { id: "c-at-3", name: "De Broglie & Heisenberg Principles", weight: 20 }
             ]
         },
         {
             id: "c-bonding",
-            name: "Chemical Bonding & Matrix",
+            name: "Chemical Bonding",
             subparts: [
-                { id: "c-bnd-1", name: "Ionic Lattice Stability Factors", weight: 30 },
-                { id: "c-bnd-2", name: "VSEPR Shapes & Hybridization Inversions", weight: 40 },
-                { id: "c-bnd-3", name: "Molecular Orbital Configurations", weight: 30 }
+                { id: "c-bnd-1", name: "VSEPR Theory & Molecular Shapes", weight: 35 },
+                { id: "c-bnd-2", name: "Hybridization & Dipole Moments", weight: 35 },
+                { id: "c-bnd-3", name: "Molecular Orbital Theory Frameworks", weight: 30 }
+            ]
+        },
+        {
+            id: "c-solutions",
+            name: "Solutions",
+            subparts: [
+                { id: "c-sol-1", name: "Vapor Pressure & Raoult Law", weight: 35 },
+                { id: "c-sol-2", name: "Colligative Properties calculation", weight: 45 },
+                { id: "c-sol-3", name: "Van t Hoff Factor Anomalies", weight: 20 }
+            ]
+        },
+        {
+            id: "c-equilibrium",
+            name: "Chemical & Ionic Equilibrium",
+            subparts: [
+                { id: "c-eq-1", name: "Le Chatelier Principle Applications", weight: 30 },
+                { id: "c-eq-2", name: "pH Calculation of Buffers & Salts", weight: 40 },
+                { id: "c-eq-3", name: "Solubility Product Constant Ksp", weight: 30 }
+            ]
+        },
+        {
+            id: "c-thermo",
+            name: "Chemical Thermodynamics",
+            subparts: [
+                { id: "c-th-1", name: "First Law Enthalpy Calculations", weight: 35 },
+                { id: "c-th-2", name: "Entropy & Second Law Parameters", weight: 35 },
+                { id: "c-th-3", name: "Gibbs Free Energy & Spontaneity", weight: 30 }
+            ]
+        },
+        {
+            id: "c-kinetics",
+            name: "Chemical Kinetics",
+            subparts: [
+                { id: "c-kin-1", name: "Rate Laws & Order of Reaction", weight: 40 },
+                { id: "c-kin-2", name: "Integrated Rate Equations", weight: 40 },
+                { id: "c-kin-3", name: "Arrhenius Equation & Activation Energy", weight: 20 }
+            ]
+        },
+        {
+            id: "c-organic-basics",
+            name: "General Organic Chemistry (GOC)",
+            subparts: [
+                { id: "c-goc-1", name: "IUPAC Nomenclature Rules", weight: 25 },
+                { id: "c-goc-2", name: "Inductive, Resonance & Hyperconjugation", weight: 45 },
+                { id: "c-goc-3", name: "Isomerism Structural & Stereo", weight: 30 }
             ]
         }
     ],
     math: [
         {
             id: "m-sequences",
-            name: "Sequences & Progression Progress",
+            name: "Sequences & Series",
             subparts: [
                 { id: "m-seq-1", name: "Arithmetic Progression Mean Rules", weight: 35 },
-                { id: "m-seq-2", name: "Geometric & Harmonic Progression Sums", weight: 35 },
-                { id: "m-seq-3", name: "Arithmetico-Geometric Sequences & Sigma Rules", weight: 30 }
+                { id: "m-seq-2", name: "Geometric & Harmonic Progressions", weight: 35 },
+                { id: "m-seq-3", name: "AGP Series Summation Methods", weight: 30 }
             ]
         },
         {
             id: "m-quadratic",
-            name: "Quadratic Equations Frameworks",
+            name: "Quadratic Equations",
             subparts: [
-                { id: "m-quad-1", name: "Discriminant Rules & Roots Nature", weight: 30 },
-                { id: "m-quad-2", name: "Location of Roots Interval Parameters", weight: 40 },
-                { id: "m-quad-3", name: "Common Roots Shared Intersections", weight: 30 }
+                { id: "m-quad-1", name: "Discriminant Rules & Roots Nature", weight: 35 },
+                { id: "m-quad-2", name: "Location of Roots Interval Criteria", weight: 40 },
+                { id: "m-quad-3", name: "Common Roots Algebraic Conditions", weight: 25 }
             ]
         },
         {
-            id: "m-determinants",
-            name: "Matrices & Determinant Systems",
+            id: "m-matrices",
+            name: "Matrices & Determinants",
             subparts: [
-                { id: "m-mat-1", name: "Matrix Properties & Inverse Calculations", weight: 35 },
-                { id: "m-mat-2", name: "Cramer Rule Linear System Solvers", weight: 35 },
-                { id: "m-mat-3", name: "Adjoint Transpose Matrix Multiplications", weight: 30 }
+                { id: "m-mat-1", name: "Matrix Algebra & Inverse Solutions", weight: 35 },
+                { id: "m-mat-2", name: "Determinant Evaluation Properties", weight: 35 },
+                { id: "m-mat-3", name: "Cramer Rule Linear Systems Solver", weight: 30 }
+            ]
+        },
+        {
+            id: "m-pnc-probability",
+            name: "Permutations & Probability",
+            subparts: [
+                { id: "m-pr-1", name: "Fundamental Principle of Counting", weight: 30 },
+                { id: "m-pr-2", name: "Permutations & Combinations Theorems", weight: 40 },
+                { id: "m-pr-3", name: "Conditional Probability & Bayes Theorem", weight: 30 }
+            ]
+        },
+        {
+            id: "m-trigonometry",
+            name: "Trigonometric Identites",
+            subparts: [
+                { id: "m-trg-1", name: "Compound Angles Formula Matrix", weight: 40 },
+                { id: "m-trg-2", name: "Trigonometric Equations Solutions", weight: 30 },
+                { id: "m-trg-3", name: "Inverse Trigonometric Functions", weight: 30 }
+            ]
+        },
+        {
+            id: "m-coordinate",
+            name: "Straight Lines & Circles",
+            subparts: [
+                { id: "m-geo-1", name: "Straight Line Equations & Slopes", weight: 30 },
+                { id: "m-geo-2", name: "Circle System Equations & Tangents", weight: 40 },
+                { id: "m-geo-3", name: "Conic Sections Parabola & Ellipse", weight: 30 }
+            ]
+        },
+        {
+            id: "m-differential",
+            name: "Differential Calculus",
+            subparts: [
+                { id: "m-dif-1", name: "Limits, Continuity & Differentiability", weight: 40 },
+                { id: "m-dif-2", name: "Differentiation Product & Chain Rules", weight: 30 },
+                { id: "m-dif-3", name: "Application of Derivatives Monotonicity", weight: 30 }
+            ]
+        },
+        {
+            id: "m-integral",
+            name: "Integral Calculus",
+            subparts: [
+                { id: "m-int-1", name: "Indefinite Integral Substitution Maps", weight: 30 },
+                { id: "m-int-2", name: "Definite Integral Calculus Properties", weight: 40 },
+                { id: "m-int-3", name: "Differential Equations Solution Types", weight: 30 }
             ]
         }
     ]
@@ -252,6 +396,7 @@ function generateRandomizedQuestions(subpartId, subpartName) {
                     }
                     qCard.appendChild(btn);
                 });
+                qCard.appendChild(document.createElement('hr'));
                 testZone.appendChild(qCard);
             });
         })
@@ -265,15 +410,9 @@ function verifyMCQAnswer(subpartId, subpartName, qIdx, selectedIdx, correctIdx) 
     scoreState[qIdx] = selectedIdx;
     localStorage.setItem(`score-${subpartId}`, JSON.stringify(scoreState));
     
-    if (selectedIdx === correctIdx) {
-        let savedState = JSON.parse(localStorage.getItem(`check-${subpartId}`)) || [false, false, false, false, false];
-        savedState[qIdx] = true;
-        localStorage.setItem(`check-${subpartId}`, JSON.stringify(savedState));
-    } else {
-        let savedState = JSON.parse(localStorage.getItem(`check-${subpartId}`)) || [false, false, false, false, false];
-        savedState[qIdx] = false;
-        localStorage.setItem(`check-${subpartId}`, JSON.stringify(savedState));
-    }
+    let savedState = JSON.parse(localStorage.getItem(`check-${subpartId}`)) || [false, false, false, false, false];
+    savedState[qIdx] = (selectedIdx === correctIdx);
+    localStorage.setItem(`check-${subpartId}`, JSON.stringify(savedState));
     
     generateRandomizedQuestions(subpartId, subpartName);
     evaluatePercentages();
@@ -355,7 +494,7 @@ function evaluateDiagnosticMetrics(subpartId) {
     if (rawScorePercent < 50) {
         badge.classList.add("critical");
         badge.innerText = "Critical Zone";
-        textZone.innerHTML = `<strong>Performance Profile: ${rawScorePercent}%</strong><br><br>Your quiz data reveals fundamental formula gaps. Interviewers value remediation: use the red 'Reset Test' tool to trigger a completely new random data shuffle set and try again.`;
+        textZone.innerHTML = `<strong>Performance Profile: ${rawScorePercent}%</strong><br><br>Your quiz data reveals fundamental formula gaps. Use the red 'Reset Test' tool to trigger a completely new random data shuffle set and try again.`;
     } else if (rawScorePercent >= 50 && rawScorePercent < 80) {
         badge.classList.add("warn");
         badge.innerText = "Revision Needed";
@@ -387,7 +526,6 @@ function exportAppState() {
         let key = localStorage.key(i);
         stateData[key] = localStorage.getItem(key);
     }
-    
     let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(stateData));
     let downloadAnchor = document.createElement('a');
     downloadAnchor.setAttribute("href", dataStr);
