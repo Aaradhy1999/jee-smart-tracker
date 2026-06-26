@@ -1,94 +1,110 @@
 const jeeSyllabusData = {
     physics: [
         {
-            id: "p-basic-math",
-            name: "Basic Mathematics & Vectors",
+            id: "p-physics-math",
+            name: "Physics Core Basics & Vectors",
             subparts: [
-                { id: "p-bm-1", name: "Differentiation & Integration Rules", weight: 30 },
-                { id: "p-bm-2", name: "Vector Dot & Cross Products", weight: 40 },
-                { id: "p-bm-3", name: "Component Resolution & Slopes", weight: 30 }
+                { id: "p-pm-1", name: "Dimensions & Dimensional Analysis Error Limits", weight: 30 },
+                { id: "p-pm-2", name: "Vector Properties Cross & Dot Products", weight: 40 },
+                { id: "p-pm-3", name: "Calculus Applications in Kinematics Rules", weight: 30 }
             ]
         },
         {
             id: "p-kinematics",
-            name: "Kinematics",
+            name: "Kinematics & Motion Parameters",
             subparts: [
-                { id: "p-kin-1", name: "Motion in a Straight Line", weight: 30 },
-                { id: "p-kin-2", name: "Projectile Motion Equations", weight: 40 },
-                { id: "p-kin-3", name: "Relative Velocity Frameworks", weight: 30 }
+                { id: "p-kin-1", name: "Rectilinear Motion Equations & Graphs", weight: 30 },
+                { id: "p-kin-2", name: "Projectile Motion Components & Trajectories", weight: 40 },
+                { id: "p-kin-3", name: "Relative Velocity & River-Man Cases", weight: 30 }
             ]
         },
         {
             id: "p-nlm",
-            name: "Laws of Motion & Friction",
+            name: "Laws of Motion & Mechanics",
             subparts: [
-                { id: "p-nlm-1", name: "Free Body Diagrams & Equilibrium", weight: 40 },
-                { id: "p-nlm-2", name: "Friction Coefficients & Slopes", weight: 30 },
-                { id: "p-nlm-3", name: "Pulley-Block Systems", weight: 30 }
+                { id: "p-nlm-1", name: "Newton Laws & Free Body Equilibrium Diagrams", weight: 35 },
+                { id: "p-nlm-2", name: "Static & Kinetic Friction Constraints", weight: 35 },
+                { id: "p-nlm-3", name: "Circular Motion Kinetics & Banking Angles", weight: 30 }
+            ]
+        },
+        {
+            id: "p-wep",
+            name: "Work, Energy & Power Dynamics",
+            subparts: [
+                { id: "p-wep-1", name: "Work Energy Theorem Verification", weight: 40 },
+                { id: "p-wep-2", name: "Conservative Forces & Potential Profiles", weight: 30 },
+                { id: "p-wep-3", name: "Vertical Circular Motion Parameters", weight: 30 }
             ]
         }
     ],
     chemistry: [
         {
             id: "c-mole",
-            name: "Mole Concept & Stoichiometry",
+            name: "Mole Concept Core Fundamentals",
             subparts: [
-                { id: "c-mole-1", name: "Empirical & Molecular Formulas", weight: 30 },
-                { id: "c-mole-2", name: "Limiting Reagent Calculations", weight: 40 },
-                { id: "c-mole-3", name: "Concentration Terms (M/N/m)", weight: 30 }
+                { id: "c-mole-1", name: "Empirical Equations & Molecular Formulas", weight: 30 },
+                { id: "c-mole-2", name: "Limiting Reagent Mass Conversions", weight: 40 },
+                { id: "c-mole-3", name: "Concentration Metrics Molarity & Normality", weight: 30 }
             ]
         },
         {
             id: "c-atomic",
-            name: "Atomic Structure",
+            name: "Atomic Structure Parameters",
             subparts: [
-                { id: "c-at-1", name: "Bohr Model & Spectral Lines", weight: 40 },
-                { id: "c-at-2", name: "Quantum Numbers & Configurations", weight: 40 },
-                { id: "c-at-3", name: "De Broglie & Heisenberg Principles", weight: 20 }
+                { id: "c-at-1", name: "Bohr Atomic Model Orbits & Emission Profiles", weight: 40 },
+                { id: "c-at-2", name: "Quantum Numbers Shell Configurations", weight: 40 },
+                { id: "c-at-3", name: "De Broglie Mechanics & Heisenberg Balance", weight: 20 }
+            ]
+        },
+        {
+            id: "c-bonding",
+            name: "Chemical Bonding & Matrix",
+            subparts: [
+                { id: "c-bnd-1", name: "Ionic Lattice Stability Factors", weight: 30 },
+                { id: "c-bnd-2", name: "VSEPR Shapes & Hybridization Inversions", weight: 40 },
+                { id: "c-bnd-3", name: "Molecular Orbital Configurations", weight: 30 }
             ]
         }
     ],
     math: [
         {
             id: "m-sequences",
-            name: "Sequences & Series",
+            name: "Sequences & Progression Progress",
             subparts: [
-                { id: "m-seq-1", name: "Arithmetic & Geometric Progressions", weight: 35 },
-                { id: "m-seq-2", name: "AGP & Harmonic Series Limits", weight: 35 },
-                { id: "m-seq-3", name: "Sigma Notation Special Sums", weight: 30 }
+                { id: "m-seq-1", name: "Arithmetic Progression Mean Rules", weight: 35 },
+                { id: "m-seq-2", name: "Geometric & Harmonic Progression Sums", weight: 35 },
+                { id: "m-seq-3", name: "Arithmetico-Geometric Sequences & Sigma Rules", weight: 30 }
             ]
         },
         {
             id: "m-quadratic",
-            name: "Quadratic Equations",
+            name: "Quadratic Equations Frameworks",
             subparts: [
-                { id: "m-quad-1", name: "Nature of Roots & Discriminant", weight: 30 },
-                { id: "m-quad-2", name: "Location of Roots Conditions", weight: 40 },
-                { id: "m-quad-3", name: "Common Roots Criteria", weight: 30 }
+                { id: "m-quad-1", name: "Discriminant Rules & Roots Nature", weight: 30 },
+                { id: "m-quad-2", name: "Location of Roots Interval Parameters", weight: 40 },
+                { id: "m-quad-3", name: "Common Roots Shared Intersections", weight: 30 }
+            ]
+        },
+        {
+            id: "m-determinants",
+            name: "Matrices & Determinant Systems",
+            subparts: [
+                { id: "m-mat-1", name: "Matrix Properties & Inverse Calculations", weight: 35 },
+                { id: "m-mat-2", name: "Cramer Rule Linear System Solvers", weight: 35 },
+                { id: "m-mat-3", name: "Adjoint Transpose Matrix Multiplications", weight: 30 }
             ]
         }
     ]
 };
 
-const subpartQuestions = {
-    "p-bm-2": [
-        {
-            q: "If vector A = 2i + 3j and B = i - 2j, find the dot product A.B.",
-            options: ["-4", "4", "8", "-2"],
-            correct: 0
-        },
-        {
-            q: "Find the magnitude of the cross product of i and j.",
-            options: ["0", "1", "-1", "None"],
-            correct: 1
-        }
+const masterQuestionPool = {
+    "p-pm-1": [
+        { q: "What is the dimensional formula for Universal Gravitational Constant G?", options: ["M^-1 L^3 T^-2", "M^1 L^2 T^-2", "M^-1 L^2 T^-1", "M^-2 L^3 T^-1"], correct: 0 },
+        { q: "If error in measuring radius of a sphere is 2%, what is error in volume?", options: ["2%", "4%", "6%", "8%"], correct: 2 }
     ],
-    "p-kin-2": [
-        {
-            q: "At the maximum height of a projectile launch profile, what is its vertical velocity?",
-            options: ["v sin(theta)", "v cos(theta)", "0", "g"],
-            correct: 2
-        }
+    "p-pm-2": [
+        { q: "Find dot product of A = 2i + 3j and B = i - 2j.", options: ["-4", "4", "8", "-2"], correct: 0 },
+        { q: "If cross product of two vectors is zero, the vectors are:", options: ["Perpendicular", "Parallel", "Equal", "Opposite"], correct: 1 }
     ]
 };
 
@@ -158,27 +174,33 @@ function selectSubpart(subpartId, subpartName) {
     if (activeItem) activeItem.classList.add('selected');
 
     document.getElementById('active-topic-header').innerHTML = `<h2>${subpartName} Workspace</h2>`;
-    loadTestZone(subpartId);
+    
+    generateRandomizedQuestions(subpartId);
 
     const savedNote = localStorage.getItem(`note-${subpartId}`) || '';
     document.getElementById('note-input').value = savedNote;
     document.getElementById('save-status').innerText = '';
 }
 
-function loadTestZone(subpartId) {
+function generateRandomizedQuestions(subpartId) {
     const testZone = document.getElementById('mcq-test-zone');
     testZone.innerHTML = '';
-    const questions = subpartQuestions[subpartId];
-
-    if (!questions) {
-        testZone.innerHTML = `<p class="status-msg">Diagnostic testing set coming soon for this module. Use old verification checkboxes method.</p>
-        <button onclick="loadLegacyChecklist('${subpartId}')" style="background:#00f0ff; color:#0f172a; padding:6px 12px; border:none; border-radius:4px; cursor:pointer; font-weight:600;">Load Fast-Pass Tasks</button>`;
-        return;
+    
+    let pool = masterQuestionPool[subpartId] || [];
+    
+    while(pool.length < 5) {
+        let fallbackIndex = pool.length + 1;
+        pool.push({
+            q: `Automated Core Diagnostic Concept Question Profile Variant Q${fallbackIndex}`,
+            options: ["Option A Variant", "Option B Variant (Correct Key)", "Option C Variant", "Option D Variant"],
+            correct: 1
+        });
     }
 
+    let randomizedSet = [...pool].sort(() => 0.5 - Math.random()).slice(0, 5);
     const scoreState = JSON.parse(localStorage.getItem(`score-${subpartId}`)) || {};
 
-    questions.forEach((q, qIdx) => {
+    randomizedSet.forEach((q, qIdx) => {
         const qCard = document.createElement('div');
         qCard.className = 'mcq-card';
         qCard.style.margin = '15px 0';
@@ -223,36 +245,7 @@ function verifyMCQAnswer(subpartId, qIdx, selectedIdx, correctIdx) {
         localStorage.setItem(`check-${subpartId}`, JSON.stringify(savedState));
     }
     
-    loadTestZone(subpartId);
-    evaluatePercentages();
-}
-
-function loadLegacyChecklist(subpartId) {
-    const testZone = document.getElementById('mcq-test-zone');
-    testZone.innerHTML = '';
-    const ul = document.createElement('ul');
-    ul.className = 'check-list';
-    const savedState = JSON.parse(localStorage.getItem(`check-${subpartId}`)) || [false, false, false, false, false];
-    
-    for (let i = 1; i <= 5; i++) {
-        const li = document.createElement('li');
-        const isChecked = savedState[i - 1] ? 'checked' : '';
-        li.innerHTML = `
-            <label>
-                <input type="checkbox" data-index="${i - 1}" ${isChecked} onchange="saveChecklistState(this)">
-                Concept Verification Profile Q${i}
-            </label>
-        `;
-        ul.appendChild(li);
-    }
-    testZone.appendChild(ul);
-}
-
-function saveChecklistState(checkbox) {
-    const index = parseInt(checkbox.dataset.index);
-    let savedState = JSON.parse(localStorage.getItem(`check-${activeSubpartId}`)) || [false, false, false, false, false];
-    savedState[index] = checkbox.checked;
-    localStorage.setItem(`check-${activeSubpartId}`, JSON.stringify(savedState));
+    generateRandomizedQuestions(subpartId);
     evaluatePercentages();
 }
 
@@ -275,16 +268,8 @@ function updateChapterProgressUI(chapterId) {
     let totalChapterProgress = 0;
     chapter.subparts.forEach(sub => {
         const checkState = JSON.parse(localStorage.getItem(`check-${sub.id}`)) || [false, false, false, false, false];
-        const questions = subpartQuestions[sub.id];
-        let subpartCompletionRatio = 0;
-        
-        if (questions) {
-            const correctCount = checkState.slice(0, questions.length).filter(Boolean).length;
-            subpartCompletionRatio = correctCount / questions.length;
-        } else {
-            const checkedCount = checkState.filter(Boolean).length;
-            subpartCompletionRatio = checkedCount / 5;
-        }
+        const correctCount = checkState.filter(Boolean).length;
+        const subpartCompletionRatio = correctCount / 5;
         totalChapterProgress += subpartCompletionRatio * sub.weight;
     });
 
@@ -304,17 +289,8 @@ function updateGlobalMetrics() {
             chapter.subparts.forEach(subpart => {
                 totalSyllabusWeight += 100;
                 const checkState = JSON.parse(localStorage.getItem(`check-${subpart.id}`)) || [false, false, false, false, false];
-                const questions = subpartQuestions[subpart.id];
-                let subpartCompletionRatio = 0;
-
-                if (questions) {
-                    const correctCount = checkState.slice(0, questions.length).filter(Boolean).length;
-                    subpartCompletionRatio = correctCount / questions.length;
-                } else {
-                    const checkedCount = checkState.filter(Boolean).length;
-                    subpartCompletionRatio = checkedCount / 5;
-                }
-                totalEarnedWeight += subpartCompletionRatio * 100;
+                const correctCount = checkState.filter(Boolean).length;
+                totalEarnedWeight += (correctCount / 5) * 100;
             });
         });
     }
@@ -335,6 +311,52 @@ document.getElementById('save-note-btn').addEventListener('click', () => {
     statusEl.innerText = "Notes saved locally!";
     statusEl.style.color = "var(--accent-aqua)";
     setTimeout(() => { statusEl.innerText = ""; }, 3000);
+    if(document.getElementById('global-vault-view').style.display === 'block') compileVaultNotes();
 });
+
+function toggleNotesVault() {
+    const vault = document.getElementById('global-vault-view');
+    const btn = document.getElementById('toggle-vault-btn');
+    if (vault.style.display === 'none') {
+        vault.style.display = 'block';
+        btn.innerText = "Close Notes Vault";
+        compileVaultNotes();
+    } else {
+        vault.style.display = 'none';
+        btn.innerText = "Open Global Notes Vault";
+    }
+}
+
+function compileVaultNotes() {
+    const container = document.getElementById('vault-notes-container');
+    container.innerHTML = '';
+    let notesFound = false;
+
+    for (let subject in jeeSyllabusData) {
+        jeeSyllabusData[subject].forEach(chapter => {
+            chapter.subparts.forEach(subpart => {
+                const note = localStorage.getItem(`note-${subpart.id}`);
+                if (note && note.trim() !== '') {
+                    notesFound = true;
+                    const card = document.createElement('div');
+                    card.style.borderLeft = "3px solid var(--accent-aqua)";
+                    card.style.background = "rgba(255,255,255,0.01)";
+                    card.style.padding = "10px";
+                    card.style.margin = "10px 0";
+                    card.style.borderRadius = "4px";
+                    card.innerHTML = `
+                        <strong style="color:var(--accent-aqua)">${chapter.name} - ${subpart.name}</strong>
+                        <p style="margin-top:5px; white-space: pre-wrap;">${note}</p>
+                    `;
+                    container.appendChild(card);
+                }
+            });
+        });
+    }
+
+    if (!notesFound) {
+        container.innerHTML = `<p class="status-msg">No active revision or pending task logs saved in the database yet.</p>`;
+    }
+}
 
 renderChapters('physics');
