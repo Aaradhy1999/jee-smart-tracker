@@ -332,8 +332,8 @@ function generateRandomizedQuestions(subpartId, subpartName) {
                 let subjectPrefix = subpartId.split('-')[0];
                 
                 for (let i = 1; i <= 5; i++) {
-                    let v1 = Math.floor(Math.random() * 10) + 2;
-                    let v2 = Math.floor(Math.random() * 5) + 2;
+                    let v1 = Math.floor(Math.random() * 8) + 3;
+                    let v2 = Math.floor(Math.random() * 4) + 2;
                     let ansValue = v1 * v2;
                     
                     let qText = "";
@@ -341,23 +341,67 @@ function generateRandomizedQuestions(subpartId, subpartName) {
                     let f1 = "", f2 = "", f3 = "";
 
                     if (subjectPrefix === 'p') {
-                        qText = `A physical system parameter modeling experimental values for "${subpartName}" scales according to field constraints ($X = ${v1} \\text{ units}$) and localized tracking factors ($Y = ${v2} \\text{ units}$). Compute the absolute resultant magnitude metrics under standard equilibrium conditions.`;
-                        cText = `${ansValue} Joules`;
-                        f1 = `${v1 + v2} Joules`;
-                        f2 = `${Math.abs(v1 - v2)} Joules`;
-                        f3 = `${ansValue * 2} Joules`;
+                        if (subpartId.includes('ud')) {
+                            qText = `In a new experimental system of units, the scale factor of matching constraints for "${subpartName}" reads $[X] = [M^{${v1}} L^{-1} T^{-${v2}}]$. Find the aggregate base dimension tracking factor values.`;
+                        } else if (subpartId.includes('kin')) {
+                            qText = `A particle tracks coordinates along a path mapped by "${subpartName}". If velocity models as $v(t) = ${v1}t + ${v2}$ m/s, evaluate total integral displacement tracking metrics.`;
+                        } else {
+                            qText = `A structural parameter tracking "${subpartName}" operates under systemic friction vector constraints ($F_1 = ${v1} \\text{ N}$) and force parameters ($F_2 = ${v2} \\text{ N}$). Evaluate the true resultant equilibrium state value.`;
+                        }
+                        cText = `${ansValue} Units`;
+                        f1 = `${v1 + v2} Units`;
+                        f2 = `${Math.abs(v1 - v2)} Units`;
+                        f3 = `${ansValue * 2} Units`;
                     } else if (subjectPrefix === 'c') {
-                        qText = `A coordination mix representing chemical properties of "${subpartName}" undergoes diagnostic analysis. If a sample contains ${v1} moles of critical compound species matching an scaling coefficient of ${v2}, solve for the exact equilibrium mass yield constraint metrics.`;
-                        cText = `${ansValue} grams`;
-                        f1 = `${ansValue + v1} grams`;
-                        f2 = `${v1} grams`;
-                        f3 = `${v2} grams`;
+                        if (subpartId.includes('mole')) {
+                            qText = `A structural chemical configuration representing "${subpartName}" operates at a baseline mixing density. If a reaction deck matches ${v1} moles of reacting compound against a factor metric of ${v2}, solve for the limiting yield ratio constraint.`;
+                        } else if (subpartId.includes('at')) {
+                            qText = `An excited atomic orbit path related to "${subpartName}" models quantum step drops. Given a shell constant profile $n_1 = ${v1}$ paired with a localized spin frequency coefficient of ${v2}, calculate total emission scalar values.`;
+                        } else {
+                            qText = `A molecular coordination layout for "${subpartName}" undergoes configuration mapping. Given an inversion barrier calculation variable $E = ${v1} \\text{ eV}$ scaling at structural indices of ${v2}, evaluate total active bonds configuration matrices.`;
+                        }
+                        cText = `${ansValue} g/mol`;
+                        f1 = `${ansValue + v1} g/mol`;
+                        f2 = `${v1} g/mol`;
+                        f3 = `${v2} g/mol`;
                     } else {
-                        qText = `Consider a geometric set array framing operations on the mathematical functions of "${subpartName}". If the intersection coordinates are defined on bounded interval parameters ($[0, ${v1}]$) with an internal subset value of ${v2}, compute the complete dimensional tracking scalar value.`;
-                        cText = `${ansValue}`;
-                        f1 = `${v1 + v2}`;
-                        f2 = `${v1 * v1}`;
-                        f3 = `${v2 * v2}`;
+                        if (subpartId.includes('seq')) {
+                            qText = `Let an algebraic progression matching your selected module "${subpartName}" have its common difference set to $d = ${v1}$ and its third structural element set to $a_3 = ${v2}$. Compute the limit summation metrics of the series parameter sequence.`;
+                            cText = `${ansValue}`;
+                            f1 = `${v1 + v2}`;
+                            f2 = `${v1 * v1}`;
+                            f3 = `${v2 * v2}`;
+                        } else if (subpartId.includes('quad')) {
+                            qText = `The root locations of a target polynomial mapping "${subpartName}" intersect axes neatly. If the discriminant limits are strictly bounded within integers $[0, ${v1}]$ and scale parameters shift by ${v2}, calculate the structural intersection discriminant.`;
+                            cText = `${ansValue}`;
+                            f1 = `${v1 + v2}`;
+                            f2 = `${v1 * v1}`;
+                            f3 = `${v2 * v2}`;
+                        } else if (subpartId.includes('mat')) {
+                            qText = `A square linear equation transformation system modeling "${subpartName}" matches matrix bounds. If the determinant value is given as $|A| = ${v1}$ scaling uniformly across row coefficients of ${v2}, solve the cramer transformation invariant vector.`;
+                            cText = `${ansValue}`;
+                            f1 = `${v1 * v1}`;
+                            f2 = `${v2 * v2}`;
+                            f3 = `${v1 + v2}`;
+                        } else if (subpartId.includes('pr')) {
+                            qText = `A collection of discrete permutation configurations matching rules for "${subpartName}" is distributed into arrays. If total selection spaces map to $n = ${v1}$ elements with an assembly constraint variable of $r = ${v2}$, evaluate total combination choices.`;
+                            cText = `${ansValue}`;
+                            f1 = `${v1 + v2}`;
+                            f2 = `${v1 * v1}`;
+                            f3 = `${v2 * v2}`;
+                        } else if (subpartId.includes('dif') || subpartId.includes('int')) {
+                            qText = `A continuous differential trace modeling integration areas for "${subpartName}" maps coordinates over bounded intervals $[0, ${v1}]$. If structural equations match boundary coefficients of ${v2}, find the bounded coordinate calculus limit.`;
+                            cText = `${ansValue}`;
+                            f1 = `${v1 + v2}`;
+                            f2 = `${v1 * v1}`;
+                            f3 = `${v2 * v2}`;
+                        } else {
+                            qText = `A systemic geometric array tracing coordinate projections for "${subpartName}" crosses axes at linear parameters. If focal points match length variables of $a = ${v1}$ scaling by factors of ${v2}, determine the chord vector scalar value.`;
+                            cText = `${ansValue}`;
+                            f1 = `${v1 + v2}`;
+                            f2 = `${v1 * v1}`;
+                            f3 = `${v2 * v2}`;
+                        }
                     }
 
                     fullPool.push({
@@ -503,6 +547,7 @@ function updateGlobalMetrics() {
 function evaluateDiagnosticMetrics(subpartId) {
     const badge = document.getElementById('analytics-badge');
     const textZone = document.getElementById('analytics-summary-text');
+    if (!badge || !textZone) return;
     
     const scoreState = JSON.parse(localStorage.getItem(`score-${subpartId}`)) || {};
     const checkState = JSON.parse(localStorage.getItem(`check-${subpartId}`)) || [false, false, false, false, false];
@@ -565,7 +610,6 @@ function exportAppState() {
     downloadAnchor.remove();
 }
 
-// Global context restoration trigger handler 
 function triggerStateImport() {
     document.getElementById('state-file-input').click();
 }
