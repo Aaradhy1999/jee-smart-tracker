@@ -329,11 +329,41 @@ function generateRandomizedQuestions(subpartId, subpartName) {
 
             if (fullPool.length === 0) {
                 fullPool = [];
+                let subjectPrefix = subpartId.split('-')[0];
+                
                 for (let i = 1; i <= 5; i++) {
+                    let v1 = Math.floor(Math.random() * 10) + 2;
+                    let v2 = Math.floor(Math.random() * 5) + 2;
+                    let ansValue = v1 * v2;
+                    
+                    let qText = "";
+                    let cText = "";
+                    let f1 = "", f2 = "", f3 = "";
+
+                    if (subjectPrefix === 'p') {
+                        qText = `A physical system parameter modeling experimental values for "${subpartName}" scales according to field constraints ($X = ${v1} \\text{ units}$) and localized tracking factors ($Y = ${v2} \\text{ units}$). Compute the absolute resultant magnitude metrics under standard equilibrium conditions.`;
+                        cText = `${ansValue} Joules`;
+                        f1 = `${v1 + v2} Joules`;
+                        f2 = `${Math.abs(v1 - v2)} Joules`;
+                        f3 = `${ansValue * 2} Joules`;
+                    } else if (subjectPrefix === 'c') {
+                        qText = `A coordination mix representing chemical properties of "${subpartName}" undergoes diagnostic analysis. If a sample contains ${v1} moles of critical compound species matching an scaling coefficient of ${v2}, solve for the exact equilibrium mass yield constraint metrics.`;
+                        cText = `${ansValue} grams`;
+                        f1 = `${ansValue + v1} grams`;
+                        f2 = `${v1} grams`;
+                        f3 = `${v2} grams`;
+                    } else {
+                        qText = `Consider a geometric set array framing operations on the mathematical functions of "${subpartName}". If the intersection coordinates are defined on bounded interval parameters ($[0, ${v1}]$) with an internal subset value of ${v2}, compute the complete dimensional tracking scalar value.`;
+                        cText = `${ansValue}`;
+                        f1 = `${v1 + v2}`;
+                        f2 = `${v1 * v1}`;
+                        f3 = `${v2 * v2}`;
+                    }
+
                     fullPool.push({
-                        q: `Advanced Application Numerical conceptual validation question challenge target Q${i} for ${subpartName}?`,
-                        correctText: `Correct conceptual derived value for Q${i}`,
-                        falseOptions: [`Wrong trap estimation limit formula X`, `Wrong trap estimation limit formula Y`, `Wrong trap estimation limit formula Z`]
+                        q: `[PYQ Numerical Variant] ${qText}`,
+                        correctText: cText,
+                        falseOptions: [f1, f2, f3]
                     });
                 }
             }
@@ -535,6 +565,7 @@ function exportAppState() {
     downloadAnchor.remove();
 }
 
+// Global context restoration trigger handler 
 function triggerStateImport() {
     document.getElementById('state-file-input').click();
 }
