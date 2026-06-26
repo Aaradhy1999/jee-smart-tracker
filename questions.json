@@ -13,16 +13,12 @@
     { "q": "The magnitude of the cross product of two perpendicular vectors of magnitudes 3 and 4 is:", "correctText": "12", "falseOptions": ["0", "7", "1"] },
     { "q": "If |A + B| = |A - B|, the angle between vector A and vector B is:", "correctText": "90°", "falseOptions": ["0°", "180°", "45°"] },
     { "q": "Find the component of vector A = i + j along the direction of i - j.", "correctText": "0", "falseOptions": ["1", "√2", "1/√2"] },
-    { "q": "A force F = 5i + 2j - 3k acts on a particle creating displacement d = 2i + j. Work done is:", "correctText": "12 J", "falseOptions": ["8 J", "15 J", "0 J"] },
-    { "q": "If the cross product of two vectors is equal to the dot product scaled by √3, the angle between them is:", "correctText": "60°", "falseOptions": ["30°", "45°", "90°"] },
-    { "q": "A vector maps components uniformly on axes. If its magnitude is 3√3, its component value on any single axis is:", "correctText": "3", "falseOptions": ["1", "√3", "9"] }
+    { "q": "A force F = 5i + 2j - 3k acts on a particle creating displacement d = 2i + j. Work done is:", "correctText": "12 J", "falseOptions": ["8 J", "15 J", "0 J"] }
   ],
   "p-pm-3": [
     { "q": "The displacement of a particle is given by x = 3t² + 2t + 1. Its acceleration at t = 2s is:", "correctText": "6 m/s²", "falseOptions": ["14 m/s²", "12 m/s²", "2 m/s²"] },
     { "q": "Velocity of a particle changes with position as v = √x. Acceleration of the particle is:", "correctText": "0.5 m/s²", "falseOptions": ["1 m/s²", "2 m/s²", "Variable"] },
-    { "q": "A particle starts from rest with acceleration a = 2t. Its velocity at t = 3s is:", "correctText": "9 m/s", "falseOptions": ["6 m/s", "18 m/s", "3 m/s"] },
-    { "q": "Position vector is given by r = t²i + 2tj. The equation of path followed is:", "correctText": "y² = 4x", "falseOptions": ["y = 2x²", "x² = 4y", "x = y"] },
-    { "q": "If dx/dt = -kx, the value of x at time t given initial position x₀ is:", "correctText": "x₀ e^(-kt)", "falseOptions": ["x₀ - kt", "x₀ + kt", "x₀ e^(kt)"] }
+    { "q": "A particle starts from rest with acceleration a = 2t. Its velocity at t = 3s is:", "correctText": "9 m/s", "falseOptions": ["6 m/s", "18 m/s", "3 m/s"] }
   ],
   "p-kin-1": [
     { "q": "A car moving at 40 km/h can be stopped by brakes after 2m. If same car moves at 80 km/h, minimum stopping distance is:", "correctText": "8m", "falseOptions": ["4m", "6m", "16m"] },
@@ -41,9 +37,24 @@
   "p-kin-3": [
     { "q": "A river 400m wide flows at 2 m/s. Swimmer speed in still water is 4 m/s. Minimum time to cross river is:", "correctText": "100s", "falseOptions": ["200s", "50s", "150s"] },
     { "q": "Rain is falling vertically at 4 km/h. A man walks at 3 km/h. Velocity of rain relative to man is:", "correctText": "5 km/h", "falseOptions": ["7 km/h", "1 km/h", "25 km/h"] },
-    { "q": "Two trains each of length 50m are moving parallel in opposite directions with speeds 10 m/s and 15 m/s. Time taken to cross each other is:", "correctText": "4s", "falseOptions": ["2s", "5s", "10s"] },
-    { "q": "A boat moves perpendicular to river current with velocity 12 m/s. River velocity is 5 m/s. Resultant boat velocity is:", "correctText": "13 m/s", "falseOptions": ["17 m/s", "7 m/s", "14 m/s"] },
-    { "q": "Ship A moves North at 10 km/h. Ship B moves West at 10 km/h. Velocity of A relative to B has magnitude:", "correctText": "14.14 km/h", "falseOptions": ["0 km/h", "20 km/h", "10 km/h"] }
+    { "q": "Two trains each of length 50m are moving parallel in opposite directions with speeds 10 m/s and 15 m/s. Time taken to cross each other is:", "correctText": "4s", "falseOptions": ["2s", "5s", "10s"] }
+  ],
+  "p-nlm-1": [
+    { "q": "A mass of 10 kg is suspended by ropes making 30° and 60° angles with a horizontal ceiling. The tension ratio in ropes is:", "correctText": "√3 : 1", "falseOptions": ["1 : √3", "1 : 1", "2 : √3"] },
+    { "q": "Three blocks of mass 1kg, 2kg, and 3kg are pulled horizontally on a smooth table by a force of 12N. Tension between 2kg and 3kg is:", "correctText": "6 N", "falseOptions": ["2 N", "4 N", "12 N"] },
+    { "q": "A lift ascends with an acceleration of 2 m/s². The apparent weight of a 60 kg man inside is (g=10):", "correctText": "720 N", "falseOptions": ["480 N", "600 N", "120 N"] },
+    { "q": "A block of mass M is held against a vertical wall by applying a horizontal force F. The minimum force required if coefficient of friction is μ:", "correctText": "Mg / μ", "falseOptions": ["μMg", "Mg", "μ / Mg"] },
+    { "q": "A system of two blocks of masses 2 kg and 4 kg connected by a string over a frictionless pulley has an acceleration of:", "correctText": "3.33 m/s²", "falseOptions": ["9.8 m/s²", "5.0 m/s²", "2.5 m/s²"] }
+  ],
+  "p-nlm-2": [
+    { "q": "A block of mass 2 kg rests on a rough horizontal plane (μ = 0.5). If a horizontal force of 4 N is applied, the friction force acting is:", "correctText": "4 N", "falseOptions": ["10 N", "2 N", "0 N"] },
+    { "q": "The maximum angle of an inclined plane at which a block remains stationary is 30°. The coefficient of static friction is:", "correctText": "1 / √3", "falseOptions": ["√3", "0.5", "0.866"] },
+    { "q": "A body of mass 5 kg is sliding down an inclined plane of 30° with constant velocity. The friction force operating is:", "correctText": "24.5 N", "falseOptions": ["49 N", "12.25 N", "0 N"] }
+  ],
+  "p-wep-1": [
+    { "q": "A constant force F = 2i + 3j N displaces a body from origin to r = i + j m. The total work performed is:", "correctText": "5 J", "falseOptions": ["1 J", "6 J", "0 J"] },
+    { "q": "A position-dependent force F = 3x² acts on a particle. Work done in moving it from x=0 to x=2m is:", "correctText": "8 J", "falseOptions": ["4 J", "12 J", "24 J"] },
+    { "q": "A bullet of mass 10g moving at 300 m/s strikes a wooden plank and penetrates 10cm. Average retarding force is:", "correctText": "4500 N", "falseOptions": ["3000 N", "9000 N", "1500 N"] }
   ],
   "c-mole-1": [
     { "q": "A compound contains 40% carbon, 6.7% hydrogen, and 53.3% oxygen. Its empirical formula is:", "correctText": "CH₂O", "falseOptions": ["CHO", "CH₃O", "C₂H₂O"] },
