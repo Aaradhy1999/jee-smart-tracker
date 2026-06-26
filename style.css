@@ -28,3 +28,16 @@ body {
     flex-direction: column;
     gap: 24px;
 }
+.dashboard-body {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+}
+
+.sidebar-explorer {
+    flex: 0 0 300px;
+}
+
+.focus-workspace {
+    flex: 1;
+}
