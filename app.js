@@ -44,3 +44,59 @@ const jeeSyllabusData = {
 };
 
 console.log("Syllabus configuration initialized successfully.");
+document.querySelectorAll('.sub-btn').forEach(button => {
+    button.addEventListener('click', (e) => {
+        document.querySelectorAll('.sub-btn').forEach(btn => btn.classList.remove('active'));
+        e.target.classList.add('active');
+        renderChapters(e.target.dataset.subject);
+    });
+});
+
+function renderChapters(subject) {
+    const container = document.getElementById('chapter-list-tree');
+    container.innerHTML = '';
+    
+    if (!jeeSyllabusData[subject]) return;
+
+    jeeSyllabusData[subject].forEach(chapter => {
+        const chapterDiv = document.createElement('div');
+        chapterDiv.className = 'chapter-container';
+        
+        chapterDiv.innerHTML = `
+            <div class="chapter-row" onclick="toggleSubparts('${chapter.id}')">
+                <span class="dropdown-arrow">▶</span>
+                <span class="chapter-name">${chapter.name}</span>
+                <div class="progress-bar-wrapper">
+                    <div class="progress-bar-fill" id="bar-${chapter.id}" style="width: 0%"></div>
+                </div>
+                <span class="progress-text" id="text-${chapter.id}">0%</span>
+            </div>
+            <div class="subparts-tree" id="tree-${chapter.id}" style="display: none;">
+                </div>
+        `;
+        
+        const treeContainer = chapterDiv.querySelector(`#tree-${chapter.id}`);
+        chapter.subparts.forEach(sub => {
+            const subRow = document.createElement('div');
+            subRow.className = 'subpart-item';
+            subRow.innerText = `${sub.name} (${sub.weight}%)`;
+            treeContainer.appendChild(subRow);
+        });
+
+        container.appendChild(chapterDiv);
+    });
+}
+
+function toggleSubparts(chapterId) {
+    const tree = document.getElementById(`tree-${chapterId}`);
+    const arrow = tree.previousElementSibling.querySelector('.dropdown-arrow');
+    if (tree.style.display === 'none') {
+        tree.style.display = 'block';
+        arrow.style.transform = 'rotate(90deg)';
+    } else {
+        tree.style.display = 'none';
+        arrow.style.transform = 'rotate(0deg)';
+    }
+}
+
+renderChapters('physics');
