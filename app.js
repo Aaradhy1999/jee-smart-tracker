@@ -177,21 +177,21 @@ function generateRandomizedQuestions(subpartId, subpartName) {
     
     let pool = [];
     const questionTemplates = [
-        "Which of the following describes the absolute core definition of matching parameters for: ",
-        "Identify the primary core governing equation formulation used when solving system problems for: ",
-        "What is the most common mathematical limitation or baseline boundary condition encountered in: ",
-        "In a standard JEE question setup, which option correctly pairs the fundamental property with: ",
-        "Which of the following statements represents the accurate vector orientation/behavior rule concerning: "
+        "Which of the following describes the absolute core definition or master equation rule matching parameters for: ",
+        "Identify the primary target mathematical relationship used when resolving complex engineering problems for: ",
+        "What is the most common experimental bottleneck or analytical condition boundary limitation encountered in: ",
+        "In a high-level JEE question profile, which option cleanly isolates the standard dimensional identity for: ",
+        "Which of the statements given below represents the accurate geometric or vector operation law concerning: "
     ];
 
     for(let i = 0; i < 5; i++) {
         pool.push({
             q: `${questionTemplates[i]} ${subpartName}?`,
             options: [
-                `Incorrect alternative explanation profile variant option A`,
-                `The standard correct conceptual match value variant key`,
-                `Incorrect alternative explanation profile variant option C`,
-                `Incorrect alternative explanation profile variant option D`
+                `Standard mathematical configuration baseline unit alternative for ${subpartName}`,
+                `The correct core conceptual identity relationship value for ${subpartName}`,
+                `Inverse derivative functional deviation constraint error for ${subpartName}`,
+                `Alternative structural magnitude dimension contradiction for ${subpartName}`
             ],
             correct: 1
         });
