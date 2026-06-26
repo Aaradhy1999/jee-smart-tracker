@@ -9,10 +9,19 @@
 <body>
     <div class="tracker-dashboard">
         <header class="dashboard-header">
-            <h1>JEE Smart Progress Engine</h1>
-            <div class="global-stats">
-                <span>Syllabus Mastered: <strong id="global-percent">0%</strong></span>
-                <button id="toggle-vault-btn" onclick="toggleNotesVault()">Open Global Notes Vault</button>
+            <div class="header-main-row">
+                <h1>JEE Smart Progress Engine</h1>
+                <div class="sync-controls">
+                    <button id="export-state-btn" onclick="exportAppState()">Export Session</button>
+                    <button id="import-state-btn" onclick="triggerStateImport()">Import Session</button>
+                    <input type="file" id="state-file-input" style="display: none;" onchange="importAppState(this)">
+                </div>
+            </div>
+            <div class="global-stats-row">
+                <div class="stat-meta">
+                    <span>Syllabus Mastered: <strong id="global-percent">0%</strong></span>
+                    <button id="toggle-vault-btn" onclick="toggleNotesVault()">Open Global Notes Vault</button>
+                </div>
             </div>
         </header>
 
@@ -34,21 +43,39 @@
                 
                 <div class="workspace-grid">
                     <div class="card test-box">
-                        <h3>Mastery Question Tester</h3>
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                            <p class="section-desc" style="margin:0;">Pass the conceptual gatekeeper test:</p>
+                        <div class="box-header">
+                            <h3>Mastery Question Tester</h3>
                             <button id="reset-module-btn">Reset Test</button>
                         </div>
+                        <p class="section-desc">Pass the conceptual gatekeeper test:</p>
                         <div id="mcq-test-zone">
                             <p class="status-msg">Select a subpart item from the explorer tree to launch diagnostic testing.</p>
                         </div>
                     </div>
 
-                    <div class="card notes-box">
-                        <h3>Chapter Revision Notes Pad</h3>
-                        <textarea id="note-input" placeholder="Type core derivation bottlenecks, formulas, or left-over checklist notes..."></textarea>
-                        <button id="save-note-btn">Save Notes to Database</button>
-                        <div id="save-status" class="status-msg"></div>
+                    <div class="card interactive-deck">
+                        <div class="tabs-header">
+                            <button id="tab-notes-btn" class="tab-btn active" onclick="switchWorkspaceTab('notes')">Revision Notes</button>
+                            <button id="tab-analytics-btn" class="tab-btn" onclick="switchWorkspaceTab('analytics')">Diagnostic Analyzer</button>
+                        </div>
+                        
+                        <div id="tab-content-notes" class="tab-pane">
+                            <h3>Chapter Revision Notes Pad</h3>
+                            <textarea id="note-input" placeholder="Type core derivation bottlenecks, formulas, or left-over checklist notes..."></textarea>
+                            <button id="save-note-btn">Save Notes to Database</button>
+                            <div id="save-status" class="status-msg"></div>
+                        </div>
+
+                        <div id="tab-content-analytics" class="tab-pane" style="display: none;">
+                            <h3>Conceptual Engine Insights</h3>
+                            <div class="analytics-metric-box">
+                                <span class="metric-label">Subject Metric Profile:</span>
+                                <div id="analytics-badge" class="badge neutral">Clearance Pending</div>
+                            </div>
+                            <div class="analytics-breakdown">
+                                <p id="analytics-summary-text" class="status-msg">Select a subtopic area to review automated analytics profiles.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
 

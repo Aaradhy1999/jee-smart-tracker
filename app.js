@@ -98,6 +98,7 @@ const jeeSyllabusData = {
 };
 
 let activeSubpartId = null;
+let activeSubpartName = "";
 
 document.querySelectorAll('.sub-btn').forEach(button => {
     button.addEventListener('click', (e) => {
@@ -158,6 +159,7 @@ function toggleSubparts(chapterId) {
 
 function selectSubpart(subpartId, subpartName) {
     activeSubpartId = subpartId;
+    activeSubpartName = subpartName;
     document.querySelectorAll('.subpart-item').forEach(item => item.classList.remove('selected'));
     const activeItem = document.getElementById(`item-${subpartId}`);
     if (activeItem) activeItem.classList.add('selected');
@@ -165,6 +167,7 @@ function selectSubpart(subpartId, subpartName) {
     document.getElementById('active-topic-header').innerHTML = `<h2>${subpartName} Workspace</h2>`;
     
     generateRandomizedQuestions(subpartId, subpartName);
+    evaluateDiagnosticMetrics(subpartId);
 
     const savedNote = localStorage.getItem(`note-${subpartId}`) || '';
     document.getElementById('note-input').value = savedNote;
@@ -266,10 +269,15 @@ function verifyMCQAnswer(subpartId, subpartName, qIdx, selectedIdx, correctIdx) 
         let savedState = JSON.parse(localStorage.getItem(`check-${subpartId}`)) || [false, false, false, false, false];
         savedState[qIdx] = true;
         localStorage.setItem(`check-${subpartId}`, JSON.stringify(savedState));
+    } else {
+        let savedState = JSON.parse(localStorage.getItem(`check-${subpartId}`)) || [false, false, false, false, false];
+        savedState[qIdx] = false;
+        localStorage.setItem(`check-${subpartId}`, JSON.stringify(savedState));
     }
     
     generateRandomizedQuestions(subpartId, subpartName);
     evaluatePercentages();
+    evaluateDiagnosticMetrics(subpartId);
 }
 
 function evaluatePercentages() {
@@ -323,6 +331,99 @@ function updateGlobalMetrics() {
     if (globalPercentEl) globalPercentEl.innerText = `${overallPercent}%`;
 }
 
+function evaluateDiagnosticMetrics(subpartId) {
+    const badge = document.getElementById('analytics-badge');
+    const textZone = document.getElementById('analytics-summary-text');
+    
+    const scoreState = JSON.parse(localStorage.getItem(`score-${subpartId}`)) || {};
+    const checkState = JSON.parse(localStorage.getItem(`check-${subpartId}`)) || [false, false, false, false, false];
+    
+    const answersAttempted = Object.keys(scoreState).length;
+    const correctAnswers = checkState.filter(Boolean).length;
+
+    badge.className = "badge";
+    
+    if (answersAttempted === 0) {
+        badge.classList.add("neutral");
+        badge.innerText = "Clearance Pending";
+        textZone.innerHTML = `No quiz submissions found for this module yet. Take the 5-question test on the left to compute engineering feedback data structures.`;
+        return;
+    }
+
+    let rawScorePercent = Math.round((correctAnswers / 5) * 100);
+
+    if (rawScorePercent < 50) {
+        badge.classList.add("critical");
+        badge.innerText = "Critical Zone";
+        textZone.innerHTML = `<strong>Performance Profile: ${rawScorePercent}%</strong><br><br>Your quiz data reveals fundamental formula gaps. Interviewers value remediation: use the red 'Reset Test' tool to trigger a completely new random data shuffle set and try again.`;
+    } else if (rawScorePercent >= 50 && rawScorePercent < 80) {
+        badge.classList.add("warn");
+        badge.innerText = "Revision Needed";
+        textZone.innerHTML = `<strong>Performance Profile: ${rawScorePercent}%</strong><br><br>Good initial concept grasp, but you triggered trap alternative choices. Log specific derived bottlenecks into your Revision Notes pad to lock down formula continuity.`;
+    } else {
+        badge.classList.add("clear");
+        badge.innerText = "Mastered";
+        textZone.innerHTML = `<strong>Performance Profile: ${rawScorePercent}%</strong><br><br>Excellent execution! Mapped 100% of the active problem coordinates accurately. This subpart weight is fully applied to your global master tracker metrics up top.`;
+    }
+}
+
+function switchWorkspaceTab(tabId) {
+    document.querySelectorAll('.tabs-header .tab-btn').forEach(btn => btn.classList.remove('active'));
+    document.querySelectorAll('.interactive-deck .tab-pane').forEach(pane => pane.style.display = 'none');
+    
+    if(tabId === 'notes') {
+        document.getElementById('tab-notes-btn').classList.add('active');
+        document.getElementById('tab-content-notes').style.display = 'block';
+    } else {
+        document.getElementById('tab-analytics-btn').classList.add('active');
+        document.getElementById('tab-content-analytics').style.display = 'block';
+        if(activeSubpartId) evaluateDiagnosticMetrics(activeSubpartId);
+    }
+}
+
+function exportAppState() {
+    let stateData = {};
+    for (let i = 0; i < localStorage.length; i++) {
+        let key = localStorage.key(i);
+        stateData[key] = localStorage.getItem(key);
+    }
+    
+    let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(stateData));
+    let downloadAnchor = document.createElement('a');
+    downloadAnchor.setAttribute("href", dataStr);
+    downloadAnchor.setAttribute("download", "jee_tracker_backup_state.json");
+    document.body.appendChild(downloadAnchor);
+    downloadAnchor.click();
+    downloadAnchor.remove();
+}
+
+function triggerStateImport() {
+    document.getElementById('state-file-input').click();
+}
+
+function importAppState(inputEl) {
+    let file = inputEl.files[0];
+    if (!file) return;
+
+    let reader = new FileReader();
+    reader.onload = function(e) {
+        try {
+            let stateData = JSON.parse(e.target.result);
+            localStorage.clear();
+            for (let key in stateData) {
+                localStorage.setItem(key, stateData[key]);
+            }
+            alert("Database session synchronizer restoration complete!");
+            let activeSubject = document.querySelector('.sub-btn.active').dataset.subject;
+            renderChapters(activeSubject);
+            if(activeSubpartId) selectSubpart(activeSubpartId, activeSubpartName);
+        } catch (err) {
+            alert("Error parsing backup synchronization file structure.");
+        }
+    };
+    reader.readAsText(file);
+}
+
 document.getElementById('reset-module-btn').addEventListener('click', () => {
     if (!activeSubpartId) return;
     
@@ -333,9 +434,9 @@ document.getElementById('reset-module-btn').addEventListener('click', () => {
         localStorage.removeItem(`map-${activeSubpartId}-${i}`);
     }
     
-    const activeItem = document.getElementById(`item-${activeSubpartId}`);
-    generateRandomizedQuestions(activeSubpartId, activeItem ? activeItem.innerText : "");
+    generateRandomizedQuestions(activeSubpartId, activeSubpartName);
     evaluatePercentages();
+    evaluateDiagnosticMetrics(activeSubpartId);
 });
 
 document.getElementById('save-note-btn').addEventListener('click', () => {
