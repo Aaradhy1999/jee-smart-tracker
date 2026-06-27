@@ -3,6 +3,8 @@ let activeSubpartId = null;
 let activeSubpartName = "";
 let pomoTimerThread = null;
 let pomoSecondsLeft = 1500;
+let questionStopwatchThread = null;
+let questionSecondsElapsed = 0;
 
 const formulaSheetDatabase = {
     "p-ud-1": "• <b>Dimensional Homogeneity:</b> Only terms with matching dimensions can be added or subtracted.<br>• <b>Planck's Constant (h):</b> [E][T] = [M¹ L² T⁻¹]<br>• <b>Permittivity (ε₀):</b> [F⁻¹ L⁻² T⁴ A²]<br>• <b>Gravitational Constant (G):</b> [M⁻¹ L³ T⁻²]<br>• <b>JEE Speed Trick:</b> Velocity of light c = 1/√(μ₀ε₀).",
@@ -98,10 +100,17 @@ function selectSubpart(subpartId, subpartName) {
     localStorage.removeItem(`score-${subpartId}`);
     localStorage.removeItem(`check-${subpartId}`);
     localStorage.removeItem(`indices-${subpartId}`);
+    localStorage.removeItem(`timeElapsed-${subpartId}`);
     for (let i = 0; i < 30; i++) {
         localStorage.removeItem(`map-${subpartId}-${i}`);
         localStorage.removeItem(`textSnap-${subpartId}-${i}`);
     }
+
+    if(questionStopwatchThread) clearInterval(questionStopwatchThread);
+    questionSecondsElapsed = 0;
+    questionStopwatchThread = setInterval(() => {
+        questionSecondsElapsed++;
+    }, 1000);
 
     generateRandomizedQuestions(subpartId, subpartName);
     evaluateDiagnosticMetrics(subpartId);
@@ -210,7 +219,7 @@ function generateRandomizedQuestions(subpartId, subpartName) {
                 qCard.innerHTML = `
                     <div class="mcq-header">
                         <span style="font-size:0.8rem; color:var(--text-muted)">High-Yield Challenge Array</span>
-                        <button class="bookmark-action-btn ${isBookmarked ? 'active' : ''}" onclick="toggleBookmarkVariantDirect('${subpartId}', '${subpartName}', ${qIdx}, '${escapeStr(q.correctText)}', this)">${isBookmarked ? '★ Flagged' : '☆ Flag'}</button>
+                        <button class="bookmark-action-btn ${isBookmarked ? 'active' : ''}" onclick="toggleBookmarkVariantDirect('${subpartId}', '${subpartName}', this)">${isBookmarked ? '★ Flagged' : '☆ Flag'}</button>
                     </div>
                     <p class="question-text-paragraph" style="font-weight:600; margin-bottom:12px; color:var(--text-main)">Q${qIdx + 1}: ${savedText}</p>
                 `;
@@ -282,6 +291,12 @@ function generateRandomizedQuestions(subpartId, subpartName) {
 }
 
 function verifyMCQAnswer(subpartId, subpartName, qIdx, selectedIdx, correctIdx) {
+    if(questionStopwatchThread) {
+        clearInterval(questionStopwatchThread);
+        questionStopwatchThread = null;
+    }
+    localStorage.setItem(`timeElapsed-${subpartId}`, questionSecondsElapsed);
+
     let scoreState = JSON.parse(localStorage.getItem(`score-${subpartId}`)) || {};
     scoreState[qIdx] = selectedIdx;
     localStorage.setItem(`score-${subpartId}`, JSON.stringify(scoreState));
@@ -351,7 +366,6 @@ function evaluatePercentages() {
     updateGlobalMetrics();
 }
 
-/* Updated for real JEE marks logic */
 function updateChapterProgressUI(chapterId) {
     let chapter = null;
     for (let sub in jeeSyllabusData) {
@@ -401,12 +415,12 @@ function evaluateDiagnosticMetrics(subpartId) {
     
     const scoreState = JSON.parse(localStorage.getItem(`score-${subpartId}`)) || {};
     const checkState = JSON.parse(localStorage.getItem(`check-${subpartId}`)) || [false, false, false, false, false];
+    let timeTaken = parseInt(localStorage.getItem(`timeElapsed-${subpartId}`)) || 0;
     
     const answersAttempted = Object.keys(scoreState).length;
     const correctAnswers = checkState.filter(Boolean).length;
     const wrongAnswers = answersAttempted - correctAnswers;
 
-    /* JEE Marks Equation: +4 for accurate item, -1 for penalty */
     let totalJeeMarks = (correctAnswers * 4) - (wrongAnswers * 1);
     let rawScorePercent = answersAttempted > 0 ? Math.round((correctAnswers / 5) * 100) : 0;
     
@@ -429,15 +443,17 @@ function evaluateDiagnosticMetrics(subpartId) {
     else if (totalJeeMarks >= 8) simulatedRank = `AIR ${Math.floor(Math.random() * 4000) + 2000} (NIT/IIIT Safe Zone)`;
     else simulatedRank = "AIR > 50,000 (Requires Sprint Revision)";
 
+    let speedAlert = (timeTaken > 120 && totalJeeMarks >= 15) ? `<br><span style="color:var(--tag-warn); font-weight:700;">⚠️ SPEED ALERT: Solved accurately but spent ${timeTaken}s. AIR 1 requires dropping calculation latency below 90s per module.</span>` : "";
+
     if (totalJeeMarks < 10) {
         badge.className = "badge critical"; badge.innerText = "Critical Zone";
-        textZone.innerHTML = `<strong>JEE Marks Metric: ${totalJeeMarks} / 20 Score</strong><br><strong>Predictor Matrix: ${simulatedRank}</strong><br><br>Negative marks penalty is draining your matrix safety. Slow down calculations and log your specific derivations inside your error book tab files.`;
+        textZone.innerHTML = `<strong>JEE Marks Metric: ${totalJeeMarks} / 20 Score</strong><br><strong>Predictor Matrix: ${simulatedRank}</strong><br><strong>Calibration Latency: ${timeTaken}s</strong><br><br>Negative marks penalty is draining your matrix safety. Slow down calculations and log your specific deviations inside your error book tab files.`;
     } else if (totalJeeMarks >= 10 && totalJeeMarks < 16) {
         badge.className = "badge warn"; badge.innerText = "Revision Needed";
-        textZone.innerHTML = `<strong>JEE Marks Metric: ${totalJeeMarks} / 20 Score</strong><br><strong>Predictor Matrix: ${simulatedRank}</strong><br><br>Good raw base score accuracy, but accuracy leaks occurred. Track the alternative equation steps option items to secure a top 2000 spot.`;
+        textZone.innerHTML = `<strong>JEE Marks Metric: ${totalJeeMarks} / 20 Score</strong><br><strong>Predictor Matrix: ${simulatedRank}</strong><br><strong>Calibration Latency: ${timeTaken}s</strong>${speedAlert}<br><br>Good raw base score accuracy, but accuracy leaks occurred. Track the alternative equation steps option items to secure a top 2000 spot.`;
     } else {
-        badge.className = "badge clear"; badge.innerText = "Mastered";
-        textZone.innerHTML = `<strong>JEE Marks Metric: ${totalJeeMarks} / 20 Score</strong><br><strong>Predictor Matrix: ${simulatedRank}</strong><br><br>Phenomenal accuracy telemetry coordinates logged! Safe from negative marking penalty traps. Weight vector completely optimized.`;
+        badge.className = "badge clear"; badge.innerText = "AIR 1 Target Lock";
+        textZone.innerHTML = `<strong>JEE Marks Metric: ${totalJeeMarks} / 20 Score</strong><br><strong>Predictor Matrix: ${simulatedRank}</strong><br><strong>Calibration Latency: ${timeTaken}s</strong>${speedAlert}<br><br>Phenomenal accuracy telemetry coordinates logged! Safe from negative marking penalty traps. Weight vector completely optimized.`;
     }
 }
 
@@ -446,7 +462,7 @@ function verifyBookmarkState(subpartId, qText) {
     return bookmarks.some(b => b.subpartId === subpartId && b.q === qText);
 }
 
-function toggleBookmarkVariantDirect(subpartId, subpartName, qIdx, correct, btnEl) {
+function toggleBookmarkVariantDirect(subpartId, subpartName, btnEl) {
     let cardElement = btnEl.closest('.mcq-card');
     let qTextElement = cardElement.querySelector('.question-text-paragraph');
     let rawQuestionText = qTextElement.innerText.replace(/^Q\d+:\s*/, '');
@@ -459,7 +475,7 @@ function toggleBookmarkVariantDirect(subpartId, subpartName, qIdx, correct, btnE
         btnEl.innerText = "☆ Flag";
         btnEl.classList.remove('active');
     } else {
-        bookmarks.push({ subpartId, subpartName, q: rawQuestionText, correctText: correct });
+        bookmarks.push({ subpartId, subpartName, q: rawQuestionText, correctText: "Dynamic Verified Formula Model" });
         btnEl.innerText = "★ Flagged";
         btnEl.classList.add('active');
     }
@@ -492,7 +508,7 @@ function renderBookmarkPanelContents() {
         card.style.borderLeft = "3px solid var(--accent-aqua)";
         card.style.background = "rgba(255,255,255,0.01)";
         card.style.padding = "12px"; card.style.margin = "10px 0"; card.style.borderRadius = "6px";
-        card.innerHTML = `<strong style="color:var(--accent-aqua)">${subpart.subpartName} Mapping Layer</strong><p style="margin-top:6px; color:#fff;">${subpart.q}</p><div style="margin-top:8px; font-size:0.85rem; color:var(--tag-clear)">Correct Vector Metric Key: ${subpart.correctText}</div>`;
+        card.innerHTML = `<strong style="color:var(--accent-aqua)">${subpart.subpartName} Mapping Layer</strong><p style="margin-top:6px; color:#fff;">${subpart.q}</p><div style="margin-top:8px; font-size:0.85rem; color:var(--tag-clear)">Properties Matrix: ${subpart.correctText}</div>`;
         container.appendChild(card);
     });
 }
@@ -588,10 +604,16 @@ document.getElementById('reset-module-btn').addEventListener('click', () => {
     localStorage.removeItem(`score-${activeSubpartId}`);
     localStorage.removeItem(`check-${activeSubpartId}`);
     localStorage.removeItem(`indices-${activeSubpartId}`);
+    localStorage.removeItem(`timeElapsed-${activeSubpartId}`);
     for (let i = 0; i < 30; i++) { 
         localStorage.removeItem(`map-${activeSubpartId}-${i}`); 
         localStorage.removeItem(`textSnap-${activeSubpartId}-${i}`);
     }
+    if(questionStopwatchThread) clearInterval(questionStopwatchThread);
+    questionSecondsElapsed = 0;
+    questionStopwatchThread = setInterval(() => {
+        questionSecondsElapsed++;
+    }, 1000);
     generateRandomizedQuestions(activeSubpartId, activeSubpartName);
     evaluatePercentages();
     evaluateDiagnosticMetrics(activeSubpartId);
