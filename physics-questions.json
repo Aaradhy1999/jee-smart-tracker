@@ -1,0 +1,17 @@
+{
+  "p-ud-1": [
+    { "q": "The speed of light $c$, gravitational constant $G$, and Planck's constant $h$ are taken as fundamental units. Find the dimension of time in this system.", "correctText": "√(hG/c⁵)", "falseOptions": ["√(hG/c³)", "G√(hc³)", "hc/G"] },
+    { "q": "A physical quantity $X$ is expressed as $X = \\varepsilon_0 L \\frac{\\Delta V}{\\Delta t}$. Find the matching dimensional formula for $X$.", "correctText": "[M⁰ L⁰ T⁰ A¹]", "falseOptions": ["[M¹ L² T⁻³ A⁻¹]", "[M¹ L² T⁻² A⁰]", "[M⁰ L⁰ T⁻¹ A¹]"] },
+    { "q": "If momentum $P$, area $A$, and time $T$ are taken as fundamental quantities, find the dimensional formula for energy.", "correctText": "[P¹ A^{1/2} T⁻¹]", "falseOptions": ["[P² A¹ T⁻¹]", "[P¹ A¹ T⁻²]", "[P² A^{1/2} T⁻²]"] }
+  ],
+  "p-kin-1": [
+    { "q": "A particle moves along a straight line such that its velocity varies with position as $v = 4\\sqrt{x}$ (where $x$ is in meters). Compute the acceleration of the particle in $\\text{m/s}^2$.", "correctText": "8", "falseOptions": ["4", "16", "2"] },
+    { "q": "A car accelerates from rest at a constant rate $\\alpha = 2 \\text{ m/s}^2$ for some time, then decelerates at $\\beta = 4 \\text{ m/s}^2$ to come to rest. If total time elapsed is 6 seconds, find the maximum velocity reached.", "correctText": "8 m/s", "falseOptions": ["4 m/s", "12 m/s", "16 m/s"] },
+    { "q": "The displacement of a body moving along a straight line matches $x = 2t^3 - 6t^2 + 12$. Find the velocity of the body when its acceleration becomes zero.", "correctText": "-6 m/s", "falseOptions": ["0 m/s", "6 m/s", "-12 m/s"] }
+  ],
+  "p-nlm-1": [
+    { "q": "A block of mass 10 kg is placed on a smooth wedge of inclination 30°. The whole wedge is accelerated horizontally so that the block remains stationary relative to the wedge. Find the horizontal acceleration in $\\text{m/s}^2$. (Take $g = 10 \\text{ m/s}^2$)", "correctText": "5.77", "falseOptions": ["5.00", "8.66", "10.00"] },
+    { "q": "Three blocks of masses 2 kg, 3 kg, and 5 kg are connected by light strings and pulled horizontally along a frictionless surface by a force of 20 N. Find the tension in the string between the 3 kg and 5 kg blocks.", "correctText": "10 N", "falseOptions": ["4 N", "6 N", "20 N"] },
+    { "q": "A mass of 5 kg is suspended by two light strings making angles of 45° and 45° with the horizontal ceiling. Calculate the tension in each string. (Take $g = 10 \\text{ m/s}^2$)", "correctText": "35.35 N", "falseOptions": ["50 N", "25 N", "17.67 N"] }
+  ]
+}

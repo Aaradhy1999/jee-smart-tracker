@@ -1,0 +1,11 @@
+{
+  "c-bsc-2": [
+    { "q": "Calculate the total number of oxygen atoms present in a $4.4 \\text{ g}$ sample of pure carbon dioxide ($CO_2$) gas.", "correctText": "1.204 × 10²³", "falseOptions": ["6.022 × 10²²", "6.022 × 10²³", "2.408 × 10²³"] },
+    { "q": "What is the molarity of a solution prepared by dissolving 4.0 g of pure $NaOH$ in enough water to make exactly $250 \\text{ mL}$ of solution?", "correctText": "0.40 M", "falseOptions": ["0.10 M", "1.00 M", "0.25 M"] },
+    { "q": "How many moles of magnesium phosphate, $Mg_3(PO_4)_2$, contain exactly 0.25 moles of oxygen atoms?", "correctText": "0.03125", "falseOptions": ["0.25000", "0.12500", "0.06250"] }
+  ],
+  "c-at-1": [
+    { "q": "Calculate the radius of the third Bohr orbit ($n=3$) of a hydrogen atom in picometers.", "correctText": "476.1", "falseOptions": ["52.9", "211.6", "846.4"] },
+    { "q": "Determine the wave number (in $\\text{cm}^{-1}$) of the longest wavelength transition in the Balmer series of a hydrogen atom. ($R_H = 109677 \\text{ cm}^{-1}$)", "correctText": "15233", "falseOptions": ["27419", "82258", "109677"] }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "m-cq-2": [
+    { "q": "If the roots of the quadratic equation $x^2 - px + q = 0$ differ by unity, determine the algebraic relationship between $p$ and $q$.", "correctText": "p² = 4q + 1", "falseOptions": ["p² = 4q - 1", "q² = 4p + 1", "q² = 4p - 1"] },
+    { "q": "Find the product of all real values of $x$ satisfying the quadratic form equation $x^2 - 5|x| + 6 = 0$.", "correctText": "36", "falseOptions": ["6", "-6", "0"] },
+    { "q": "If the equation $x^2 + 2(k+1)x + 9k - 5 = 0$ has only negative real roots, find the strict lower integer boundary condition for $k$.", "correctText": "6", "falseOptions": ["1", "2", "5"] }
+  ],
+  "m-md-1": [
+    { "q": "Let $A$ be a $3 \\times 3$ invertible matrix such that the determinant $|A| = 3$. Find the absolute value of the determinant of its adjoint matrix, $|\\text{adj}(A)|$.", "correctText": "9", "falseOptions": ["3", "27", "1"] },
+    { "q": "If the matrix product $AB = 0$ for a non-zero square matrix $A$, then the matrix $B$ must satisfy which absolute determinant property?", "correctText": "|B| = 0", "falseOptions": ["|B| ≠ 0", "|B| = 1", "B = 0"] }
+  ]
+}

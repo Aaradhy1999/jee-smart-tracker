@@ -90,86 +90,44 @@ function generateRandomizedQuestions(subpartId, subpartName) {
     const testZone = document.getElementById('mcq-test-zone');
     testZone.innerHTML = '';
 
-    fetch('questions.json')
+    let subjectPrefix = subpartId.split('-')[0];
+    let targetShardFile = 'physics-questions.json';
+    if (subjectPrefix === 'c') targetShardFile = 'chemistry-questions.json';
+    if (subjectPrefix === 'm') targetShardFile = 'math-questions.json';
+
+    fetch(targetShardFile)
         .then(response => response.json())
         .then(data => {
             let fullPool = data[subpartId] || [];
 
             if (fullPool.length === 0) {
                 fullPool = [];
-                let subjectPrefix = subpartId.split('-')[0];
-                
-                let randomSeeds = [];
-                let savedIndices = localStorage.getItem(`indices-${subpartId}`);
-                if (savedIndices) {
-                    randomSeeds = JSON.parse(savedIndices);
-                } else {
-                    for(let i=0; i<5; i++){
-                        randomSeeds.push({
-                            scenarioIdx: Math.floor(Math.random() * 3),
-                            v1: Math.floor(Math.random() * 8) + 3,
-                            v2: Math.floor(Math.random() * 5) + 2
-                        });
-                    }
-                    localStorage.setItem(`indices-${subpartId}`, JSON.stringify(randomSeeds));
+                for (let i = 1; i <= 5; i++) {
+                    let v1 = Math.floor(Math.random() * 12) + 4;
+                    let v2 = Math.floor(Math.random() * 6) + 2;
+                    fullPool.push({
+                        q: `[Fallback Algorithmic Question] Evaluate standard baseline relationships for "${subpartName}" given localized boundary parameters of X = ${v1} and Y = ${v2}.`,
+                        correctText: `${v1 * v2}`,
+                        falseOptions: [`${v1 + v2}`, `${v1 * v1}`, `${v2 * v2}`]
+                    });
                 }
-
-                randomSeeds.forEach((seed, qIdx) => {
-                    let v1 = seed.v1;
-                    let v2 = seed.v2;
-                    let qText = "", cText = "", f1 = "", f2 = "", f3 = "";
-
-                    if (subjectPrefix === 'p') {
-                        if (seed.scenarioIdx === 0) {
-                            let ans = v1 * v2;
-                            qText = `An isolated particle working under rules of "${subpartName}" accelerates uniformly from rest. If the operational target magnitude scales as $a = ${v1} \\text{ m/s}^2$ across a specific time interval of $t = ${v2} \\text{ s}$, evaluate the ultimate terminal velocity coordinate value.`;
-                            cText = `${ans} m/s`; f1 = `${v1 + v2} m/s`; f2 = `${Math.abs(v1 - v2)} m/s`; f3 = `${ans * 2} m/s`;
-                        } else if (seed.scenarioIdx === 1) {
-                            let ans = v1 + v2;
-                            qText = `A mass element tracing parameters of "${subpartName}" matches co-linear vector forces acting along a single operational plane ($F_1 = ${v1} \\text{ N}$ and $F_2 = ${v2} \\text{ N}$). Determine the maximum net vector field integration value under matching directional states.`;
-                            cText = `${ans} N`; f1 = `${v1 * v2} N`; f2 = `${Math.abs(v1 - v2)} N`; f3 = `${ans + v1} N`;
-                        } else {
-                            let ans = v1 * v1 * v2;
-                            qText = `A diagnostic test block evaluates potential parameters for "${subpartName}" across field limits. If structural properties match an explicit function curve scaling parameter $U(x) = ${v2}x^2$, solve for the total energy configuration profile at a boundary node point of $x = ${v1} \\text{ meters}$.`;
-                            cText = `${ans} Joules`; f1 = `${v1 * v2} Joules`; f2 = `${v1 + v2} Joules`; f3 = `${ans + 10} Joules`;
-                        }
-                    } else if (subjectPrefix === 'c') {
-                        if (seed.scenarioIdx === 0) {
-                            let ans = v1 * v2;
-                            qText = `An experimental coordination assay matching conditions for "${subpartName}" contains a compound mix. If a target sample isolates exactly ${v1} moles of critical reactive substance scaled under a reaction matrix factor coefficient of ${v2}, solve for the aggregate molar yield mass bounds.`;
-                            cText = `${ans} g/mol`; f1 = `${v1 + v2} g/mol`; f2 = `${Math.abs(v1 - v2)} g/mol`; f3 = `${ans * 3} g/mol`;
-                        } else if (seed.scenarioIdx === 1) {
-                            let ans = v1 + v2;
-                            qText = `During a quantitative analytics profile mapping elements of "${subpartName}", a solution measures an initial concentration baseline of $M_1 = ${v1} \\text{ M}$. If an additive compound shifts total scaling parameters up by adding a factor step of $M_2 = ${v2} \\text{ M}$, calculate the final consolidated mixture metric value.`;
-                            cText = `${ans} M`; f1 = `${v1 * v2} M`; f2 = `${v1} M`; f3 = `${v2} M`;
-                        } else {
-                            let ans = v1 * v1;
-                            qText = `An excited configuration state modeling energy shell boundaries in "${subpartName}" runs inside an isolated chamber. If quantum node drops reveal a localized frequency distribution metric equal to $v = ${v1} \\times 10^{14} \\text{ Hz}$, compute the squared magnitude proportional density factor.`;
-                            cText = `${ans} units`; f1 = `${v1 * 2} units`; f2 = `${v1 + v2} units`; f3 = `${ans + v2} units`;
-                        }
-                    } else {
-                        if (seed.scenarioIdx === 0) {
-                            let ans = v1 + v2;
-                            qText = `Let a functional algebraic configuration tracking rules for "${subpartName}" establish an arithmetic progression array. If the initial index starts at $a = ${v1}$ and updates smoothly by a common difference step variable of $d = ${v2}$, evaluate the true numeric value of the second structural term.`;
-                            cText = `${ans}`; f1 = `${v1 * v2}`; f2 = `${v1}`; f3 = `${v2}`;
-                        } else if (seed.scenarioIdx === 1) {
-                            let ans = v1 * v2;
-                            qText = `A square system transform matrix processing linear data intersections for "${subpartName}" contains regular rows. If the primary transformation matrix matrix scale maps a column row projection of determinant magnitude $|A| = ${v1}$ scaling evenly by factors of ${v2}, compute the resulting Cramer scaling tracking scalar.`;
-                            cText = `${ans}`; f1 = `${v1 + v2}`; f2 = `${v1 * v1}`; f3 = `${v2 * v2}`;
-                        } else {
-                            let ans = v1 * v1 - v2;
-                            qText = `A structural parabolic locus boundary tracing coordinate maps for "${subpartName}" intersects axis parameters at distinct limits. Given a bounded root parameter matrix defined by quadratic criteria $x^2 = ${v1}x + ${v2}$, determine the complete polynomial metric evaluation mapping total values for ($v_1^2 - v_2$).`;
-                            cText = `${ans}`; f1 = `${v1 + v2}`; f2 = `${v1 * v1}`; f3 = `${v2 * v2}`;
-                        }
-                    }
-
-                    fullPool.push({ q: `[PYQ Numerical Variant] ${qText}`, correctText: cText, falseOptions: [f1, f2, f3] });
-                });
             }
 
+            let indices = [];
+            let savedIndices = localStorage.getItem(`indices-${subpartId}`);
+            if (savedIndices) {
+                indices = JSON.parse(savedIndices);
+            } else {
+                let availableIndices = [...Array(fullPool.length).keys()];
+                availableIndices.sort(() => Math.random() - 0.5);
+                indices = availableIndices.slice(0, 5);
+                localStorage.setItem(`indices-${subpartId}`, JSON.stringify(indices));
+            }
+
+            let activeQuestions = indices.map(idx => fullPool[idx]);
             const scoreState = JSON.parse(localStorage.getItem(`score-${subpartId}`)) || {};
 
-            fullPool.forEach((q, qIdx) => {
+            activeQuestions.forEach((q, qIdx) => {
                 const qCard = document.createElement('div');
                 qCard.className = 'mcq-card';
                 qCard.style.margin = '20px 0';
@@ -218,7 +176,7 @@ function generateRandomizedQuestions(subpartId, subpartName) {
             });
         })
         .catch(err => {
-            testZone.innerHTML = `<p class="status-msg" style="color:var(--tag-critical);">Error loading question data source database stream mapping layer.</p>`;
+            testZone.innerHTML = `<p class="status-msg" style="color:var(--tag-critical);">Error loading context database shard file map streaming layer.</p>`;
         });
 }
 
