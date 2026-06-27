@@ -99,60 +99,77 @@ function generateRandomizedQuestions(subpartId, subpartName) {
                 fullPool = [];
                 let subjectPrefix = subpartId.split('-')[0];
                 
-                for (let i = 1; i <= 5; i++) {
-                    let v1 = Math.floor(Math.random() * 8) + 3;
-                    let v2 = Math.floor(Math.random() * 4) + 2;
-                    let ansValue = v1 * v2;
+                let randomSeeds = [];
+                let savedIndices = localStorage.getItem(`indices-${subpartId}`);
+                if (savedIndices) {
+                    randomSeeds = JSON.parse(savedIndices);
+                } else {
+                    for(let i=0; i<5; i++){
+                        randomSeeds.push({
+                            scenarioIdx: Math.floor(Math.random() * 3),
+                            v1: Math.floor(Math.random() * 8) + 3,
+                            v2: Math.floor(Math.random() * 5) + 2
+                        });
+                    }
+                    localStorage.setItem(`indices-${subpartId}`, JSON.stringify(randomSeeds));
+                }
+
+                randomSeeds.forEach((seed, qIdx) => {
+                    let v1 = seed.v1;
+                    let v2 = seed.v2;
                     let qText = "", cText = "", f1 = "", f2 = "", f3 = "";
 
                     if (subjectPrefix === 'p') {
-                        if (subpartId.includes('ud')) {
-                            qText = `In a standard JEE experimental system of units, the scale factor boundary condition for "${subpartName}" is derived as $[X] = [M^{${v1}} L^{-1} T^{-${v2}}]$. Evaluate the dimension tracking vector scalar products.`;
-                        } else if (subpartId.includes('kin')) {
-                            qText = `A point mass tracks position parameters along a path governed by "${subpartName}". If instantaneous velocity shifts as $v(t) = ${v1}t + ${v2}$ m/s, solve the definite integral displacement metric between $t=0$ and $t=2$s.`;
+                        if (seed.scenarioIdx === 0) {
+                            let ans = v1 * v2;
+                            qText = `An isolated particle working under rules of "${subpartName}" accelerates uniformly from rest. If the operational target magnitude scales as $a = ${v1} \\text{ m/s}^2$ across a specific time interval of $t = ${v2} \\text{ s}$, evaluate the ultimate terminal velocity coordinate value.`;
+                            cText = `${ans} m/s`; f1 = `${v1 + v2} m/s`; f2 = `${Math.abs(v1 - v2)} m/s`; f3 = `${ans * 2} m/s`;
+                        } else if (seed.scenarioIdx === 1) {
+                            let ans = v1 + v2;
+                            qText = `A mass element tracing parameters of "${subpartName}" matches co-linear vector forces acting along a single operational plane ($F_1 = ${v1} \\text{ N}$ and $F_2 = ${v2} \\text{ N}$). Determine the maximum net vector field integration value under matching directional states.`;
+                            cText = `${ans} N`; f1 = `${v1 * v2} N`; f2 = `${Math.abs(v1 - v2)} N`; f3 = `${ans + v1} N`;
                         } else {
-                            qText = `A systemic mass element modeling rules of "${subpartName}" operates under concurrent linear vector force constraints ($F_1 = ${v1}\\hat{i}\\text{ N}$) and perpendicular drag fields ($F_2 = ${v2}\\hat{j}\\text{ N}$). Evaluate the true net structural magnitude.`;
+                            let ans = v1 * v1 * v2;
+                            qText = `A diagnostic test block evaluates potential parameters for "${subpartName}" across field limits. If structural properties match an explicit function curve scaling parameter $U(x) = ${v2}x^2$, solve for the total energy configuration profile at a boundary node point of $x = ${v1} \\text{ meters}$.`;
+                            cText = `${ans} Joules`; f1 = `${v1 * v2} Joules`; f2 = `${v1 + v2} Joules`; f3 = `${ans + 10} Joules`;
                         }
-                        cText = `${ansValue} Units`; f1 = `${v1 + v2} Units`; f2 = `${Math.abs(v1 - v2)} Units`; f3 = `${ansValue * 2} Units`;
                     } else if (subjectPrefix === 'c') {
-                        if (subpartId.includes('mole')) {
-                            qText = `A high-yield chemical coordination composition tracing "${subpartName}" runs inside a closed system. If the reaction matrix matches ${v1} moles of critical limiting compound against an excess agent index of ${v2}, compute the global metric mass yield.`;
-                        } else if (subpartId.includes('at')) {
-                            qText = `An excited atomic orbital electron tracing paths for "${subpartName}" drops down quantum levels. Given initial principal shell profile $n = ${v1}$ matched with an internal orbital spin node parameter of ${v2}, compute total spectral emission lines.`;
+                        if (seed.scenarioIdx === 0) {
+                            let ans = v1 * v2;
+                            qText = `An experimental coordination assay matching conditions for "${subpartName}" contains a compound mix. If a target sample isolates exactly ${v1} moles of critical reactive substance scaled under a reaction matrix factor coefficient of ${v2}, solve for the aggregate molar yield mass bounds.`;
+                            cText = `${ans} g/mol`; f1 = `${v1 + v2} g/mol`; f2 = `${Math.abs(v1 - v2)} g/mol`; f3 = `${ans * 3} g/mol`;
+                        } else if (seed.scenarioIdx === 1) {
+                            let ans = v1 + v2;
+                            qText = `During a quantitative analytics profile mapping elements of "${subpartName}", a solution measures an initial concentration baseline of $M_1 = ${v1} \\text{ M}$. If an additive compound shifts total scaling parameters up by adding a factor step of $M_2 = ${v2} \\text{ M}$, calculate the final consolidated mixture metric value.`;
+                            cText = `${ans} M`; f1 = `${v1 * v2} M`; f2 = `${v1} M`; f3 = `${v2} M`;
                         } else {
-                            qText = `A structural molecular hybridization deck for "${subpartName}" goes through geometric configuration changes. If the localized electronic activation energy measures $E = ${v1} \\text{ eV}$ scaling directly at localized node metrics of ${v2}, solve for the stable configuration factor.`;
+                            let ans = v1 * v1;
+                            qText = `An excited configuration state modeling energy shell boundaries in "${subpartName}" runs inside an isolated chamber. If quantum node drops reveal a localized frequency distribution metric equal to $v = ${v1} \\times 10^{14} \\text{ Hz}$, compute the squared magnitude proportional density factor.`;
+                            cText = `${ans} units`; f1 = `${v1 * 2} units`; f2 = `${v1 + v2} units`; f3 = `${ans + v2} units`;
                         }
-                        cText = `${ansValue} g/mol`; f1 = `${ansValue + v1} g/mol`; f2 = `${v1} g/mol`; f3 = `${v2} g/mol`;
                     } else {
-                        if (subpartId.includes('seq')) {
-                            qText = `Let an algebraic series progression matching parameters for "${subpartName}" have its common progression index set to $d = ${v1}$ and its third boundary term defined as $a_3 = ${v2}$. Compute the limit summation metrics of the series array.`;
-                        } else if (subpartId.includes('quad')) {
-                            qText = `The roots layout of a target high-level polynomial representing "${subpartName}" intersects coordinate domains smoothly. If the discriminant values are strictly bounded inside real integers $[0, ${v1}]$ shifting by factors of ${v2}, determine the shared intersection determinant.`;
+                        if (seed.scenarioIdx === 0) {
+                            let ans = v1 + v2;
+                            qText = `Let a functional algebraic configuration tracking rules for "${subpartName}" establish an arithmetic progression array. If the initial index starts at $a = ${v1}$ and updates smoothly by a common difference step variable of $d = ${v2}$, evaluate the true numeric value of the second structural term.`;
+                            cText = `${ans}`; f1 = `${v1 * v2}`; f2 = `${v1}`; f3 = `${v2}`;
+                        } else if (seed.scenarioIdx === 1) {
+                            let ans = v1 * v2;
+                            qText = `A square system transform matrix processing linear data intersections for "${subpartName}" contains regular rows. If the primary transformation matrix matrix scale maps a column row projection of determinant magnitude $|A| = ${v1}$ scaling evenly by factors of ${v2}, compute the resulting Cramer scaling tracking scalar.`;
+                            cText = `${ans}`; f1 = `${v1 + v2}`; f2 = `${v1 * v1}`; f3 = `${v2 * v2}`;
                         } else {
-                            qText = `A linear array matrix projection capturing equations for "${subpartName}" matches matrix boundaries. If the column vector transformation determinant evaluates to $|A| = ${v1}$ scaling uniformly across coefficients of ${v2}, calculate the Cramer invariant scalar factor.`;
+                            let ans = v1 * v1 - v2;
+                            qText = `A structural parabolic locus boundary tracing coordinate maps for "${subpartName}" intersects axis parameters at distinct limits. Given a bounded root parameter matrix defined by quadratic criteria $x^2 = ${v1}x + ${v2}$, determine the complete polynomial metric evaluation mapping total values for ($v_1^2 - v_2$).`;
+                            cText = `${ans}`; f1 = `${v1 + v2}`; f2 = `${v1 * v1}`; f3 = `${v2 * v2}`;
                         }
-                        cText = `${ansValue}`; f1 = `${v1 + v2}`; f2 = `${v1 * v1}`; f3 = `${v2 * v2}`;
                     }
 
                     fullPool.push({ q: `[PYQ Numerical Variant] ${qText}`, correctText: cText, falseOptions: [f1, f2, f3] });
-                }
+                });
             }
 
-            let indices = [];
-            let savedIndices = localStorage.getItem(`indices-${subpartId}`);
-            if (savedIndices) {
-                indices = JSON.parse(savedIndices);
-            } else {
-                let availableIndices = [...Array(fullPool.length).keys()];
-                availableIndices.sort(() => Math.random() - 0.5);
-                indices = availableIndices.slice(0, 5);
-                localStorage.setItem(`indices-${subpartId}`, JSON.stringify(indices));
-            }
-
-            let activeQuestions = indices.map(idx => fullPool[idx]);
             const scoreState = JSON.parse(localStorage.getItem(`score-${subpartId}`)) || {};
 
-            activeQuestions.forEach((q, qIdx) => {
+            fullPool.forEach((q, qIdx) => {
                 const qCard = document.createElement('div');
                 qCard.className = 'mcq-card';
                 qCard.style.margin = '20px 0';
