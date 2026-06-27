@@ -100,6 +100,7 @@ function selectSubpart(subpartId, subpartName) {
     localStorage.removeItem(`indices-${subpartId}`);
     for (let i = 0; i < 30; i++) {
         localStorage.removeItem(`map-${subpartId}-${i}`);
+        localStorage.removeItem(`textSnap-${subpartId}-${i}`);
     }
 
     generateRandomizedQuestions(subpartId, subpartName);
@@ -184,8 +185,12 @@ function generateRandomizedQuestions(subpartId, subpartName) {
             }
 
             let availableIndices = [...Array(fullPool.length).keys()];
-            availableIndices.sort(() => Math.random() - 0.5);
-            let chosenIndices = availableIndices.slice(0, 5);
+            let savedIndices = localStorage.getItem(`indices-${subpartId}`);
+            if (!savedIndices) {
+                availableIndices.sort(() => Math.random() - 0.5);
+                localStorage.setItem(`indices-${subpartId}`, JSON.stringify(availableIndices.slice(0, 5)));
+            }
+            let chosenIndices = JSON.parse(localStorage.getItem(`indices-${subpartId}`));
             let activeQuestions = chosenIndices.map(idx => fullPool[idx]);
             const scoreState = JSON.parse(localStorage.getItem(`score-${subpartId}`)) || {};
 
@@ -194,14 +199,20 @@ function generateRandomizedQuestions(subpartId, subpartName) {
                 qCard.className = 'mcq-card';
                 qCard.style.margin = '20px 0';
                 
-                let isBookmarked = verifyBookmarkState(subpartId, q.q);
+                let savedText = localStorage.getItem(`textSnap-${subpartId}-${qIdx}`);
+                if (!savedText) {
+                    localStorage.setItem(`textSnap-${subpartId}-${qIdx}`, q.q);
+                    savedText = q.q;
+                }
+                
+                let isBookmarked = verifyBookmarkState(subpartId, savedText);
                 
                 qCard.innerHTML = `
                     <div class="mcq-header">
                         <span style="font-size:0.8rem; color:var(--text-muted)">High-Yield Challenge Array</span>
-                        <button class="bookmark-action-btn ${isBookmarked ? 'active' : ''}" onclick="toggleBookmarkVariant('${subpartId}', '${subpartName}', \`${escapeStr(q.q)}\`, '${escapeStr(q.correctText)}', [\`${escapeStr(q.falseOptions[0])}\`,\`${escapeStr(q.falseOptions[1])}\`,\`${escapeStr(q.falseOptions[2])}\`], this)">${isBookmarked ? '★ Flagged' : '☆ Flag'}</button>
+                        <button class="bookmark-action-btn ${isBookmarked ? 'active' : ''}" onclick="toggleBookmarkVariant('${subpartId}', '${subpartName}', \`${escapeStr(savedText)}\`, '${escapeStr(q.correctText)}', [\`${escapeStr(q.falseOptions[0])}\`,\`${escapeStr(q.falseOptions[1])}\`,\`${escapeStr(q.falseOptions[2])}\`], this)">${isBookmarked ? '★ Flagged' : '☆ Flag'}</button>
                     </div>
-                    <p style="font-weight:600; margin-bottom:12px; color:var(--text-main)">Q${qIdx + 1}: ${q.q}</p>
+                    <p style="font-weight:600; margin-bottom:12px; color:var(--text-main)">Q${qIdx + 1}: ${savedText}</p>
                 `;
 
                 let optionMapping = [];
@@ -238,7 +249,7 @@ function generateRandomizedQuestions(subpartId, subpartName) {
                         if (scoreState[qIdx] === optIdx && optIdx !== correctOptionIndex) btn.style.background = 'rgba(244, 63, 94, 0.15)';
                         btn.disabled = true;
                     } else {
-                        btn.onclick = () => verifyMCQAnswer(subpartId, subpartName, qIdx, optIdx, correctOptionIndex, q.q);
+                        btn.onclick = () => verifyMCQAnswer(subpartId, subpartName, qIdx, optIdx, correctOptionIndex, savedText);
                     }
                     qCard.appendChild(btn);
                 });
@@ -252,7 +263,7 @@ function generateRandomizedQuestions(subpartId, subpartName) {
                     diaryDiv.style.border = '1px solid rgba(244, 63, 94, 0.1)';
                     diaryDiv.innerHTML = `
                         <span style="font-size:0.8rem; color:var(--tag-critical); font-weight:700; display:block; margin-bottom:6px;">Log this incorrect attempt in your JEE 2029 Mistake Diary:</span>
-                        <select onchange="logMistakeToDiary('${subpartId}', '${subpartName}', \`${escapeStr(q.q)}\`, this.value, this)" style="background:var(--bg-dark); color:#fff; border:1px solid var(--border-glass); padding:6px; border-radius:4px; font-size:0.85rem; width:100%; cursor:pointer;">
+                        <select onchange="logMistakeToDiary('${subpartId}', '${subpartName}', \`${escapeStr(savedText)}\`, this.value, this)" style="background:var(--bg-dark); color:#fff; border:1px solid var(--border-glass); padding:6px; border-radius:4px; font-size:0.85rem; width:100%; cursor:pointer;">
                             <option value="">-- Choose Error Root Category --</option>
                             <option value="Silly Calculation Trap">Silly Calculation Trap (Arithmetic Sign error / Multiplier rush)</option>
                             <option value="Conceptual Blindspot">Conceptual Blindspot (Misapplied theorem boundary/formula constraint)</option>
@@ -356,7 +367,7 @@ function updateChapterProgressUI(chapterId) {
 
     const finalPercent = Math.round(totalChapterProgress);
     const bar = document.getElementById(`bar-${chapterId}`);
-    const text = document.getElementById(`text-${chapterId}`);
+    const text = document.getElementById('text-' + chapterId);
     if (bar) bar.style.width = `${finalPercent}%`;
     if (text) text.innerText = `${finalPercent}%`;
 }
@@ -570,7 +581,10 @@ document.getElementById('reset-module-btn').addEventListener('click', () => {
     localStorage.removeItem(`score-${activeSubpartId}`);
     localStorage.removeItem(`check-${activeSubpartId}`);
     localStorage.removeItem(`indices-${activeSubpartId}`);
-    for (let i = 0; i < 30; i++) { localStorage.removeItem(`map-${activeSubpartId}-${i}`); }
+    for (let i = 0; i < 30; i++) { 
+        localStorage.removeItem(`map-${activeSubpartId}-${i}`); 
+        localStorage.removeItem(`textSnap-${activeSubpartId}-${i}`);
+    }
     generateRandomizedQuestions(activeSubpartId, activeSubpartName);
     evaluatePercentages();
     evaluateDiagnosticMetrics(activeSubpartId);
