@@ -1,246 +1,4 @@
-const jeeSyllabusData = {
-    physics: [
-        {
-            id: "p-units-dimensions",
-            name: "Units, Dimensions & Errors",
-            subparts: [
-                { id: "p-ud-1", name: "Dimensional Analysis & Application", weight: 35 },
-                { id: "p-ud-2", name: "Least Count & Significant Figures", weight: 35 },
-                { id: "p-ud-3", name: "Error Analysis & Propagation", weight: 30 }
-            ]
-        },
-        {
-            id: "p-kinematics",
-            name: "Kinematics",
-            subparts: [
-                { id: "p-kin-1", name: "Rectilinear Motion & Graphs", weight: 30 },
-                { id: "p-kin-2", name: "Projectile Motion Trajectories", weight: 40 },
-                { id: "p-kin-3", name: "Relative Velocity & River-Man Problems", weight: 30 }
-            ]
-        },
-        {
-            id: "p-nlm",
-            name: "Laws of Motion & Friction",
-            subparts: [
-                { id: "p-nlm-1", name: "Newton Laws & Free Body Diagrams", weight: 40 },
-                { id: "p-nlm-2", name: "Static & Kinetic Friction Constraints", weight: 30 },
-                { id: "p-nlm-3", name: "Circular Motion Dynamics & Banking", weight: 30 }
-            ]
-        },
-        {
-            id: "p-wep",
-            name: "Work, Energy & Power",
-            subparts: [
-                { id: "p-wep-1", name: "Work-Energy Theorem Application", weight: 40 },
-                { id: "p-wep-2", name: "Conservative Forces & Potential Energy", weight: 30 },
-                { id: "p-wep-3", name: "Vertical Circular Motion Parameters", weight: 30 }
-            ]
-        },
-        {
-            id: "p-com",
-            name: "Center of Mass & Collision",
-            subparts: [
-                { id: "p-com-1", name: "Discrete & Continuous COM Calculation", weight: 30 },
-                { id: "p-com-2", name: "Conservation of Linear Momentum", weight: 35 },
-                { id: "p-com-3", name: "Elastic & Inelastic Collisions", weight: 35 }
-            ]
-        },
-        {
-            id: "p-rotational",
-            name: "Rotational Mechanics",
-            subparts: [
-                { id: "p-rot-1", name: "Moment of Inertia Theorems", weight: 30 },
-                { id: "p-rot-2", name: "Torque & Angular Momentum Conservation", weight: 40 },
-                { id: "p-rot-3", name: "Pure Rolling & Slipping Dynamics", weight: 30 }
-            ]
-        },
-        {
-            id: "p-gravitation",
-            name: "Gravitation",
-            subparts: [
-                { id: "p-grav-1", name: "Gravitational Field & Potential", weight: 40 },
-                { id: "p-grav-2", name: "Kepler Laws & Planetary Motion", weight: 30 },
-                { id: "p-grav-3", name: "Escape Velocity & Satellite Orbitals", weight: 30 }
-            ]
-        },
-        {
-            id: "p-solids-fluids",
-            name: "Properties of Matter",
-            subparts: [
-                { id: "p-sf-1", name: "Elasticity Modulus & Hooke Law", weight: 30 },
-                { id: "p-sf-2", name: "Fluid Statics & Pascal Principle", weight: 35 },
-                { id: "p-sf-3", name: "Surface Tension & Viscosity Mechanics", weight: 35 }
-            ]
-        },
-        {
-            id: "p-thermodynamics",
-            name: "Thermodynamics & KTG",
-            subparts: [
-                { id: "p-thm-1", name: "Kinetic Theory of Gases & Gas Laws", weight: 30 },
-                { id: "p-thm-2", name: "First Law & Thermodynamic Processes", weight: 40 },
-                { id: "p-thm-3", name: "Heat Engines & Second Law Limits", weight: 30 }
-            ]
-        },
-        {
-            id: "p-shm-waves",
-            name: "Oscillations & Waves",
-            subparts: [
-                { id: "p-wav-1", name: "Simple Harmonic Motion Equations", weight: 40 },
-                { id: "p-wav-2", name: "Wave Speed & String Vibrations", weight: 30 },
-                { id: "p-wav-3", name: "Doppler Effect & Sound Waves", weight: 30 }
-            ]
-        }
-    ],
-    chemistry: [
-        {
-            id: "c-mole",
-            name: "Some Basic Concepts in Chemistry",
-            subparts: [
-                { id: "c-mole-1", name: "Empirical & Molecular Formulas", weight: 30 },
-                { id: "c-mole-2", name: "Limiting Reagent Calculations", weight: 40 },
-                { id: "c-mole-3", name: "Molarity, Molality & Normality Metrics", weight: 30 }
-            ]
-        },
-        {
-            id: "c-atomic",
-            name: "Atomic Structure",
-            subparts: [
-                { id: "c-at-1", name: "Bohr Model & Hydrogen Spectrum", weight: 40 },
-                { id: "c-at-2", name: "Quantum Numbers & Configurations", weight: 40 },
-                { id: "c-at-3", name: "De Broglie & Heisenberg Principles", weight: 20 }
-            ]
-        },
-        {
-            id: "c-bonding",
-            name: "Chemical Bonding",
-            subparts: [
-                { id: "c-bnd-1", name: "VSEPR Theory & Molecular Shapes", weight: 35 },
-                { id: "c-bnd-2", name: "Hybridization & Dipole Moments", weight: 35 },
-                { id: "c-bnd-3", name: "Molecular Orbital Theory Frameworks", weight: 30 }
-            ]
-        },
-        {
-            id: "c-solutions",
-            name: "Solutions",
-            subparts: [
-                { id: "c-sol-1", name: "Vapor Pressure & Raoult Law", weight: 35 },
-                { id: "c-sol-2", name: "Colligative Properties calculation", weight: 45 },
-                { id: "c-sol-3", name: "Van t Hoff Factor Anomalies", weight: 20 }
-            ]
-        },
-        {
-            id: "c-equilibrium",
-            name: "Chemical & Ionic Equilibrium",
-            subparts: [
-                { id: "c-eq-1", name: "Le Chatelier Principle Applications", weight: 30 },
-                { id: "c-eq-2", name: "pH Calculation of Buffers & Salts", weight: 40 },
-                { id: "c-eq-3", name: "Solubility Product Constant Ksp", weight: 30 }
-            ]
-        },
-        {
-            id: "c-thermo",
-            name: "Chemical Thermodynamics",
-            subparts: [
-                { id: "c-th-1", name: "First Law Enthalpy Calculations", weight: 35 },
-                { id: "c-th-2", name: "Entropy & Second Law Parameters", weight: 35 },
-                { id: "c-th-3", name: "Gibbs Free Energy & Spontaneity", weight: 30 }
-            ]
-        },
-        {
-            id: "c-kinetics",
-            name: "Chemical Kinetics",
-            subparts: [
-                { id: "c-kin-1", name: "Rate Laws & Order of Reaction", weight: 40 },
-                { id: "c-kin-2", name: "Integrated Rate Equations", weight: 40 },
-                { id: "c-kin-3", name: "Arrhenius Equation & Activation Energy", weight: 20 }
-            ]
-        },
-        {
-            id: "c-organic-basics",
-            name: "General Organic Chemistry (GOC)",
-            subparts: [
-                { id: "c-goc-1", name: "IUPAC Nomenclature Rules", weight: 25 },
-                { id: "c-goc-2", name: "Inductive, Resonance & Hyperconjugation", weight: 45 },
-                { id: "c-goc-3", name: "Isomerism Structural & Stereo", weight: 30 }
-            ]
-        }
-    ],
-    math: [
-        {
-            id: "m-sequences",
-            name: "Sequences & Series",
-            subparts: [
-                { id: "m-seq-1", name: "Arithmetic Progression Mean Rules", weight: 35 },
-                { id: "m-seq-2", name: "Geometric & Harmonic Progressions", weight: 35 },
-                { id: "m-seq-3", name: "AGP Series Summation Methods", weight: 30 }
-            ]
-        },
-        {
-            id: "m-quadratic",
-            name: "Quadratic Equations",
-            subparts: [
-                { id: "m-quad-1", name: "Discriminant Rules & Roots Nature", weight: 35 },
-                { id: "m-quad-2", name: "Location of Roots Interval Criteria", weight: 40 },
-                { id: "m-quad-3", name: "Common Roots Algebraic Conditions", weight: 25 }
-            ]
-        },
-        {
-            id: "m-matrices",
-            name: "Matrices & Determinants",
-            subparts: [
-                { id: "m-mat-1", name: "Matrix Algebra & Inverse Solutions", weight: 35 },
-                { id: "m-mat-2", name: "Determinant Evaluation Properties", weight: 35 },
-                { id: "m-mat-3", name: "Cramer Rule Linear Systems Solver", weight: 30 }
-            ]
-        },
-        {
-            id: "m-pnc-probability",
-            name: "Permutations & Probability",
-            subparts: [
-                { id: "m-pr-1", name: "Fundamental Principle of Counting", weight: 30 },
-                { id: "m-pr-2", name: "Permutations & Combinations Theorems", weight: 40 },
-                { id: "m-pr-3", name: "Conditional Probability & Bayes Theorem", weight: 30 }
-            ]
-        },
-        {
-            id: "m-trigonometry",
-            name: "Trigonometric Identites",
-            subparts: [
-                { id: "m-trg-1", name: "Compound Angles Formula Matrix", weight: 40 },
-                { id: "m-trg-2", name: "Trigonometric Equations Solutions", weight: 30 },
-                { id: "m-trg-3", name: "Inverse Trigonometric Functions", weight: 30 }
-            ]
-        },
-        {
-            id: "m-coordinate",
-            name: "Straight Lines & Circles",
-            subparts: [
-                { id: "m-geo-1", name: "Straight Line Equations & Slopes", weight: 30 },
-                { id: "m-geo-2", name: "Circle System Equations & Tangents", weight: 40 },
-                { id: "m-geo-3", name: "Conic Sections Parabola & Ellipse", weight: 30 }
-            ]
-        },
-        {
-            id: "m-differential",
-            name: "Differential Calculus",
-            subparts: [
-                { id: "m-dif-1", name: "Limits, Continuity & Differentiability", weight: 40 },
-                { id: "m-dif-2", name: "Differentiation Product & Chain Rules", weight: 30 },
-                { id: "m-dif-3", name: "Application of Derivatives Monotonicity", weight: 30 }
-            ]
-        },
-        {
-            id: "m-integral",
-            name: "Integral Calculus",
-            subparts: [
-                { id: "m-int-1", name: "Indefinite Integral Substitution Maps", weight: 30 },
-                { id: "m-int-2", name: "Definite Integral Calculus Properties", weight: 40 },
-                { id: "m-int-3", name: "Differential Equations Solution Types", weight: 30 }
-            ]
-        }
-    ]
-};
-
+let jeeSyllabusData = null;
 let activeSubpartId = null;
 let activeSubpartName = "";
 
@@ -252,10 +10,20 @@ document.querySelectorAll('.sub-btn').forEach(button => {
     });
 });
 
+async function initializeApp() {
+    try {
+        const response = await fetch('syllabus-schema.json');
+        jeeSyllabusData = await response.json();
+        renderChapters('physics');
+    } catch (err) {
+        document.getElementById('chapter-list-tree').innerHTML = `<p class="status-msg" style="color:var(--tag-critical)">System Error: Failed to orchestrate schema configuration mapping layer.</p>`;
+    }
+}
+
 function renderChapters(subject) {
     const container = document.getElementById('chapter-list-tree');
     container.innerHTML = '';
-    if (!jeeSyllabusData[subject]) return;
+    if (!jeeSyllabusData || !jeeSyllabusData[subject]) return;
 
     jeeSyllabusData[subject].forEach(chapter => {
         const chapterDiv = document.createElement('div');
@@ -335,80 +103,38 @@ function generateRandomizedQuestions(subpartId, subpartName) {
                     let v1 = Math.floor(Math.random() * 8) + 3;
                     let v2 = Math.floor(Math.random() * 4) + 2;
                     let ansValue = v1 * v2;
-                    
-                    let qText = "";
-                    let cText = "";
-                    let f1 = "", f2 = "", f3 = "";
+                    let qText = "", cText = "", f1 = "", f2 = "", f3 = "";
 
                     if (subjectPrefix === 'p') {
                         if (subpartId.includes('ud')) {
-                            qText = `In a new experimental system of units, the scale factor of matching constraints for "${subpartName}" reads $[X] = [M^{${v1}} L^{-1} T^{-${v2}}]$. Find the aggregate base dimension tracking factor values.`;
+                            qText = `In a standard JEE experimental system of units, the scale factor boundary condition for "${subpartName}" is derived as $[X] = [M^{${v1}} L^{-1} T^{-${v2}}]$. Evaluate the dimension tracking vector scalar products.`;
                         } else if (subpartId.includes('kin')) {
-                            qText = `A particle tracks coordinates along a path mapped by "${subpartName}". If velocity models as $v(t) = ${v1}t + ${v2}$ m/s, evaluate total integral displacement tracking metrics.`;
+                            qText = `A point mass tracks position parameters along a path governed by "${subpartName}". If instantaneous velocity shifts as $v(t) = ${v1}t + ${v2}$ m/s, solve the definite integral displacement metric between $t=0$ and $t=2$s.`;
                         } else {
-                            qText = `A structural parameter tracking "${subpartName}" operates under systemic friction vector constraints ($F_1 = ${v1} \\text{ N}$) and force parameters ($F_2 = ${v2} \\text{ N}$). Evaluate the true resultant equilibrium state value.`;
+                            qText = `A systemic mass element modeling rules of "${subpartName}" operates under concurrent linear vector force constraints ($F_1 = ${v1}\\hat{i}\\text{ N}$) and perpendicular drag fields ($F_2 = ${v2}\\hat{j}\\text{ N}$). Evaluate the true net structural magnitude.`;
                         }
-                        cText = `${ansValue} Units`;
-                        f1 = `${v1 + v2} Units`;
-                        f2 = `${Math.abs(v1 - v2)} Units`;
-                        f3 = `${ansValue * 2} Units`;
+                        cText = `${ansValue} Units`; f1 = `${v1 + v2} Units`; f2 = `${Math.abs(v1 - v2)} Units`; f3 = `${ansValue * 2} Units`;
                     } else if (subjectPrefix === 'c') {
                         if (subpartId.includes('mole')) {
-                            qText = `A structural chemical configuration representing "${subpartName}" operates at a baseline mixing density. If a reaction deck matches ${v1} moles of reacting compound against a factor metric of ${v2}, solve for the limiting yield ratio constraint.`;
+                            qText = `A high-yield chemical coordination composition tracing "${subpartName}" runs inside a closed system. If the reaction matrix matches ${v1} moles of critical limiting compound against an excess agent index of ${v2}, compute the global metric mass yield.`;
                         } else if (subpartId.includes('at')) {
-                            qText = `An excited atomic orbit path related to "${subpartName}" models quantum step drops. Given a shell constant profile $n_1 = ${v1}$ paired with a localized spin frequency coefficient of ${v2}, calculate total emission scalar values.`;
+                            qText = `An excited atomic orbital electron tracing paths for "${subpartName}" drops down quantum levels. Given initial principal shell profile $n = ${v1}$ matched with an internal orbital spin node parameter of ${v2}, compute total spectral emission lines.`;
                         } else {
-                            qText = `A molecular coordination layout for "${subpartName}" undergoes configuration mapping. Given an inversion barrier calculation variable $E = ${v1} \\text{ eV}$ scaling at structural indices of ${v2}, evaluate total active bonds configuration matrices.`;
+                            qText = `A structural molecular hybridization deck for "${subpartName}" goes through geometric configuration changes. If the localized electronic activation energy measures $E = ${v1} \\text{ eV}$ scaling directly at localized node metrics of ${v2}, solve for the stable configuration factor.`;
                         }
-                        cText = `${ansValue} g/mol`;
-                        f1 = `${ansValue + v1} g/mol`;
-                        f2 = `${v1} g/mol`;
-                        f3 = `${v2} g/mol`;
+                        cText = `${ansValue} g/mol`; f1 = `${ansValue + v1} g/mol`; f2 = `${v1} g/mol`; f3 = `${v2} g/mol`;
                     } else {
                         if (subpartId.includes('seq')) {
-                            qText = `Let an algebraic progression matching your selected module "${subpartName}" have its common difference set to $d = ${v1}$ and its third structural element set to $a_3 = ${v2}$. Compute the limit summation metrics of the series parameter sequence.`;
-                            cText = `${ansValue}`;
-                            f1 = `${v1 + v2}`;
-                            f2 = `${v1 * v1}`;
-                            f3 = `${v2 * v2}`;
+                            qText = `Let an algebraic series progression matching parameters for "${subpartName}" have its common progression index set to $d = ${v1}$ and its third boundary term defined as $a_3 = ${v2}$. Compute the limit summation metrics of the series array.`;
                         } else if (subpartId.includes('quad')) {
-                            qText = `The root locations of a target polynomial mapping "${subpartName}" intersect axes neatly. If the discriminant limits are strictly bounded within integers $[0, ${v1}]$ and scale parameters shift by ${v2}, calculate the structural intersection discriminant.`;
-                            cText = `${ansValue}`;
-                            f1 = `${v1 + v2}`;
-                            f2 = `${v1 * v1}`;
-                            f3 = `${v2 * v2}`;
-                        } else if (subpartId.includes('mat')) {
-                            qText = `A square linear equation transformation system modeling "${subpartName}" matches matrix bounds. If the determinant value is given as $|A| = ${v1}$ scaling uniformly across row coefficients of ${v2}, solve the cramer transformation invariant vector.`;
-                            cText = `${ansValue}`;
-                            f1 = `${v1 * v1}`;
-                            f2 = `${v2 * v2}`;
-                            f3 = `${v1 + v2}`;
-                        } else if (subpartId.includes('pr')) {
-                            qText = `A collection of discrete permutation configurations matching rules for "${subpartName}" is distributed into arrays. If total selection spaces map to $n = ${v1}$ elements with an assembly constraint variable of $r = ${v2}$, evaluate total combination choices.`;
-                            cText = `${ansValue}`;
-                            f1 = `${v1 + v2}`;
-                            f2 = `${v1 * v1}`;
-                            f3 = `${v2 * v2}`;
-                        } else if (subpartId.includes('dif') || subpartId.includes('int')) {
-                            qText = `A continuous differential trace modeling integration areas for "${subpartName}" maps coordinates over bounded intervals $[0, ${v1}]$. If structural equations match boundary coefficients of ${v2}, find the bounded coordinate calculus limit.`;
-                            cText = `${ansValue}`;
-                            f1 = `${v1 + v2}`;
-                            f2 = `${v1 * v1}`;
-                            f3 = `${v2 * v2}`;
+                            qText = `The roots layout of a target high-level polynomial representing "${subpartName}" intersects coordinate domains smoothly. If the discriminant values are strictly bounded inside real integers $[0, ${v1}]$ shifting by factors of ${v2}, determine the shared intersection determinant.`;
                         } else {
-                            qText = `A systemic geometric array tracing coordinate projections for "${subpartName}" crosses axes at linear parameters. If focal points match length variables of $a = ${v1}$ scaling by factors of ${v2}, determine the chord vector scalar value.`;
-                            cText = `${ansValue}`;
-                            f1 = `${v1 + v2}`;
-                            f2 = `${v1 * v1}`;
-                            f3 = `${v2 * v2}`;
+                            qText = `A linear array matrix projection capturing equations for "${subpartName}" matches matrix boundaries. If the column vector transformation determinant evaluates to $|A| = ${v1}$ scaling uniformly across coefficients of ${v2}, calculate the Cramer invariant scalar factor.`;
                         }
+                        cText = `${ansValue}`; f1 = `${v1 + v2}`; f2 = `${v1 * v1}`; f3 = `${v2 * v2}`;
                     }
 
-                    fullPool.push({
-                        q: `[PYQ Numerical Variant] ${qText}`,
-                        correctText: cText,
-                        falseOptions: [f1, f2, f3]
-                    });
+                    fullPool.push({ q: `[PYQ Numerical Variant] ${qText}`, correctText: cText, falseOptions: [f1, f2, f3] });
                 }
             }
 
@@ -429,8 +155,8 @@ function generateRandomizedQuestions(subpartId, subpartName) {
             activeQuestions.forEach((q, qIdx) => {
                 const qCard = document.createElement('div');
                 qCard.className = 'mcq-card';
-                qCard.style.margin = '15px 0';
-                qCard.innerHTML = `<p style="font-weight:500; margin-bottom:8px;">Q${qIdx + 1}: ${q.q}</p>`;
+                qCard.style.margin = '20px 0';
+                qCard.innerHTML = `<p style="font-weight:600; margin-bottom:12px; color:var(--text-main)">Q${qIdx + 1}: ${q.q}</p>`;
 
                 let optionMapping = [];
                 let savedMapping = localStorage.getItem(`map-${subpartId}-${qIdx}`);
@@ -453,17 +179,17 @@ function generateRandomizedQuestions(subpartId, subpartName) {
                     btn.style.display = 'block';
                     btn.style.width = '100%';
                     btn.style.textAlign = 'left';
-                    btn.style.margin = '4px 0';
-                    btn.style.padding = '8px';
-                    btn.style.border = '1px solid rgba(255,255,255,0.1)';
-                    btn.style.background = 'rgba(255,255,255,0.02)';
-                    btn.style.color = '#f8fafc';
-                    btn.style.borderRadius = '6px';
+                    btn.style.margin = '6px 0';
+                    btn.style.padding = '12px';
+                    btn.style.border = '1px solid var(--border-glass)';
+                    btn.style.background = 'rgba(255,255,255,0.01)';
+                    btn.style.color = '#e2e8f0';
+                    btn.style.borderRadius = '8px';
                     btn.style.cursor = 'pointer';
 
                     if (scoreState[qIdx] !== undefined) {
-                        if (optIdx === correctOptionIndex) btn.style.background = 'rgba(0, 240, 255, 0.2)';
-                        if (scoreState[qIdx] === optIdx && optIdx !== correctOptionIndex) btn.style.background = 'rgba(255, 0, 0, 0.2)';
+                        if (optIdx === correctOptionIndex) btn.style.background = 'rgba(16, 185, 129, 0.15)';
+                        if (scoreState[qIdx] === optIdx && optIdx !== correctOptionIndex) btn.style.background = 'rgba(244, 63, 94, 0.15)';
                         btn.disabled = true;
                     } else {
                         btn.onclick = () => verifyMCQAnswer(subpartId, subpartName, qIdx, optIdx, correctOptionIndex);
@@ -475,7 +201,7 @@ function generateRandomizedQuestions(subpartId, subpartName) {
             });
         })
         .catch(err => {
-            testZone.innerHTML = `<p class="status-msg" style="color:#ff4b4b;">Error loading question data source module file.</p>`;
+            testZone.innerHTML = `<p class="status-msg" style="color:var(--tag-critical);">Error loading question data source database stream mapping layer.</p>`;
         });
 }
 
@@ -513,8 +239,7 @@ function updateChapterProgressUI(chapterId) {
     chapter.subparts.forEach(sub => {
         const checkState = JSON.parse(localStorage.getItem(`check-${sub.id}`)) || [false, false, false, false, false];
         const correctCount = checkState.filter(Boolean).length;
-        const subpartCompletionRatio = correctCount / 5;
-        totalChapterProgress += subpartCompletionRatio * sub.weight;
+        totalChapterProgress += (correctCount / 5) * sub.weight;
     });
 
     const finalPercent = Math.round(totalChapterProgress);
@@ -558,26 +283,22 @@ function evaluateDiagnosticMetrics(subpartId) {
     badge.className = "badge";
     
     if (answersAttempted === 0) {
-        badge.classList.add("neutral");
-        badge.innerText = "Clearance Pending";
-        textZone.innerHTML = `No quiz submissions found for this module yet. Take the 5-question test on the left to compute engineering feedback data structures.`;
+        badge.classList.add("neutral"); badge.innerText = "Clearance Pending";
+        textZone.innerHTML = `No quiz submissions found for this module yet. Take the 5-question test on the left to compute telemetry insights.`;
         return;
     }
 
     let rawScorePercent = Math.round((correctAnswers / 5) * 100);
 
     if (rawScorePercent < 50) {
-        badge.classList.add("critical");
-        badge.innerText = "Critical Zone";
-        textZone.innerHTML = `<strong>Performance Profile: ${rawScorePercent}%</strong><br><br>Your quiz data reveals fundamental formula gaps. Use the red 'Reset Test' tool to trigger a completely new random data shuffle set and try again.`;
+        badge.classList.add("critical"); badge.innerText = "Critical Zone";
+        textZone.innerHTML = `<strong>Performance Profile: ${rawScorePercent}%</strong><br><br>Fundamental concept blocks require revision. Trigger a new data shuffler pool selection by hitting the 'Reset Test' tool option.`;
     } else if (rawScorePercent >= 50 && rawScorePercent < 80) {
-        badge.classList.add("warn");
-        badge.innerText = "Revision Needed";
-        textZone.innerHTML = `<strong>Performance Profile: ${rawScorePercent}%</strong><br><br>Good initial concept grasp, but you triggered trap alternative choices. Log specific derived bottlenecks into your Revision Notes pad to lock down formula continuity.`;
+        badge.classList.add("warn"); badge.innerText = "Revision Needed";
+        textZone.innerHTML = `<strong>Performance Profile: ${rawScorePercent}%</strong><br><br>Solid baseline understanding, but you triggered alternative calculation trap states. Log derivation formulas on your right pad.`;
     } else {
-        badge.classList.add("clear");
-        badge.innerText = "Mastered";
-        textZone.innerHTML = `<strong>Performance Profile: ${rawScorePercent}%</strong><br><br>Excellent execution! Mapped 100% of the active problem coordinates accurately. This subpart weight is fully applied to your global master tracker metrics up top.`;
+        badge.classList.add("clear"); badge.innerText = "Mastered";
+        textZone.innerHTML = `<strong>Performance Profile: ${rawScorePercent}%</strong><br><br>Excellent execution coordinates! 100% precision score mapping recorded in local browser instance. Subpart weight is fully active up top.`;
     }
 }
 
@@ -604,64 +325,47 @@ function exportAppState() {
     let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(stateData));
     let downloadAnchor = document.createElement('a');
     downloadAnchor.setAttribute("href", dataStr);
-    downloadAnchor.setAttribute("download", "jee_tracker_backup_state.json");
+    downloadAnchor.setAttribute("download", "jee_tracker_production_state.json");
     document.body.appendChild(downloadAnchor);
-    downloadAnchor.click();
-    downloadAnchor.remove();
+    downloadAnchor.click(); downloadAnchor.remove();
 }
 
-function triggerStateImport() {
-    document.getElementById('state-file-input').click();
-}
+function triggerStateImport() { document.getElementById('state-file-input').click(); }
 
 function importAppState(inputEl) {
-    let file = inputEl.files[0];
-    if (!file) return;
-
+    let file = inputEl.files[0]; if (!file) return;
     let reader = new FileReader();
     reader.onload = function(e) {
         try {
             let stateData = JSON.parse(e.target.result);
             localStorage.clear();
-            for (let key in stateData) {
-                localStorage.setItem(key, stateData[key]);
-            }
+            for (let key in stateData) { localStorage.setItem(key, stateData[key]); }
             alert("Database session synchronizer restoration complete!");
             let activeSubject = document.querySelector('.sub-btn.active').dataset.subject;
             renderChapters(activeSubject);
             if(activeSubpartId) selectSubpart(activeSubpartId, activeSubpartName);
-        } catch (err) {
-            alert("Error parsing backup synchronization file structure.");
-        }
+        } catch (err) { alert("Error parsing backup synchronization file structure."); }
     };
     reader.readAsText(file);
 }
 
 document.getElementById('reset-module-btn').addEventListener('click', () => {
     if (!activeSubpartId) return;
-    
     localStorage.removeItem(`score-${activeSubpartId}`);
     localStorage.removeItem(`check-${activeSubpartId}`);
     localStorage.removeItem(`indices-${activeSubpartId}`);
-    for (let i = 0; i < 5; i++) {
-        localStorage.removeItem(`map-${activeSubpartId}-${i}`);
-    }
-    
+    for (let i = 0; i < 5; i++) { localStorage.removeItem(`map-${activeSubpartId}-${i}`); }
     generateRandomizedQuestions(activeSubpartId, activeSubpartName);
     evaluatePercentages();
     evaluateDiagnosticMetrics(activeSubpartId);
 });
 
 document.getElementById('save-note-btn').addEventListener('click', () => {
-    if (!activeSubpartId) {
-        document.getElementById('save-status').innerText = "Select a subpart first!";
-        return;
-    }
+    if (!activeSubpartId) return;
     const noteText = document.getElementById('note-input').value;
     localStorage.setItem(`note-${activeSubpartId}`, noteText);
     const statusEl = document.getElementById('save-status');
-    statusEl.innerText = "Notes saved locally!";
-    statusEl.style.color = "var(--accent-aqua)";
+    statusEl.innerText = "Notes saved locally!"; statusEl.style.color = "var(--accent-aqua)";
     setTimeout(() => { statusEl.innerText = ""; }, 3000);
     if(document.getElementById('global-vault-view').style.display === 'block') compileVaultNotes();
 });
@@ -670,20 +374,15 @@ function toggleNotesVault() {
     const vault = document.getElementById('global-vault-view');
     const btn = document.getElementById('toggle-vault-btn');
     if (vault.style.display === 'none') {
-        vault.style.display = 'block';
-        btn.innerText = "Close Notes Vault";
-        compileVaultNotes();
+        vault.style.display = 'block'; btn.innerText = "Close Notes Vault"; compileVaultNotes();
     } else {
-        vault.style.display = 'none';
-        btn.innerText = "Open Global Notes Vault";
+        vault.style.display = 'none'; btn.innerText = "Open Global Notes Vault";
     }
 }
 
 function compileVaultNotes() {
     const container = document.getElementById('vault-notes-container');
-    container.innerHTML = '';
-    let notesFound = false;
-
+    container.innerHTML = ''; let notesFound = false;
     for (let subject in jeeSyllabusData) {
         jeeSyllabusData[subject].forEach(chapter => {
             chapter.subparts.forEach(subpart => {
@@ -693,22 +392,14 @@ function compileVaultNotes() {
                     const card = document.createElement('div');
                     card.style.borderLeft = "3px solid var(--accent-aqua)";
                     card.style.background = "rgba(255,255,255,0.01)";
-                    card.style.padding = "10px";
-                    card.style.margin = "10px 0";
-                    card.style.borderRadius = "4px";
-                    card.innerHTML = `
-                        <strong style="color:var(--accent-aqua)">${chapter.name} - ${subpart.name}</strong>
-                        <p style="margin-top:5px; white-space: pre-wrap;">${note}</p>
-                    `;
+                    card.style.padding = "12px"; card.style.margin = "10px 0"; card.style.borderRadius = "6px";
+                    card.innerHTML = `<strong style="color:var(--accent-aqua)">${chapter.name} - ${subpart.name}</strong><p style="margin-top:6px; white-space: pre-wrap; font-size:0.9rem;">${note}</p>`;
                     container.appendChild(card);
                 }
             });
         });
     }
-
-    if (!notesFound) {
-        container.innerHTML = `<p class="status-msg">No active revision or pending task logs saved in the database yet.</p>`;
-    }
+    if (!notesFound) container.innerHTML = `<p class="status-msg">No active revision metrics or text elements compiled yet.</p>`;
 }
 
-renderChapters('physics');
+initializeApp();

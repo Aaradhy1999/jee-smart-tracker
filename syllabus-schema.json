@@ -1,0 +1,425 @@
+{
+  "physics": [
+    {
+      "id": "p-physics-measurement",
+      "name": "Physics and Measurement",
+      "subparts": [
+        { "id": "p-ud-1", "name": "Units, Dimensions, and Dimensional Analysis", "weight": 40 },
+        { "id": "p-ud-2", "name": "Least Count, Accuracy, and Precision of Instruments", "weight: "30 },
+        { "id": "p-ud-3", "name": "Significant Figures and Absolute/Percentage Errors", "weight": 30 }
+      ]
+    },
+    {
+      "id": "p-kinematics",
+      "name": "Kinematics",
+      "subparts": [
+        { "id": "p-kin-1", "name": "Frame of Reference, Straight Line Motion & Graphs", "weight": 30 },
+        { "id": "p-kin-2", "name": "Vector Algebra, Resolution, and Relative Motion", "weight": 30 },
+        { "id": "p-kin-3", "name": "Projectile Motion and Uniform Circular Trajectories", "weight": 40 }
+      ]
+    },
+    {
+      "id": "p-laws-motion",
+      "name": "Laws of Motion",
+      "subparts": [
+        { "id": "p-nlm-1", "name": "Newton's Laws, Inertia, and Momentum Conservation", "weight": 35 },
+        { "id": "p-nlm-2", "name": "Free-Body Diagrams and Connected Block Dynamics", "weight": 35 },
+        { "id": "p-nlm-3", "name": "Static/Kinetic Friction & Centripetal Forces", "weight": 30 }
+      ]
+    },
+    {
+      "id": "p-work-energy",
+      "name": "Work, Energy, and Power",
+      "subparts": [
+        { "id": "p-wep-1", "name": "Work Done by Constant and Variable Forces", "weight": 35 },
+        { "id": "p-wep-2", "name": "Kinetic/Potential Energy & Work-Energy Theorem", "weight": 35 },
+        { "id": "p-wep-3", "name": "Conservative Forces, Power, and Vertical SHM Loops", "weight": 30 }
+      ]
+    },
+    {
+      "id": "p-rotational",
+      "name": "Rotational Motion",
+      "subparts": [
+        { "id": "p-rot-1", "name": "Centre of Mass of Discrete & Continuous Systems", "weight": 30 },
+        { "id": "p-rot-2", "name": "Torque, Angular Momentum & Moment of Inertia Theorems", "weight": 40 },
+        { "id": "p-rot-3", "name": "Kinematics of Rigid Body Rotation & Pure Rolling", "weight": 30 }
+      ]
+    },
+    {
+      "id": "p-gravitation",
+      "name": "Gravitation",
+      "subparts": [
+        { "id": "p-grav-1", "name": "Newton's Law of Gravitation & Acceleration due to Gravity", "weight": 40 },
+        { "id": "p-grav-2", "name": "Gravitational Potential Energy & Escape Velocity", "weight": 30 },
+        { "id": "p-grav-3", "name": "Kepler's Laws and Orbital Speed of Satellites", "weight": 30 }
+      ]
+    },
+    {
+      "id": "p-properties-matter",
+      "name": "Properties of Solids and Liquids",
+      "subparts": [
+        { "id": "p-prop-1", "name": "Elastic Behavior, Hooke's Law, and Young's Modulus", "weight": 30 },
+        { "id": "p-prop-2", "name": "Pascal's Law, Archimedes Principle & Viscosity", "weight": 35 },
+        { "id": "p-prop-3", "name": "Surface Tension, Angle of Contact & Capillary Rise", "weight": 35 }
+      ]
+    },
+    {
+      "id": "p-thermodynamics",
+      "name": "Thermodynamics & Kinetic Theory",
+      "subparts": [
+        { "id": "p-therm-1", "name": "Thermal Equilibrium, Zeroth & First Law calculations", "weight": 30 },
+        { "id": "p-therm-2", "name": "Isothermal, Adiabatic, Isobaric, and Isochoric processes", "weight": 45 },
+        { "id": "p-therm-3", "name": "Second Law, Reversible Engine Efficiency & KTG Laws", "weight": 25 }
+      ]
+    },
+    {
+      "id": "p-oscillations-waves",
+      "name": "Oscillations and Waves",
+      "subparts": [
+        { "id": "p-ow-1", "name": "Simple Harmonic Motion Kinetic & Potential Profiles", "weight": 35 },
+        { "id": "p-ow-2", "name": "Wave Motion, Superposition Principle & Beats on Strings", "weight": 35 },
+        { "id": "p-ow-3", "name": "Resonance, Organ Pipes, and the Doppler Effect", "weight": 30 }
+      ]
+    },
+    {
+      "id": "p-electrostatics",
+      "name": "Electrostatics",
+      "subparts": [
+        { "id": "p-el-1", "name": "Coulomb's Law, Electric Field Lines & Flux Theorems", "weight": 35 },
+        { "id": "p-el-2", "name": "Gauss's Law Applications & Electric Potential", "weight": 35 },
+        { "id": "p-el-3", "name": "Capacitors, Parallel Plates & Dielectric Mediums", "weight": 30 }
+      ]
+    },
+    {
+      "id": "p-current-elec",
+      "name": "Current Electricity",
+      "subparts": [
+        { "id": "p-cur-1", "name": "Ohm's Law, Drift Velocity, and Drift Resistivity", "weight": 30 },
+        { "id": "p-cur-2", "name": "Kirchhoff's Circuit Laws & Series/Parallel Resistors", "weight": 40 },
+        { "id": "p-cur-3", "name": "Potentiometer, Meter Bridge & Cell EMF Balances", "weight": 30 }
+      ]
+    },
+    {
+      "id": "p-magnetic-effects",
+      "name": "Magnetic Effects of Current and Magnetism",
+      "subparts": [
+        { "id": "p-mag-1", "name": "Biot-Savart Law, Ampere's Law & Solenoid Fields", "weight": 35 },
+        { "id": "p-mag-2", "name": "Lorentz Force on Moving Charges & Cyclotron paths", "weight": 35 },
+        { "id": "p-mag-3", "name": "Magnetic Dipole Moment & Earth's Magnetic Fields", "weight": 30 }
+      ]
+    },
+    {
+      "id": "p-emi-ac",
+      "name": "Electromagnetic Induction and AC",
+      "subparts": [
+        { "id": "p-emi-1", "name": "Faraday's Law, Lenz's Law & Self/Mutual Induction", "weight": 35 },
+        { "id": "p-emi-2", "name": "Alternating Currents LCR Series Circuit Inversions", "weight": 45 },
+        { "id": "p-emi-3", "name": "Quality Factor, Power in AC Circuits & Transformers", "weight": 20 }
+      ]
+    },
+    {
+      "id": "p-em-waves",
+      "name": "Electromagnetic Waves",
+      "subparts": [
+        { "id": "p-emw-1", "name": "Displacement Current & Maxwell's Equations", "weight": 50 },
+        { "id": "p-emw-2", "name": "Electromagnetic Spectrum & Transverse wave characteristics", "weight": 50 }
+      ]
+    },
+    {
+      "id": "p-optics",
+      "name": "Optics",
+      "subparts": [
+        { "id": "p-opt-1", "name": "Reflection, Refraction, Total Internal Reflection & Prisms", "weight": 35 },
+        { "id": "p-opt-2", "name": "Lens Formula, Magnification & Optical Microscopes", "weight": 35 },
+        { "id": "p-opt-3", "name": "Wave Optics Wavefronts, Huygen's Principle & YDSE", "weight": 30 }
+      ]
+    },
+    {
+      "id": "p-modern-physics",
+      "name": "Dual Nature of Matter & Radiation",
+      "subparts: [
+        { "id": "p-mod-1", "name": "Photoelectric Effect, Einstein Equation & de Broglie waves", "weight": 40 },
+        { "id": "p-mod-2", "name": "Alpha-particle Scattering, Bohr Model Orbits & Radii", "weight": 30 },
+        { "id": "p-mod-3", "name": "Hydrogen Spectrum, Mass-Energy Equivalence & Radioactivity", "weight": 30 }
+      ]
+    },
+    {
+      "id": "p-electronic-devices",
+      "name": "Electronic Devices",
+      "subparts": [
+        { "id": "p-dev-1", "name": "Semiconductors Energy Bands & p-n Junction Diode", "weight": 40 },
+        { "id": "p-dev-2", "name": "I-V Characteristics, Zener Diode Regulation & Rectifiers", "weight": 30 },
+        { "id": "p-dev-3", "name": "Logic Gates (AND, OR, NOT, NAND, NOR) Truth Tables", "weight": 30 }
+      ]
+    }
+  ],
+  "chemistry": [
+    {
+      "id": "c-basic-concepts",
+      "name": "Some Basic Concepts in Chemistry",
+      "subparts": [
+        { "id": "c-bsc-1", "name": "Dalton's Atomic Theory, Element and Compound Concepts", "weight": 30 },
+        { "id": "c-bsc-2", "name": "Atomic and Molecular Masses & Mole Concept", "weight": 40 },
+        { "id": "c-bsc-3", "name": "Stoichiometry, Chemical Equations & Empirical Formulas", "weight": 30 }
+      ]
+    },
+    {
+      "id": "c-atomic-structure",
+      "name": "Atomic Structure",
+      "subparts": [
+        { "id": "c-at-1", "name": "Electromagnetic Radiation, Photoelectric effect & Hydrogen Spectrum", "weight": 35 },
+        { "id": "c-at-2", "name": "Bohr Model Orbit Energies, Radius & Bohr Constraints", "weight": 35 },
+        { "id": "c-at-3", "name": "De Broglie wave, Heisenberg Principle & Quantum Numbers", "weight": 30 }
+      ]
+    },
+    {
+      "id": "c-bonding",
+      "name": "Chemical Bonding & Molecular Structure",
+      "subparts": [
+        { "id": "c-bnd-1", "name": "Ionic and Covalent Bonds, Lattice Enthalpy & Fajan's Rules", "weight": 30 },
+        { "id": "c-bnd-2", "name": "Dipole Moment, VSEPR Theory & Molecular Shapes Matrix", "weight": 40 },
+        { "id": "c-bnd-3", "name": "Valence Bond Theory, Hybridization & Molecular Orbitals (LCAO)", "weight": 30 }
+      ]
+    },
+    {
+      "id": "c-thermodynamics",
+      "name": "Chemical Thermodynamics",
+      "subparts": [
+        { "id": "c-th-1", "name": "First Law, Internal Energy, Enthalpy & Heat Capacities", "weight": 35 },
+        { "id": "c-th-2", "name": "Hess's Law of Constant Heat Summation & Thermochemistry", "weight": 35 },
+        { "id": "c-th-3", "name": "Second Law, Entropy, Gibbs Free Energy & Spontaneity", "weight": 30 }
+      ]
+    },
+    {
+      "id": "c-solutions",
+      "name": "Solutions",
+      "subparts": [
+        { "id": "c-sol-1", "name": "Molarity, Molality, Mole Fraction & Raoult's Law", "weight": 35 },
+        { "id": "c-sol-2", "name": "Colligative Properties (Boiling Elevation/Freezing Depression)", "weight": 45 },
+        { "id": "c-sol-3", "name": "Osmotic Pressure & Van 't Hoff Factor Anomalies", "weight": 20 }
+      ]
+    },
+    {
+      "id": "c-equilibrium",
+      "name": "Equilibrium",
+      "subparts": [
+        { "id": "c-eq-1", "name": "Dynamic Chemical Equilibrium, Kp/Kc constants & Le Chatelier", "weight": 30 },
+        { "id": "c-eq-2", "name": "Ionic Equilibrium, Acids, Bases & pH Buffer Calculations", "weight": 40 },
+        { "id": "c-eq-3", "name": "Solubility Product Constant (Ksp) & Salt Hydrolysis", "weight": 30 }
+      ]
+    },
+    {
+      "id": "c-electrochemistry",
+      "name": "Redox Reactions and Electrochemistry",
+      "subparts": [
+        { "id": "c-elc-1", "name": "Oxidation Numbers Balancing & Galvanic Cells", "weight": 30 },
+        { "id": "c-elc-2", "name": "Nernst Equation, Gibbs Energy of Cell & Potentials", "weight": 40 },
+        { "id": "c-elc-3", "name": "Kohlrausch's Law, Conductance & Faraday's Electrolysis", "weight": 30 }
+      ]
+    },
+    {
+      "id": "c-kinetics",
+      "name": "Chemical Kinetics",
+      "subparts": [
+        { "id": "c-kin-1", "name": "Rate Law, Order and Molecularity of Reactions", "weight": 35 },
+        { "id": "c-kin-2", "name": "Integrated Rate Equations (Zero and First Order)", "weight": 45 },
+        { "id": "c-kin-3", "name": "Arrhenius Equation, Temperature dependence & Activation Energy", "weight": 20 }
+      ]
+    },
+    {
+      "id": "c-periodicity",
+      "name": "Classification of Elements & Periodicity",
+      "subparts": [
+        { "id": "c-per-1", "name": "Modern Periodic Table Trends & Electronic Layouts", "weight": 40 },
+        { "id": "c-per-2", "name": "Atomic/Ionic Radii, Ionization Enthalpy & Electron Gain", "weight": 60 }
+      ]
+    },
+    {
+      "id": "c-pblock",
+      "name": "p-Block Elements",
+      "subparts": [
+        { "id": "c-pb-1", "name": "Group 13 to 15 Elements Physical & Chemical Trends", "weight": 50 },
+        { "id": "c-pb-2", "name": "Group 16 to 18 Allotropic Forms, Oxides & Halides", "weight": 50 }
+      ]
+    },
+    {
+      "id": "c-dfblock",
+      "name": "d- and f-Block Elements",
+      "subparts": [
+        { "id": "c-df-1", "name": "Transition Metals Electronic Configuration & Properties", "weight": 40 },
+        { "id": "c-df-2", "name": "Lanthanides & Actinides Contraction Trends", "weight": 30 },
+        { "id": "c-df-3", "name": "Preparation/Properties of K2Cr2O7 and KMnO4", "weight": 30 }
+      ]
+    },
+    {
+      "id": "c-coordination",
+      "name": "Coordination Compounds",
+      "subparts": [
+        { "id": "c-crd-1", "name": "Werner's Theory, Ligands & IUPAC Nomenclature", "weight": 30 },
+        { "id": "c-crd-2", "name": "Valence Bond Theory & Crystal Field Theory (CFSE)", "weight": 55 },
+        { "id": "c-crd-3", "name": "Isomerism, Structural & Stereoisomerism in Complexes", "weight": 15 }
+      ]
+    },
+    {
+      "id": "c-organic-basics",
+      "name": "Some Basic Principles of Organic Chemistry",
+      "subparts": [
+        { "id": "c-goc-1", "name": "Purification, Qualitative & Quantitative Analysis", "weight": 20 },
+        { "id": "c-goc-2", "name": "IUPAC Nomenclature & Electronic Effects (Inductive/Resonance)", "weight: "50 },
+        { "id": "c-goc-3", "name": "Homolytic/Heterolytic Fission & Organic Isomerism", "weight": 30 }
+      ]
+    },
+    {
+      "id": "c-hydrocarbons",
+      "name": "Hydrocarbons",
+      "subparts": [
+        { "id": "c-hyd-1", "name": "Alkanes/Alkenes Free Radical & Electrophilic Additions", "weight": 35 },
+        { "id": "c-hyd-2", "name": "Alkynes Preparation, Acidity & Chemical Reactions", "weight": 30 },
+        { "id": "c-hyd-3", "name": "Aromatic Hydrocarbons, Mechanism of Electrophilic Substitution", "weight": 35 }
+      ]
+    },
+    {
+      "id": "c-functional-groups",
+      "name": "Organic Compounds with Functional Groups",
+      "subparts": [
+        { "id": "c-fng-1", "name": "Haloalkanes and Haloarenes, SN1 and SN2 Substitution Mechanisms", "weight": 30 },
+        { "id": "c-fng-2", "name": "Alcohols, Phenols, Ethers, Acidic Strength & Reimer-Tiemann", "weight": 35 },
+        { "id": "c-fng-3", "name": "Aldehydes, Ketones, Carboxylic Acids & Nucleophilic Additions", "weight": 35 }
+      ]
+    },
+    {
+      "id": "c-biomolecules",
+      "name": "Biomolecules & Practical Chemistry",
+      "subparts": [
+        { "id": "c-bio-1", "name": "Carbohydrates, Classification, Proteins & Amino Acids structure", "weight": 40 },
+        { "id": "c-bio-2", "name": "Nucleic Acids, DNA and RNA structure & Principles Related to Practical Chemistry", "weight": 60 }
+      ]
+    }
+  ],
+  "math": [
+    {
+      "id": "m-sets-functions",
+      "name": "Sets, Relations, and Functions",
+      "subparts": [
+        { "id": "m-st-1", "name": "Sets Representation, Union, Intersection & Complement laws", "weight": 30 },
+        { "id": "m-st-2", "name": "Relations, Equivalence Relations & Cartesian Products", "weight": 30 },
+        { "id": "m-st-3", "name": "Functions One-One, Into, Onto & Function Compositions", "weight": 40 }
+      ]
+    },
+    {
+      "id": "m-complex-quadratic",
+      "name": "Complex Numbers & Quadratic Equations",
+      "subparts": [
+        { "id": "m-cq-1", "name": "Complex Numbers Complex Algebra, Modulus & Argument Form", "weight": 35 },
+        { "id": "m-cq-2", "name": "Quadratic Equations, Real/Complex Roots Nature & Coefficients", "weight": 45 },
+        { "id": "m-cq-3", "name": "Location of Roots and Common Root algebraic conditions", "weight": 20 }
+      ]
+    },
+    {
+      "id": "m-matrices-det",
+      "name": "Matrices and Determinants",
+      "subparts": [
+        { "id": "m-md-1", "name": "Matrix Algebra, Transpose, Adjoint & Inverse of Square Matrix", "weight": 35 },
+        { "id": "m-md-2", "name": "Determinants Evaluation Properties & Area using Det", "weight": 35 },
+        { "id": "m-md-3", "name": "Cramer's Rule and Linear Simultaneous Equations Consistency", "weight": 30 }
+      ]
+    },
+    {
+      "id": "m-pnc",
+      "name": "Permutations and Combinations",
+      "subparts: [
+        { "id": "m-pc-1", "name": "Fundamental Principle of Counting & Permutations Basics", "weight": 40 },
+        { "id": "m-pc-2", "name": "Combinations Theorems, Restricted Selections & Grid Paths", "weight": 60 }
+      ]
+    },
+    {
+      "id": "m-binomial",
+      "name": "Binomial Theorem",
+      "subparts": [
+        { "id": "m-bin-1", "name": "Binomial Expansion for Positive Integral Index & General Term", "weight": 50 },
+        { "id": "m-bin-2", "name": "Binomial Coefficients Properties & Multi-variable Series Sums", "weight": 50 }
+      ]
+    },
+    {
+      "id": "m-sequences",
+      "name": "Sequence and Series",
+      "subparts": [
+        { "id": "m-seq-1", "name": "Arithmetic Progressions Means Insertion & Sums", "weight: "35 },
+        { "id": "m-seq-2", "name": "Geometric Progressions, Means & Infinite Geometric Sums", "weight": 40 },
+        { "id": "m-seq-3", "name": "Relation between AM and GM & Special Sigma Sums", "weight": 25 }
+      ]
+    },
+    {
+      "id": "m-differential-calculus",
+      "name": "Limit, Continuity, and Differentiability",
+      "subparts": [
+        { "id": "m-dc-1", "name": "Limits Evaluation, Trigonometric/Exponential forms & Continuity", "weight": 35 },
+        { "id": "m-dc-2", "name": "Differentiability, Chain Rule, Implicit & Parametric Derivatives", "weight": 35 },
+        { "id": "m-dc-3", "name": "Rolle's & Lagrange's Theorems, Monotonicity & Maxima/Minima", "weight": 30 }
+      ]
+    },
+    {
+      "id": "m-integral-calculus",
+      "name": "Integral Calculus",
+      "subparts": [
+        { "id": "m-ic-1", "name": "Indefinite Integrals by Substitution & Parts methods", "weight": 30 },
+        { "id": "m-ic-2", "name": "Definite Integrals Properties, Fundamental Calculus Theorems", "weight": 45 },
+        { "id": "m-ic-3", "name": "Area Determination bounded by standard mathematical curves", "weight": 25 }
+      ]
+    },
+    {
+      "id": "m-differential-eq",
+      "name": "Differential Equations",
+      "subparts": [
+        { "id": "m-de-1", "name": "Order and Degree of Differential Equations formulation", "weight": 30 },
+        { "id": "m-de-2", "name": "Variable Separable & Homogeneous Differential Equations", "weight": 40 },
+        { "id": "m-de-3", "name": "Linear Differential Equations of the First Order form", "weight": 30 }
+      ]
+    },
+    {
+      "id": "m-coordinate-geom",
+      "name": "Coordinate Geometry",
+      "subparts": [
+        { "id": "m-cg-1", "name": "Straight Lines Slopes, Intercepts, Bisectors & Distance", "weight": 30 },
+        { "id": "m-cg-2", "name": "Circles Standard Form, Radical Axes & Tangent Conditions", "weight": 40 },
+        { "id": "m-cg-3", "name": "Conic Sections Standard forms of Parabola, Ellipse & Hyperbola", "weight": 30 }
+      ]
+    },
+    {
+      "id": "m-vector-algebra",
+      "name": "Vector Algebra",
+      "subparts": [
+        { "id": "m-vec-1", "name": "Vectors Addition, Scalar Scaling & Position Vectors", "weight": 30 },
+        { "id": "m-vec-2", "name": "Scalar Dot Product and Vector Cross Product applications", "weight": 45 },
+        { "id": "m-vec-3", "name": "Scalar Triple Product & Vector Triple Product identities", "weight": 25 }
+      ]
+    },
+    {
+      "id": "m-three-dimensional",
+      "name": "Three Dimensional Geometry",
+      "subparts": [
+        { "id": "m-3d-1", "name": "Direction Cosines/Ratios of lines and Angle between lines", "weight": 35 },
+        { "id": "m-3d-2", "name": "Equations of Lines in Space, Shortest Distance calculations", "weight": 45 },
+        { "id": "m-3d-3", "name": "Intersection of lines & Coplanar straight line criteria", "weight": 20 }
+      ]
+    },
+    {
+      "id": "m-probability",
+      "name": "Statistics and Probability",
+      "subparts": [
+        { "id": "m-prb-1", "name": "Measures of Dispersion, Mean Deviation & Standard Deviation", "weight": 25 },
+        { "id": "m-prb-2", "name": "Probability, Addition & Multiplication Theorems on Probability", "weight": 35 },
+        { "id": "m-prb-3", "name": "Conditional Probability, Bayes' Theorem & Bernoulli Trials", "weight": 40 }
+      ]
+    },
+    {
+      "id": "m-trigonometry",
+      "name": "Trigonometry",
+      "subparts": [
+        { "id": "m-trg-1", "name": "Trigonometric Identities, Compound Angles & Multiple Angles", "weight": 40 },
+        { "id": "m-trg-2", "name": "General Solutions of Trigonometric Equations systems", "weight": 30 },
+        { "id": "m-trg-3", "name": "Inverse Trigonometric Functions Domains and Principal Values", "weight": 30 }
+      ]
+    }
+  ]
+}
