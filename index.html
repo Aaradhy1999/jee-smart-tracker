@@ -12,7 +12,7 @@
             <div class="header-main-row">
                 <div class="brand-group">
                     <h1>JEE Mastery Progress Engine</h1>
-                    <div class="version-tag">v3.5 High-Yield Aspirant Edition</div>
+                    <div class="version-tag">v4.0 Mistake Diary Edition</div>
                 </div>
                 <div class="pomo-interceptor">
                     <span id="pomo-timer-display">25:00</span>
@@ -32,6 +32,7 @@
                     </div>
                     <button id="toggle-vault-btn" onclick="toggleNotesVault()">Open Global Notes Vault</button>
                     <button id="toggle-bookmark-btn" onclick="toggleBookmarkPanel()">Open Flagged Questions</button>
+                    <button id="toggle-diary-btn" style="background: rgba(244, 63, 94, 0.05); color: var(--tag-critical); border: 1px solid rgba(244, 63, 94, 0.1); padding: 12px 20px; border-radius: 12px; cursor: pointer; font-weight: 600; font-size: 0.9rem;" onclick="toggleDiaryPanel()">Open Mistake Diary</button>
                 </div>
             </div>
         </header>
@@ -112,6 +113,11 @@
                 <div id="global-bookmark-view" class="card" style="display: none; margin-top: 20px;">
                     <h3>Flagged Revision Variants Matrix</h3>
                     <div id="bookmark-container"></div>
+                </div>
+
+                <div id="global-diary-view" class="card" style="display: none; margin-top: 20px; border-color: rgba(244, 63, 94, 0.2);">
+                    <h3 style="color: var(--tag-critical);">JEE Wrong-Answer Analysis Diary</h3>
+                    <div id="diary-container"></div>
                 </div>
             </section>
         </main>

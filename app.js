@@ -5,7 +5,7 @@ let pomoTimerThread = null;
 let pomoSecondsLeft = 1500;
 
 const formulaSheetDatabase = {
-    "p-ud-1": "• <b>Dimensional Homogeneity:</b> Only terms with matching dimensions can be added or subtracted.<br>• <b>Planck's Constant (h):</b> [E][T] = [M¹ L² T⁻¹]<br>• <b>Permittivity (ε₀):</b> [M⁻¹ L⁻³ T⁴ A²]<br>• <b>Gravitational Constant (G):</b> [M⁻¹ L³ T⁻²]<br>• <b>JEE Speed Trick:</b> Velocity of light c = 1/√(μ₀ε₀).",
+    "p-ud-1": "• <b>Dimensional Homogeneity:</b> Only terms with matching dimensions can be added or subtracted.<br>• <b>Planck's Constant (h):</b> [E][T] = [M¹ L² T⁻¹]<br>• <b>Permittivity (ε₀):</b> [F⁻¹ L⁻² T⁴ A²]<br>• <b>Gravitational Constant (G):</b> [M⁻¹ L³ T⁻²]<br>• <b>JEE Speed Trick:</b> Velocity of light c = 1/√(μ₀ε₀).",
     "p-kin-1": "• <b>Equations of Motion:</b> Only valid if acceleration (a) is perfectly uniform.<br>• v = u + at, s = ut + ½at², v² = u² + 2as<br>• <b>Snth Distance:</b> S_nth = u + a/2(2n - 1)<br>• <b>Variable Acceleration:</b> Always differentiate or integrate: v = dx/dt, a = dv/dt = v(dv/dx).",
     "p-nlm-1": "• <b>Newton's 2nd Law:</b> F_net = dP/dt = m(dv/dt) + v(dm/dt).<br>• <b>Wedge Acceleration Rule:</b> Wedge acceleration a = g tanθ stops relative block slip.<br>• <b>Apparent Lift Weight:</b> W_app = m(g ± a). Use '+' for upward acceleration, '-' for deceleration down.",
     "c-bsc-2": "• <b>Mole Formula:</b> Moles = Given Mass / Molar Mass = Vol at STP / 22.4L = N_particles / 6.022×10²³.<br>• <b>Concentration Rules:</b> Molarity (M) = Moles / Vol of Sol (L); Molality (m) = Moles / Mass of Solvent (kg).<br>• <b>Mole Fraction:</b> X_A = n_A / (n_A + n_B). Always note that X_A + X_B = 1.",
@@ -238,10 +238,30 @@ function generateRandomizedQuestions(subpartId, subpartName) {
                         if (scoreState[qIdx] === optIdx && optIdx !== correctOptionIndex) btn.style.background = 'rgba(244, 63, 94, 0.15)';
                         btn.disabled = true;
                     } else {
-                        btn.onclick = () => verifyMCQAnswer(subpartId, subpartName, qIdx, optIdx, correctOptionIndex);
+                        btn.onclick = () => verifyMCQAnswer(subpartId, subpartName, qIdx, optIdx, correctOptionIndex, q.q);
                     }
                     qCard.appendChild(btn);
                 });
+
+                if (scoreState[qIdx] !== undefined && scoreState[qIdx] !== correctOptionIndex) {
+                    const diaryDiv = document.createElement('div');
+                    diaryDiv.style.marginTop = '12px';
+                    diaryDiv.style.padding = '10px';
+                    diaryDiv.style.background = 'rgba(244, 63, 94, 0.05)';
+                    diaryDiv.style.borderRadius = '6px';
+                    diaryDiv.style.border = '1px solid rgba(244, 63, 94, 0.1)';
+                    diaryDiv.innerHTML = `
+                        <span style="font-size:0.8rem; color:var(--tag-critical); font-weight:700; display:block; margin-bottom:6px;">Log this incorrect attempt in your JEE 2029 Mistake Diary:</span>
+                        <select onchange="logMistakeToDiary('${subpartId}', '${subpartName}', \`${escapeStr(q.q)}\`, this.value, this)" style="background:var(--bg-dark); color:#fff; border:1px solid var(--border-glass); padding:6px; border-radius:4px; font-size:0.85rem; width:100%; cursor:pointer;">
+                            <option value="">-- Choose Error Root Category --</option>
+                            <option value="Silly Calculation Trap">Silly Calculation Trap (Arithmetic Sign error / Multiplier rush)</option>
+                            <option value="Conceptual Blindspot">Conceptual Blindspot (Misapplied theorem boundary/formula constraint)</option>
+                            <option value="Time-Pressure Panic">Time-Pressure Panic (Rushed the reading statement parameters)</option>
+                        </select>
+                    `;
+                    qCard.appendChild(diaryDiv);
+                }
+
                 testZone.appendChild(qCard);
             });
         })
@@ -250,7 +270,7 @@ function generateRandomizedQuestions(subpartId, subpartName) {
         });
 }
 
-function verifyMCQAnswer(subpartId, subpartName, qIdx, selectedIdx, correctIdx) {
+function verifyMCQAnswer(subpartId, subpartName, qIdx, selectedIdx, correctIdx, qText) {
     let scoreState = JSON.parse(localStorage.getItem(`score-${subpartId}`)) || {};
     scoreState[qIdx] = selectedIdx;
     localStorage.setItem(`score-${subpartId}`, JSON.stringify(scoreState));
@@ -262,6 +282,53 @@ function verifyMCQAnswer(subpartId, subpartName, qIdx, selectedIdx, correctIdx) 
     generateRandomizedQuestions(subpartId, subpartName);
     evaluatePercentages();
     evaluateDiagnosticMetrics(subpartId);
+}
+
+function logMistakeToDiary(subpartId, subpartName, qText, reason, selectEl) {
+    if (!reason) return;
+    let diary = JSON.parse(localStorage.getItem('jee_mistake_diary')) || [];
+    if (!diary.some(d => d.subpartId === subpartId && d.q === qText)) {
+        diary.push({ subpartId, subpartName, q: qText, errorType: reason, timestamp: new Date().toLocaleDateString() });
+        localStorage.setItem('jee_mistake_diary', JSON.stringify(diary));
+    }
+    selectEl.parentElement.innerHTML = `<span style="font-size:0.85rem; color:var(--tag-clear); font-weight:600;">✓ Error categorized as [${reason}] and filed into Mistake Diary!</span>`;
+    if(document.getElementById('global-diary-view').style.display === 'block') renderDiaryPanelContents();
+}
+
+function toggleDiaryPanel() {
+    const pane = document.getElementById('global-diary-view');
+    const btn = document.getElementById('toggle-diary-btn');
+    if(pane.style.display === 'none') {
+        pane.style.display = 'block'; btn.innerText = "Close Mistake Diary"; renderDiaryPanelContents();
+    } else {
+        pane.style.display = 'none'; btn.innerText = "Open Mistake Diary";
+    }
+}
+
+function renderDiaryPanelContents() {
+    const container = document.getElementById('diary-container');
+    container.innerHTML = '';
+    let diary = JSON.parse(localStorage.getItem('jee_mistake_diary')) || [];
+    
+    if(diary.length === 0) {
+        container.innerHTML = '<p class="status-msg">Your diary is clean! No incorrect attempts logged yet. Keep aiming for 100% accuracy.</p>';
+        return;
+    }
+    
+    diary.forEach(d => {
+        const card = document.createElement('div');
+        card.style.borderLeft = "3px solid var(--tag-critical)";
+        card.style.background = "rgba(255,255,255,0.01)";
+        card.style.padding = "12px"; card.style.margin = "10px 0"; card.style.borderRadius = "6px";
+        card.innerHTML = `
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                <strong style="color:var(--tag-critical); font-size:0.85rem;">${d.subpartName}</strong>
+                <span style="font-size:0.75rem; background:rgba(244,63,94,0.15); color:var(--tag-critical); padding:2px 8px; border-radius:4px; font-weight:700;">${d.errorType}</span>
+            </div>
+            <p style="font-size:0.9rem; color:#e2e8f0; margin-top:4px;">${d.q}</p>
+        `;
+        container.appendChild(card);
+    });
 }
 
 function evaluatePercentages() {
@@ -397,21 +464,18 @@ function renderBookmarkPanelContents() {
     container.innerHTML = '';
     let bookmarks = JSON.parse(localStorage.getItem('jee_bookmarked_pool')) || [];
     
-    if(bookmarks.length === 0) {
-        container.innerHTML = '<p class="status-msg">No high-yield variants flagged into revision storage filters yet.</p>';
+    if (bookmarks.length === 0) {
+        container.innerHTML = `<p class="status-msg">No active revision metrics or text elements compiled yet.</p>`;
         return;
     }
-    
-    bookmarks.forEach((b, bIdx) => {
-        const div = document.createElement('div');
-        div.className = 'mcq-card';
-        div.style.margin = '12px 0';
-        div.innerHTML = `
-            <strong style="color:var(--accent-aqua); font-size:0.85rem;">${b.subpartName} Mapping Layer</strong>
-            <p style="margin-top:6px; color:#fff;">${b.q}</p>
-            <div style="margin-top:8px; font-size:0.85rem; color:var(--tag-clear)">Correct Vector Metric Key: ${b.correctText}</div>
-        `;
-        container.appendChild(div);
+
+    bookmarks.forEach(subpart => {
+        const card = document.createElement('div');
+        card.style.borderLeft = "3px solid var(--accent-aqua)";
+        card.style.background = "rgba(255,255,255,0.01)";
+        card.style.padding = "12px"; card.style.margin = "10px 0"; card.style.borderRadius = "6px";
+        card.innerHTML = `<strong style="color:var(--accent-aqua)">${subpart.subpartName} Mapping Layer</strong><p style="margin-top:6px; color:#fff;">${subpart.q}</p><div style="margin-top:8px; font-size:0.85rem; color:var(--tag-clear)">Correct Vector Metric Key: ${subpart.correctText}</div>`;
+        container.appendChild(card);
     });
 }
 
