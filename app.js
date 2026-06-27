@@ -163,7 +163,7 @@ function generateRandomizedQuestions(subpartId, subpartName) {
                         qText = `Variant #${i}: An excited structural electronic state tracking orbit path properties for "${subpartName}" maps discrete orbital domains. If atomic drops transition across bounds releasing a localized field frequency metric of $\\nu = ${v1} \\times 10^{14} \\text{ Hz}$, compute the squared electronic probability coordinate factor.`;
                         cText = `${v1 * v1}`; f1 = `${v1 * 2}`; f2 = `${v1 + v2}`; f3 = `${v1 * v1 + v2}`;
                     } else {
-                        qText = `Variant #${i}: A thermodynamic gas expansion setup investigating properties of "${subpartName}" processes internal changes. If absolute system enthalpy updates record $\\Delta H = ${v1} \\text{ kJ}$ while external system boundary configurations perform work energy transfers of $W = ${v2} \\text{ kJ}$, find the true internal energy profile adjustment value ($\\Delta H - W$).`;
+                        qText = `Variant #${i}: A thermodynamic gas expansion setup investigating properties of "${subpartName}" processes internal changes. If absolute system enthalpy updates record $\Delta H = ${v1} \\text{ kJ}$ while external system boundary configurations perform work energy transfers of $W = ${v2} \\text{ kJ}$, find the true internal energy profile adjustment value ($\\Delta H - W$).`;
                         cText = `${v1 - v2} kJ`; f1 = `${v1 + v2} kJ`; f2 = `${v1 * v2} kJ`; f3 = `${Math.abs(v1 - v2) * 2} kJ`;
                     }
                 } else {
@@ -210,7 +210,7 @@ function generateRandomizedQuestions(subpartId, subpartName) {
                 qCard.innerHTML = `
                     <div class="mcq-header">
                         <span style="font-size:0.8rem; color:var(--text-muted)">High-Yield Challenge Array</span>
-                        <button class="bookmark-action-btn ${isBookmarked ? 'active' : ''}" onclick="toggleBookmarkVariant('${subpartId}', '${subpartName}', \`${escapeStr(savedText)}\`, '${escapeStr(q.correctText)}', [\`${escapeStr(q.falseOptions[0])}\`,\`${escapeStr(q.falseOptions[1])}\`,\`${escapeStr(q.falseOptions[2])}\`], this)">${isBookmarked ? '★ Flagged' : '☆ Flag'}</button>
+                        <button class="bookmark-action-btn ${isBookmarked ? 'active' : ''}" onclick="toggleBookmarkVariant('${subpartId}', '${subpartName}', ${qIdx}, '${escapeStr(q.correctText)}', [\`${escapeStr(q.falseOptions[0])}\`,\`${escapeStr(q.falseOptions[1])}\`,\`${escapeStr(q.falseOptions[2])}\`], this)">${isBookmarked ? '★ Flagged' : '☆ Flag'}</button>
                     </div>
                     <p style="font-weight:600; margin-bottom:12px; color:var(--text-main)">Q${qIdx + 1}: ${savedText}</p>
                 `;
@@ -249,7 +249,7 @@ function generateRandomizedQuestions(subpartId, subpartName) {
                         if (scoreState[qIdx] === optIdx && optIdx !== correctOptionIndex) btn.style.background = 'rgba(244, 63, 94, 0.15)';
                         btn.disabled = true;
                     } else {
-                        btn.onclick = () => verifyMCQAnswer(subpartId, subpartName, qIdx, optIdx, correctOptionIndex, savedText);
+                        btn.onclick = () => verifyMCQAnswer(subpartId, subpartName, qIdx, optIdx, correctOptionIndex);
                     }
                     qCard.appendChild(btn);
                 });
@@ -263,7 +263,7 @@ function generateRandomizedQuestions(subpartId, subpartName) {
                     diaryDiv.style.border = '1px solid rgba(244, 63, 94, 0.1)';
                     diaryDiv.innerHTML = `
                         <span style="font-size:0.8rem; color:var(--tag-critical); font-weight:700; display:block; margin-bottom:6px;">Log this incorrect attempt in your JEE 2029 Mistake Diary:</span>
-                        <select onchange="logMistakeToDiary('${subpartId}', '${subpartName}', \`${escapeStr(savedText)}\`, this.value, this)" style="background:var(--bg-dark); color:#fff; border:1px solid var(--border-glass); padding:6px; border-radius:4px; font-size:0.85rem; width:100%; cursor:pointer;">
+                        <select onchange="logMistakeToDiary('${subpartId}', '${subpartName}', ${qIdx}, this.value, this)" style="background:var(--bg-dark); color:#fff; border:1px solid var(--border-glass); padding:6px; border-radius:4px; font-size:0.85rem; width:100%; cursor:pointer;">
                             <option value="">-- Choose Error Root Category --</option>
                             <option value="Silly Calculation Trap">Silly Calculation Trap (Arithmetic Sign error / Multiplier rush)</option>
                             <option value="Conceptual Blindspot">Conceptual Blindspot (Misapplied theorem boundary/formula constraint)</option>
@@ -281,7 +281,7 @@ function generateRandomizedQuestions(subpartId, subpartName) {
         });
 }
 
-function verifyMCQAnswer(subpartId, subpartName, qIdx, selectedIdx, correctIdx, qText) {
+function verifyMCQAnswer(subpartId, subpartName, qIdx, selectedIdx, correctIdx) {
     let scoreState = JSON.parse(localStorage.getItem(`score-${subpartId}`)) || {};
     scoreState[qIdx] = selectedIdx;
     localStorage.setItem(`score-${subpartId}`, JSON.stringify(scoreState));
@@ -295,11 +295,12 @@ function verifyMCQAnswer(subpartId, subpartName, qIdx, selectedIdx, correctIdx, 
     evaluateDiagnosticMetrics(subpartId);
 }
 
-function logMistakeToDiary(subpartId, subpartName, qText, reason, selectEl) {
+function logMistakeToDiary(subpartId, subpartName, qIdx, reason, selectEl) {
     if (!reason) return;
+    let qText = localStorage.getItem(`textSnap-${subpartId}-${qIdx}`) || "Dynamic Metric Variant Question Block";
     let diary = JSON.parse(localStorage.getItem('jee_mistake_diary')) || [];
-    if (!diary.some(d => d.subpartId === subpartId && d.q === qText)) {
-        diary.push({ subpartId, subpartName, q: qText, errorType: reason, timestamp: new Date().toLocaleDateString() });
+    if (!diary.some(d => d.subpartId === subpartId && d.qIdx === qIdx)) {
+        diary.push({ subpartId, subpartName, qIdx, q: qText, errorType: reason, timestamp: new Date().toLocaleDateString() });
         localStorage.setItem('jee_mistake_diary', JSON.stringify(diary));
     }
     selectEl.parentElement.innerHTML = `<span style="font-size:0.85rem; color:var(--tag-clear); font-weight:600;">✓ Error categorized as [${reason}] and filed into Mistake Diary!</span>`;
@@ -443,7 +444,8 @@ function verifyBookmarkState(subpartId, qText) {
     return bookmarks.some(b => b.subpartId === subpartId && b.q === qText);
 }
 
-function toggleBookmarkVariant(subpartId, subpartName, qText, correct, falseOpts, btnEl) {
+function toggleBookmarkVariant(subpartId, subpartName, qIdx, correct, falseOpts, btnEl) {
+    let qText = localStorage.getItem(`textSnap-${subpartId}-${qIdx}`) || "Dynamic Metric Variant Question Block";
     let bookmarks = JSON.parse(localStorage.getItem('jee_bookmarked_pool')) || [];
     let idx = bookmarks.findIndex(b => b.subpartId === subpartId && b.q === qText);
     
