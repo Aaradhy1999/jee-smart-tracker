@@ -5,7 +5,7 @@
       "name": "Physics and Measurement",
       "subparts": [
         { "id": "p-ud-1", "name": "Units, Dimensions, and Dimensional Analysis", "weight": 40 },
-        { "id": "p-ud-2", "name": "Least Count, Accuracy, and Precision of Instruments", "weight: "30 },
+        { "id": "p-ud-2", "name": "Least Count, Accuracy, and Precision of Instruments", "weight": 30 },
         { "id": "p-ud-3", "name": "Significant Figures and Absolute/Percentage Errors", "weight": 30 }
       ]
     },
@@ -137,7 +137,7 @@
     {
       "id": "p-modern-physics",
       "name": "Dual Nature of Matter & Radiation",
-      "subparts: [
+      "subparts": [
         { "id": "p-mod-1", "name": "Photoelectric Effect, Einstein Equation & de Broglie waves", "weight": 40 },
         { "id": "p-mod-2", "name": "Alpha-particle Scattering, Bohr Model Orbits & Radii", "weight": 30 },
         { "id": "p-mod-3", "name": "Hydrogen Spectrum, Mass-Energy Equivalence & Radioactivity", "weight": 30 }
@@ -265,7 +265,7 @@
       "name": "Some Basic Principles of Organic Chemistry",
       "subparts": [
         { "id": "c-goc-1", "name": "Purification, Qualitative & Quantitative Analysis", "weight": 20 },
-        { "id": "c-goc-2", "name": "IUPAC Nomenclature & Electronic Effects (Inductive/Resonance)", "weight: "50 },
+        { "id": "c-goc-2", "name": "IUPAC Nomenclature & Electronic Effects (Inductive/Resonance)", "weight": 50 },
         { "id": "c-goc-3", "name": "Homolytic/Heterolytic Fission & Organic Isomerism", "weight": 30 }
       ]
     },
@@ -327,7 +327,7 @@
     {
       "id": "m-pnc",
       "name": "Permutations and Combinations",
-      "subparts: [
+      "subparts": [
         { "id": "m-pc-1", "name": "Fundamental Principle of Counting & Permutations Basics", "weight": 40 },
         { "id": "m-pc-2", "name": "Combinations Theorems, Restricted Selections & Grid Paths", "weight": 60 }
       ]
@@ -344,7 +344,7 @@
       "id": "m-sequences",
       "name": "Sequence and Series",
       "subparts": [
-        { "id": "m-seq-1", "name": "Arithmetic Progressions Means Insertion & Sums", "weight: "35 },
+        { "id": "m-seq-1", "name": "Arithmetic Progressions Means Insertion & Sums", "weight": 35 },
         { "id": "m-seq-2", "name": "Geometric Progressions, Means & Infinite Geometric Sums", "weight": 40 },
         { "id": "m-seq-3", "name": "Relation between AM and GM & Special Sigma Sums", "weight": 25 }
       ]
