@@ -78,6 +78,13 @@ function selectSubpart(subpartId, subpartName) {
 
     document.getElementById('active-topic-header').innerHTML = `<h2>${subpartName} Workspace</h2>`;
     
+    localStorage.removeItem(`score-${subpartId}`);
+    localStorage.removeItem(`check-${subpartId}`);
+    localStorage.removeItem(`indices-${subpartId}`);
+    for (let i = 0; i < 5; i++) {
+        localStorage.removeItem(`map-${subpartId}-${i}`);
+    }
+
     generateRandomizedQuestions(subpartId, subpartName);
     evaluateDiagnosticMetrics(subpartId);
 
@@ -103,19 +110,14 @@ function generateRandomizedQuestions(subpartId, subpartName) {
             if (fullPool.length === 0) {
                 fullPool = [];
                 let randomSeeds = [];
-                let savedIndices = localStorage.getItem(`indices-${subpartId}`);
-                if (savedIndices) {
-                    randomSeeds = JSON.parse(savedIndices);
-                } else {
-                    for(let i=0; i<5; i++){
-                        randomSeeds.push({
-                            scenarioIdx: Math.floor(Math.random() * 4),
-                            v1: Math.floor(Math.random() * 15) + 3,
-                            v2: Math.floor(Math.random() * 8) + 2
-                        });
-                    }
-                    localStorage.setItem(`indices-${subpartId}`, JSON.stringify(randomSeeds));
+                for(let i=0; i<5; i++){
+                    randomSeeds.push({
+                        scenarioIdx: Math.floor(Math.random() * 4),
+                        v1: Math.floor(Math.random() * 15) + 3,
+                        v2: Math.floor(Math.random() * 8) + 2
+                    });
                 }
+                localStorage.setItem(`indices-${subpartId}`, JSON.stringify(randomSeeds));
 
                 randomSeeds.forEach((seed, qIdx) => {
                     let v1 = seed.v1;
@@ -125,7 +127,7 @@ function generateRandomizedQuestions(subpartId, subpartName) {
                     if (subjectPrefix === 'p') {
                         if (seed.scenarioIdx === 0) {
                             let ans = v1 * v2;
-                            qText = `A point mass in a mechanical setup for "${subpartName}" accelerates uniformly. If the tracking force vector registers $a = ${v1} \\text{ m/s}^2$ moving across an active window of $t = ${v2} \\text{ s}$, solve for the resultant localized terminal velocity.`;
+                            qText = `A point mass in a mechanical setup for "${subpartName}" accelerates uniformly from rest. If the tracking force vector registers $a = ${v1} \\text{ m/s}^2$ moving across an active window of $t = ${v2} \\text{ s}$, solve for the resultant localized terminal velocity.`;
                             cText = `${ans} m/s`; f1 = `${v1 + v2} m/s`; f2 = `${Math.abs(v1 - v2)} m/s`; f3 = `${ans * 2} m/s`;
                         } else if (seed.scenarioIdx === 1) {
                             let ans = v1 + v2;
@@ -177,9 +179,14 @@ function generateRandomizedQuestions(subpartId, subpartName) {
                             cText = `${ans}`; f1 = `${v1 * v2}`; f2 = `${v1 + v2}`; f3 = `${ans * 2}`;
                         }
                     }
-
                     fullPool.push({ q: `[API Dynamic Problem Stream] ${qText}`, correctText: cText, falseOptions: [f1, f2, f3] });
                 });
+            } else {
+                let indices = [];
+                let availableIndices = [...Array(fullPool.length).keys()];
+                availableIndices.sort(() => Math.random() - 0.5);
+                indices = availableIndices.slice(0, 5);
+                fullPool = indices.map(idx => fullPool[idx]);
             }
 
             const scoreState = JSON.parse(localStorage.getItem(`score-${subpartId}`)) || {};
