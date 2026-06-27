@@ -4,6 +4,14 @@ let activeSubpartName = "";
 let pomoTimerThread = null;
 let pomoSecondsLeft = 1500;
 
+const formulaSheetDatabase = {
+    "p-ud-1": "• <b>Dimensional Homogeneity:</b> Only terms with matching dimensions can be added or subtracted.<br>• <b>Planck's Constant (h):</b> [E][T] = [M¹ L² T⁻¹]<br>• <b>Permittivity (ε₀):</b> [F⁻¹ L⁻² T⁴ A²]<br>• <b>Gravitational Constant (G):</b> [M⁻¹ L³ T⁻²]<br>• <b>JEE Speed Trick:</b> Velocity of light c = 1/√(μ₀ε₀).",
+    "p-kin-1": "• <b>Equations of Motion:</b> Only valid if acceleration (a) is perfectly uniform.<br>• v = u + at, s = ut + ½at², v² = u² + 2as<br>• <b>Snth Distance:</b> S_nth = u + a/2(2n - 1)<br>• <b>Variable Acceleration:</b> Always differentiate or integrate: v = dx/dt, a = dv/dt = v(dv/dx).",
+    "p-nlm-1": "• <b>Newton's 2nd Law:</b> F_net = dP/dt = m(dv/dt) + v(dm/dt).<br>• <b>Wedge Acceleration Rule:</b> Wedge acceleration a = g tanθ stops relative block slip.<br>• <b>Apparent Lift Weight:</b> W_app = m(g ± a). Use '+' for upward acceleration, '-' for deceleration down.",
+    "c-bsc-2": "• <b>Mole Formula:</b> Moles = Given Mass / Molar Mass = Vol at STP / 22.4L = N_particles / 6.022×10²³.<br>• <b>Concentration Rules:</b> Molarity (M) = Moles / Vol of Sol (L); Molality (m) = Moles / Mass of Solvent (kg).<br>• <b>Mole Fraction:</b> X_A = n_A / (n_A + n_B). Always note that X_A + X_B = 1.",
+    "m-cq-2": "• <b>Roots of ax² + bx + c = 0:</b> x = (-b ± √D) / 2a, where Discriminant D = b² - 4ac.<br>• <b>Sum & Product:</b> α + β = -b/a, αβ = c/a.<br>• <b>Difference of Roots:</b> |α - β| = √D / |a|.<br>• <b>Condition for Common Root:</b> (c₁a₂ - c₂a₁)² = (a₁b₂ - a₂b₁)(b₁c₂ - b₂c₁)."
+};
+
 document.querySelectorAll('.sub-btn').forEach(button => {
     button.addEventListener('click', (e) => {
         document.querySelectorAll('.sub-btn').forEach(btn => btn.classList.remove('active'));
@@ -80,6 +88,13 @@ function selectSubpart(subpartId, subpartName) {
 
     document.getElementById('active-topic-header').innerHTML = `<h2>${subpartName} Workspace</h2>`;
     
+    const formulaBtn = document.getElementById('view-formula-btn');
+    if(formulaSheetDatabase[subpartId]) {
+        formulaBtn.style.display = 'block';
+    } else {
+        formulaBtn.style.display = 'none';
+    }
+
     localStorage.removeItem(`score-${subpartId}`);
     localStorage.removeItem(`check-${subpartId}`);
     localStorage.removeItem(`indices-${subpartId}`);
@@ -169,9 +184,9 @@ function generateRandomizedQuestions(subpartId, subpartName) {
             }
 
             let availableIndices = [...Array(fullPool.length).keys()];
-            availableIndices.sort(() => Math.random() - 0.5);
             let chosenIndices = availableIndices.slice(0, 5);
             let activeQuestions = chosenIndices.map(idx => fullPool[idx]);
+            const scoreState = JSON.parse(localStorage.getItem(`score-${subpartId}`)) || {};
 
             activeQuestions.forEach((q, qIdx) => {
                 const qCard = document.createElement('div');
@@ -182,7 +197,7 @@ function generateRandomizedQuestions(subpartId, subpartName) {
                 
                 qCard.innerHTML = `
                     <div class="mcq-header">
-                        <span style="font-size:0.8rem; color:var(--text-muted)">Pool Coordinate Module Array</span>
+                        <span style="font-size:0.8rem; color:var(--text-muted)">High-Yield Challenge Array</span>
                         <button class="bookmark-action-btn ${isBookmarked ? 'active' : ''}" onclick="toggleBookmarkVariant('${subpartId}', '${subpartName}', \`${escapeStr(q.q)}\`, '${escapeStr(q.correctText)}', [\`${escapeStr(q.falseOptions[0])}\`,\`${escapeStr(q.falseOptions[1])}\`,\`${escapeStr(q.falseOptions[2])}\`], this)">${isBookmarked ? '★ Flagged' : '☆ Flag'}</button>
                     </div>
                     <p style="font-weight:600; margin-bottom:12px; color:var(--text-main)">Q${qIdx + 1}: ${q.q}</p>
@@ -418,6 +433,17 @@ function togglePomodoroCycle() {
             }
         }, 1000);
     }
+}
+
+function openFormulaModal() {
+    if(!activeSubpartId || !formulaSheetDatabase[activeSubpartId]) return;
+    document.getElementById('formula-modal-title').innerText = `${activeSubpartName} - High-Yield Formula Sheet`;
+    document.getElementById('formula-modal-body').innerHTML = formulaSheetDatabase[activeSubpartId];
+    document.getElementById('formula-modal-overlay').style.display = 'flex';
+}
+
+function closeFormulaModal() {
+    document.getElementById('formula-modal-overlay').style.display = 'none';
 }
 
 function escapeStr(str) { return str.replace(/`/g, '\\`').replace(/'/g, "\\'"); }
