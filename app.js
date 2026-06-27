@@ -5,11 +5,18 @@ let pomoTimerThread = null;
 let pomoSecondsLeft = 1500;
 
 const formulaSheetDatabase = {
-    "p-ud-1": "• <b>Dimensional Homogeneity:</b> Only terms with matching dimensions can be added or subtracted.<br>• <b>Planck's Constant (h):</b> [E][T] = [M¹ L² T⁻¹]<br>• <b>Permittivity (ε₀):</b> [F⁻¹ L⁻² T⁴ A²]<br>• <b>Gravitational Constant (G):</b> [M⁻¹ L³ T⁻²]<br>• <b>JEE Speed Trick:</b> Velocity of light c = 1/√(μ₀ε₀).",
-    "p-kin-1": "• <b>Equations of Motion:</b> Only valid if acceleration (a) is perfectly uniform.<br>• v = u + at, s = ut + ½at², v² = u² + 2as<br>• <b>Snth Distance:</b> S_nth = u + a/2(2n - 1)<br>• <b>Variable Acceleration:</b> Always differentiate or integrate: v = dx/dt, a = dv/dt = v(dv/dx).",
-    "p-nlm-1": "• <b>Newton's 2nd Law:</b> F_net = dP/dt = m(dv/dt) + v(dm/dt).<br>• <b>Wedge Acceleration Rule:</b> Wedge acceleration a = g tanθ stops relative block slip.<br>• <b>Apparent Lift Weight:</b> W_app = m(g ± a). Use '+' for upward acceleration, '-' for deceleration down.",
-    "c-bsc-2": "• <b>Mole Formula:</b> Moles = Given Mass / Molar Mass = Vol at STP / 22.4L = N_particles / 6.022×10²³.<br>• <b>Concentration Rules:</b> Molarity (M) = Moles / Vol of Sol (L); Molality (m) = Moles / Mass of Solvent (kg).<br>• <b>Mole Fraction:</b> X_A = n_A / (n_A + n_B). Always note that X_A + X_B = 1.",
-    "m-cq-2": "• <b>Roots of ax² + bx + c = 0:</b> x = (-b ± √D) / 2a, where Discriminant D = b² - 4ac.<br>• <b>Sum & Product:</b> α + β = -b/a, αβ = c/a.<br>• <b>Difference of Roots:</b> |α - β| = √D / |a|.<br>• <b>Condition for Common Root:</b> (c₁a₂ - c₂a₁)² = (a₁b₂ - a₂b₁)(b₁c₂ - b₂c₁)."
+    "p-ud-1": "• <b>Dimensional Homogeneity:</b> Only terms with matching dimensions can be added or subtracted.<br>• <b>Planck's Constant (h):</b> [E][T] = [M¹ L² T⁻¹]<br>• <b>Permittivity (ε₀):</b> [M⁻¹ L⁻³ T⁴ A²]<br>• <b>Gravitational Constant (G):</b> [M⁻¹ L³ T⁻²]",
+    "p-ud-2": "• <b>Least Count (L.C.):</b> Main Scale Division (MSD) - Vernier Scale Division (VSD).<br>• <b>Vernier Callipers L.C.:</b> 1 MSD * (1 - mechanical ratio).<br>• <b>Screw Gauge L.C.:</b> Pitch / Total circular scale divisions.<br>• <b>True Reading:</b> Observed Reading - Zero Error (with sign).",
+    "p-ud-3": "• <b>Absolute Error:</b> Δx = |x_true - x_obs|.<br>• <b>Error Propagation:</b> For Z = A * B or Z = A / B, max relative error is ΔZ/Z = ΔA/A + ΔB/B.<br>• <b>Power Rule:</b> For Z = A^n, ΔZ/Z = n * (ΔA/A). Errors always add up.",
+    "p-kin-1": "• <b>Equations of Motion:</b> Valid ONLY for uniform acceleration.<br>• v = u + at, s = ut + ½at², v² = u² + 2as<br>• <b>Snth Distance:</b> S_nth = u + a/2(2n - 1)<br>• <b>Variable Acceleration:</b> Use calculus frameworks: v = dx/dt, a = dv/dt = v(dv/dx).",
+    "p-kin-2": "• <b>Time of Flight (T):</b> 2u sinθ / g<br>• <b>Max Height (H):</b> u² sin²θ / 2g<br>• <b>Horizontal Range (R):</b> u² sin(2θ) / g. Max range occurs at 45° angle.<br>• <b>Trajectory Equation:</b> y = x tanθ - gx² / (2u² cos²θ). Parabolic form mapping.",
+    "p-kin-3": "• <b>Relative Velocity:</b> V_AB = V_A - V_B.<br>• <b>River Crossing (Shortest Time):</b> θ = 0° (swim straight), t = w / v_m.<br>• <b>River Crossing (Shortest Path/Drift Zero):</b> sinθ = v_r / v_m, t = w / √(v_m² - v_r²).",
+    "p-nlm-1": "• <b>Newton's 2nd Law:</b> F = dP/dt = m(dv/dt).<br>• <b>Wedge Constraint:</b> Wedge acceleration a = g tanθ locks relative slipping.<br>• <b>Apparent Lift Weight:</b> N = m(g + a) moving up, N = m(g - a) accelerating down.",
+    "c-bsc-2": "• <b>Mole Count:</b> Weight / Molar Mass = Vol at STP / 22.4L = N_particles / 6.022×10²³.<br>• <b>Molarity (M):</b> Moles of solute / Volume of solution in Liters.<br>• <b>Molality (m):</b> Moles of solute / Mass of solvent in kg.<br>• <b>Normality (N):</b> Molarity * n-factor.",
+    "c-at-1": "• <b>Bohr Orbit Radius:</b> r_n = 52.9 * (n² / Z) pm.<br>• <b>Bohr Velocity:</b> v_n = 2.18×10⁶ * (Z / n) m/s.<br>• <b>Energy State:</b> E_n = -13.6 * (Z² / n²) eV.<br>• <b>Rydberg Wave Formula:</b> 1/λ = R_H * Z² * (1/n₁² - 1/n₂²).",
+    "m-st-3": "• <b>One-One (Injective):</b> f(x₁) = f(x₂) implies x₁ = x₂.<br>• <b>Onto (Surjective):</b> Range of function perfectly matches Co-domain set.<br>• <b>Total Onto Functions:</b> For mapping m items to 2 slots = 2^m - 2 functions.",
+    "m-cq-2": "• <b>Roots Formula:</b> x = (-b ± √(b² - 4ac)) / 2a.<br>• <b>Sum & Product:</b> α + β = -b/a, αβ = c/a.<br>• <b>Difference of Roots:</b> |α - β| = √D / |a|.<br>• <b>Common Root Condition:</b> (c₁a₂ - c₂a₁)² = (a₁b₂ - a₂b₁)(b₁c₂ - b₂c₁).",
+    "m-md-1": "• <b>Adjoint Property:</b> A * adj(A) = |A| * I.<br>• <b>Adjoint Determinant:</b> |adj(A)| = |A|^(n-1).<br>• <b>Double Adjoint Determinant:</b> |adj(adj(A))| = |A|^((n-1)²).<br>• <b>Inverse Matrix:</b> A⁻¹ = adj(A) / |A|."
 };
 
 document.querySelectorAll('.sub-btn').forEach(button => {
@@ -146,7 +153,7 @@ function generateRandomizedQuestions(subpartId, subpartName) {
                         cText = `${v1 + v2} N`; f1 = `${v1 * v2} N`; f2 = `${Math.abs(v1 - v2)} N`; f3 = `${(v1 + v2) * 2} N`;
                     } else if (scenarioIdx === 2) {
                         qText = `Variant #${i}: A systemic framework processing structural constraints for "${subpartName}" maps a continuous potential energy distribution curve defined by $U(x) = ${v2}x^2$. Determine the complete network energy state evaluated at a localized boundary limit coordinate node of $x = ${v1} \\text{ meters}$.`;
-                        cText = `${v1 * v1 * v2} J`; f1 = `${v1 * v2} J`; f2 = `${v1 + v2} J`; f3 = `${v1 * v1 * v2 + v1} J`;
+                        cText = `${v1 * v1 * v2} J`; f1 = `${v1 * v2} J`; f2 = `${v1 + v2} J$; f3 = `${v1 * v1 * v2 + v1} J`;
                     } else {
                         qText = `Variant #${i}: A continuous fluids chamber tracking configurations for "${subpartName}" moves medium across distinct dimensions. Given an operational fluid intake rate constant of $Q = ${v1} \\text{ L/min}$ moving across an aperture restriction cross-section coefficient of ${v2} units, evaluate the resulting output flow tracking scalar component value ($100Q / \\text{factor}$).`;
                         cText = `${Math.round((v1 * 100) / v2)}`; f1 = `${v1 * v2}`; f2 = `${v1 + v2}`; f3 = `${Math.round((v1 * 100) / v2) + 5}`;
@@ -342,15 +349,20 @@ function evaluateDiagnosticMetrics(subpartId) {
         return;
     }
 
+    let simulatedRank = "N/A";
+    if (rawScorePercent >= 80) simulatedRank = `AIR ${Math.floor(Math.random() * 500) + 1} (Elite Bracket)`;
+    else if (rawScorePercent >= 60) simulatedRank = `AIR ${Math.floor(Math.random() * 4000) + 2000} (NIT/IIIT Safe Zone)`;
+    else simulatedRank = "AIR > 50,000 (Requires Sprint Revision)";
+
     if (rawScorePercent < 50) {
         badge.classList.add("critical"); badge.innerText = "Critical Zone";
-        textZone.innerHTML = `<strong>Performance Profile: ${rawScorePercent}%</strong><br><br>Fundamental concept blocks require revision. Trigger a new data shuffler pool selection by hitting the 'Reset Test' tool option.`;
+        textZone.innerHTML = `<strong>Performance Profile: ${rawScorePercent}%</strong><br><strong>Predictor Matrix: ${simulatedRank}</strong><br><br>Fundamental concept blocks require revision. Trigger a new data shuffler pool selection by hitting the 'Reset Test' tool option.`;
     } else if (rawScorePercent >= 50 && rawScorePercent < 80) {
         badge.classList.add("warn"); badge.innerText = "Revision Needed";
-        textZone.innerHTML = `<strong>Performance Profile: ${rawScorePercent}%</strong><br><br>Solid baseline understanding, but you triggered alternative calculation trap states. Log derivation formulas on your right pad.`;
+        textZone.innerHTML = `<strong>Performance Profile: ${rawScorePercent}%</strong><br><strong>Predictor Matrix: ${simulatedRank}</strong><br><br>Solid baseline understanding, but you triggered alternative calculation trap states. Log derivation formulas on your right pad.`;
     } else {
         badge.classList.add("clear"); badge.innerText = "Mastered";
-        textZone.innerHTML = `<strong>Performance Profile: ${rawScorePercent}%</strong><br><br>Excellent execution coordinates! 100% precision score mapping recorded in local browser instance. Subpart weight is fully active up top.`;
+        textZone.innerHTML = `<strong>Performance Profile: ${rawScorePercent}%</strong><br><strong>Predictor Matrix: ${simulatedRank}</strong><br><br>Excellent execution coordinates! 100% precision score mapping recorded in local browser instance. Subpart weight is fully active up top.`;
     }
 }
 
@@ -391,21 +403,18 @@ function renderBookmarkPanelContents() {
     container.innerHTML = '';
     let bookmarks = JSON.parse(localStorage.getItem('jee_bookmarked_pool')) || [];
     
-    if(bookmarks.length === 0) {
-        container.innerHTML = '<p class="status-msg">No high-yield variants flagged into revision storage filters yet.</p>';
+    if (bookmarks.length === 0) {
+        container.innerHTML = `<p class="status-msg">No active revision metrics or text elements compiled yet.</p>`;
         return;
     }
-    
-    bookmarks.forEach((b, bIdx) => {
-        const div = document.createElement('div');
-        div.className = 'mcq-card';
-        div.style.margin = '12px 0';
-        div.innerHTML = `
-            <strong style="color:var(--accent-aqua); font-size:0.85rem;">${b.subpartName} Mapping Layer</strong>
-            <p style="margin-top:6px; color:#fff;">${b.q}</p>
-            <div style="margin-top:8px; font-size:0.85rem; color:var(--tag-clear)">Correct Vector Metric Key: ${b.correctText}</div>
-        `;
-        container.appendChild(div);
+
+    bookmarks.forEach(subpart => {
+        const card = document.createElement('div');
+        card.style.borderLeft = "3px solid var(--accent-aqua)";
+        card.style.background = "rgba(255,255,255,0.01)";
+        card.style.padding = "12px"; card.style.margin = "10px 0"; card.style.borderRadius = "6px";
+        card.innerHTML = `<strong style="color:var(--accent-aqua)">${subpart.subpartName} Mapping Layer</strong><p style="margin-top:6px; color:#fff;">${subpart.q}</p><div style="margin-top:8px; font-size:0.85rem; color:var(--tag-clear)">Correct Vector Metric Key: ${subpart.correctText}</div>`;
+        container.appendChild(card);
     });
 }
 
