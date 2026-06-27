@@ -1,6 +1,8 @@
 let jeeSyllabusData = null;
 let activeSubpartId = null;
 let activeSubpartName = "";
+let pomoTimerThread = null;
+let pomoSecondsLeft = 1500;
 
 document.querySelectorAll('.sub-btn').forEach(button => {
     button.addEventListener('click', (e) => {
@@ -105,98 +107,86 @@ function generateRandomizedQuestions(subpartId, subpartName) {
     fetch(targetShardFile)
         .then(response => response.json())
         .then(data => {
+            let staticPool = data[subpartId] || [];
             let fullPool = [];
-            
-            for (let i = 1; i <= 5; i++) {
-                let v1 = Math.floor(Math.random() * 12) + 3;
-                let v2 = Math.floor(Math.random() * 6) + 2;
+
+            staticPool.forEach(item => {
+                fullPool.push({ q: item.q, correctText: item.correctText, falseOptions: [...item.falseOptions] });
+            });
+
+            while (fullPool.length < 30) {
+                let i = fullPool.length + 1;
+                let v1 = Math.floor(Math.random() * 15) + 3;
+                let v2 = Math.floor(Math.random() * 8) + 2;
                 let scenarioIdx = Math.floor(Math.random() * 4);
+                let ansValue = v1 * v2;
                 let qText = "", cText = "", f1 = "", f2 = "", f3 = "";
 
                 if (subjectPrefix === 'p') {
-                    if (subpartId.includes('ud')) {
-                        if (scenarioIdx === 0) {
-                            let ans = v1 * v2;
-                            qText = `The structural constant of a physical medium under dimensional analysis tracks an index scale of $[M^{${v1}} L^{-2} T^{-${v2}}]$. Determine the base scaling product of these active exponents ($n_M \\cdot n_T$).`;
-                            cText = `${ans}`; f1 = `${v1 + v2}`; f2 = `${Math.abs(v1 - v2)}`; f3 = `${ans * 2}`;
-                        } else if (scenarioIdx === 1) {
-                            let ans = v1 + v2;
-                            qText = `If momentum $P$, length $L$, and force $F$ are parameterized as temporary base metrics, calculate the consolidated evaluation trace exponent sum where mass scales proportionally as $[P^{${v1}} L^1 F^{${v2}}]$.`;
-                            cText = `${ans}`; f1 = `${v1 * v2}`; f2 = `${Math.abs(v1 - v2)}`; f3 = `${ans + 2}`;
-                        } else {
-                            let ans = v1 * v1;
-                            qText = `The dimensional capacity factor of a specialized energy radiation field is represented by $C = \\alpha \\beta^2$. If the fundamental length mapping scales parameter $\\alpha$ by a factor of ${v1}, find the squared ratio performance bound.`;
-                            cText = `${ans} units`; f1 = `${v1 * 2} units`; f2 = `${v1 + v2} units`; f3 = `${ans * 2} units`;
-                        }
-                    } else if (subpartId.includes('kin')) {
-                        if (scenarioIdx === 0) {
-                            let ans = v1 * v2;
-                            qText = `An object moving along a linear track satisfies the velocity profile equation $v(t) = ${v1}t^2 - ${v2}t$. Solve for the instantaneous acceleration acting on the point mass system at time step $t = 2\\text{ s}$ if the boundary variables scale parameters up by a multiplication index of 2.`;
-                            cText = `${ans} m/s²`; f1 = `${v1 + v2} m/s²`; f2 = `${v1 * v1} m/s²`; f3 = `${ans * 2} m/s²`;
-                        } else if (scenarioIdx === 1) {
-                            let ans = v1 + v2;
-                            qText = `A racing vehicle starts from rest and accelerates at a steady rate of $\\alpha = ${v1}\\text{ m/s}^2$ before braking to an immediate halt at a rate of $\\beta = ${v2}\\text{ m/s}^2$. If the target spatial velocity models a linear peak, solve for the absolute maximum boundary velocity.`;
-                            cText = `${ans} m/s`; f1 = `${v1 * v2} m/s`; f2 = `${Math.abs(v1 - v2)} m/s`; f3 = `${ans + 5} m/s`;
-                        } else {
-                            let ans = v1 * v1 * v2;
-                            qText = `The position path tracking function of an experimental projectile maps coordinates according to $x(t) = ${v2}t^3$. Compute the aggregate continuous momentum parameter evaluated at a localized timeline node of $t = ${v1}\\text{ seconds}$.`;
-                            cText = `${ans} units`; f1 = `${v1 + v2} units`; f2 = `${v1 * v2} units`; f3 = `${ans * 2} units`;
-                        }
+                    if (scenarioIdx === 0) {
+                        qText = `Variant #${i}: An isolated particle working under mechanics metrics for "${subpartName}" accelerates uniformly from rest. If acceleration parameters register $a = ${v1} \\text{ m/s}^2$ across a specific active window of $t = ${v2} \\text{ s}$, evaluate the ultimate terminal velocity profile value.`;
+                        cText = `${ansValue} m/s`; f1 = `${v1 + v2} m/s`; f2 = `${Math.abs(v1 - v2)} m/s`; f3 = `${ansValue * 2} m/s`;
+                    } else if (scenarioIdx === 1) {
+                        qText = `Variant #${i}: An experimental force grid array tracking fields for "${subpartName}" receives parallel vector configurations. If linear field parameters register input metrics $E_1 = ${v1} \\text{ N}$ and $E_2 = ${v2} \\text{ N}$ acting along a matching continuous vector plane, calculate the maximum possible superposition force magnitude value.`;
+                        cText = `${v1 + v2} N`; f1 = `${v1 * v2} N`; f2 = `${Math.abs(v1 - v2)} N`; f3 = `${(v1 + v2) * 2} N`;
+                    } else if (scenarioIdx === 2) {
+                        qText = `Variant #${i}: A systemic framework processing structural constraints for "${subpartName}" maps a continuous potential energy distribution curve defined by $U(x) = ${v2}x^2$. Determine the complete network energy state evaluated at a localized boundary limit coordinate node of $x = ${v1} \\text{ meters}$.`;
+                        cText = `${v1 * v1 * v2} J`; f1 = `${v1 * v2} J`; f2 = `${v1 + v2} J`; f3 = `${v1 * v1 * v2 + v1} J`;
                     } else {
-                        if (scenarioIdx === 0) {
-                            let ans = v1 * v2;
-                            qText = `A block sitting on an inclined surface of slope $\\theta$ experiences horizontal acceleration. If a tracking weight balance system scales mass as $M = ${v1}\\text{ kg}$ under balancing tension loads of $T = ${v2}\\text{ N}$, compute the localized equilibrium scalar value ($M \\cdot T$).`;
-                            cText = `${ans}`; f1 = `${v1 + v2}`; f2 = `${Math.abs(v1 - v2)}`; f3 = `${ans * 2}`;
-                        } else if (scenarioIdx === 1) {
-                            let ans = v1 + v2;
-                            qText = `Three connected strings pull blocks of mass parameters ($m_1 = ${v1}\\text{ kg}$ and $m_2 = ${v2}\\text{ kg}$) along a smooth surface using a horizontal force array. Find the total joint network tension vector sum at standard terminal constraints.`;
-                            cText = `${ans} N`; f1 = `${v1 * v2} N`; f2 = `${Math.abs(v1 - v2)} N`; f3 = `${ans + 10} N`;
-                        } else {
-                            let ans = v1 * v1 - v2;
-                            qText = `A mass hanging from a ceiling pulley loop system scales downward velocity lines. If active upward forces measure $F_u = ${v1 * v1}\\text{ N}$ balanced by string frictions of $F_f = ${v2}\\text{ N}$, compute the final composite net system resistance balance.`;
-                            cText = `${ans} N`; f1 = `${v1 * v1} N`; f2 = `${v1 + v2} N`; f3 = `${ans * 2} N`;
-                        }
+                        qText = `Variant #${i}: A continuous fluids chamber tracking configurations for "${subpartName}" moves medium across distinct dimensions. Given an operational fluid intake rate constant of $Q = ${v1} \\text{ L/min}$ moving across an aperture restriction cross-section coefficient of ${v2} units, evaluate the resulting output flow tracking scalar component value ($100Q / \\text{factor}$).`;
+                        cText = `${Math.round((v1 * 100) / v2)}`; f1 = `${v1 * v2}`; f2 = `${v1 + v2}`; f3 = `${Math.round((v1 * 100) / v2) + 5}`;
                     }
                 } else if (subjectPrefix === 'c') {
                     if (scenarioIdx === 0) {
-                        let ans = v1 * v2;
-                        qText = `A sample compound analyzing elements of "${subpartName}" is introduced to a flask array. If the extraction yields ${v1} active moles of target substance scaling with an electronic valence index of ${v2}, find the total mass balance tracking factor.`;
-                        cText = `${ans} g/mol`; f1 = `${v1 + v2} g/mol`; f2 = `${Math.abs(v1 - v2)} g/mol`; f3 = `${ans * 2} g/mol`;
+                        qText = `Variant #${i}: An aqueous chemical coordination composition testing properties of "${subpartName}" runs inside a closed system layout. If an extraction flask isolates precisely ${v1} moles of reacting compound species managed under a stoichiometric combination matrix coefficient of ${v2}, compute the net molar tracking mass yield parameters.`;
+                        cText = `${ansValue} g/mol`; f1 = `${v1 + v2} g/mol`; f2 = `${Math.abs(v1 - v2)} g/mol`; f3 = `${ansValue * 2} g/mol`;
                     } else if (scenarioIdx === 1) {
-                        let ans = v1 + v2;
-                        qText = `During an analytical spectrum analysis mapping profiles for "${subpartName}", a baseline mixture calculates a solution density parameter of $D_1 = ${v1} \\text{ units}$. If a catalyst adds a displacement step parameter of $D_2 = ${v2} \\text{ units}$, compute the total mixture metrics.`;
-                        cText = `${ans} units`; f1 = `${v1 * v2} units`; f2 = `${v1} units`; f3 = `${v2} units`;
+                        qText = `Variant #${i}: During an analytical titration sequence framing elements of "${subpartName}", a color indicator monitors chemical step adjustments. If a standard solution matrix layers an initial active baseline concentration of $M_1 = ${v1} \\text{ M}$ treated with a secondary chemical reagent changing limits by $M_2 = ${v2} \\text{ M}$, calculate the final mixture molarity profile.`;
+                        cText = `${v1 + v2} M`; f1 = `${v1 * v2} M`; f2 = `${v1} M`; f3 = `${v2} M`;
+                    } else if (scenarioIdx === 2) {
+                        qText = `Variant #${i}: An excited structural electronic state tracking orbit path properties for "${subpartName}" maps discrete orbital domains. If atomic drops transition across bounds releasing a localized field frequency metric of $\\nu = ${v1} \\times 10^{14} \\text{ Hz}$, compute the squared electronic probability coordinate factor.`;
+                        cText = `${v1 * v1}`; f1 = `${v1 * 2}`; f2 = `${v1 + v2}`; f3 = `${v1 * v1 + v2}`;
                     } else {
-                        let ans = v1 * v1;
-                        qText = `An atomic energy configuration mapping shells for "${subpartName}" shifts orbits. If the electron path emits radiation at a localized field frequency variable of $\\nu = ${v1} \\times 10^{14} \\text{ Hz}$, determine the consolidated probability amplitude square parameter.`;
-                        cText = `${ans}`; f1 = `${v1 * 2}`; f2 = `${v1 + v2}`; f3 = `${ans + v2}`;
+                        qText = `Variant #${i}: A thermodynamic gas expansion setup investigating properties of "${subpartName}" processes internal changes. If absolute system enthalpy updates record $\\Delta H = ${v1} \\text{ kJ}$ while external system boundary configurations perform work energy transfers of $W = ${v2} \\text{ kJ}$, find the true internal energy profile adjustment value ($\\Delta H - W$).`;
+                        cText = `${v1 - v2} kJ`; f1 = `${v1 + v2} kJ`; f2 = `${v1 * v2} kJ`; f3 = `${Math.abs(v1 - v2) * 2} kJ`;
                     }
                 } else {
                     if (scenarioIdx === 0) {
-                        let ans = v1 + v2;
-                        qText = `Let a sequence function processing conditions for "${subpartName}" map steps across an array matrix. If the starting progression term mounts at $a_1 = ${v1}$ incrementing steadily by a common difference element of $d = ${v2}$, find the value of the second matrix element.`;
-                        cText = `${ans}`; f1 = `${v1 * v2}`; f2 = `${v1}`; f3 = `${v2}`;
+                        qText = `Variant #${i}: Let a multi-dimensional array mapping functions for "${subpartName}" build a standard arithmetic sequence string. If the sequence layout initiates from a base coordinate index of $a = ${v1}$ incrementing sequentially by a common difference step variable of $d = ${v2}$, find the exact value of the second structural element.`;
+                        cText = `${v1 + v2}`; f1 = `${v1 * v2}`; f2 = `${v1}`; f3 = `${v2}`;
                     } else if (scenarioIdx === 1) {
-                        let ans = v1 * v2;
-                        qText = `A square transformation space mapping datasets for "${subpartName}" yields linear equations intersections. If a column projection maps an original matrix return evaluated determinant magnitude of $|A| = ${v1}$ scaling rows by uniform indices of ${v2}, solve the Cramer vector scalar.`;
-                        cText = `${ans}`; f1 = `${v1 + v2}`; f2 = `${v1 * v1}`; f3 = `${v2 * v2}`;
+                        qText = `Variant #${i}: A linear transform square grid module processing dataset boundary intersections for "${subpartName}" solves matrix equations. If a column projection maps a regular target transform matrix returning an evaluated determinant magnitude of $|A| = ${v1}$ scaling rows by uniform factor indexes of ${v2}, solve for the Cramer scalar vector product metric.`;
+                        cText = `${ansValue}`; f1 = `${v1 + v2}`; f2 = `${v1 * v1}`; f3 = `${v2 * v2}`;
+                    } else if (scenarioIdx === 2) {
+                        qText = `Variant #${i}: The structural boundary parameters of a geometric coordinate locus tracing equations for "${subpartName}" cut across structural domains. Given an intersection root array mapping domain paths managed by quadratic criteria variables $x^2 = ${v1}x + ${v2}$, compute the active polynomial matching metric value evaluated for ($v_1^2 - v_2$).`;
+                        cText = `${v1 * v1 - v2}`; f1 = `${v1 + v2}`; f2 = `${v1 * v1}`; f3 = `${v2 * v2}`;
                     } else {
-                        let ans = v1 * v1 - v2;
-                        qText = `The boundary parameters of a geometric locus tracking equations for "${subpartName}" cut coordinate axes smoothly. Given real root matrices defined by quadratic equations constraints $x^2 = ${v1}x + ${v2}$, calculate the final evaluation product mapping ($v_1^2 - v_2$).`;
-                        cText = `${ans}`; f1 = `${v1 + v2}`; f2 = `${v1 * v1}`; f3 = `${v2 * v2}`;
+                        qText = `Variant #${i}: A distribution configuration sorting discrete choice structures matching laws for "${subpartName}" organizes array layouts. If total collection slots group into an matrix domain of $n = ${v1} elements matching an option selector index of $r = ${v2}$, find the final configuration space boundary tracking scalar ($n \\cdot r + 1$).`;
+                        cText = `${v1 * v2 + 1}`; f1 = `${v1 * v2}`; f2 = `${v1 + v2}`; f3 = `${(v1 * v2 + 1) * 2}`;
                     }
                 }
-
-                fullPool.push({ q: `[Dynamic Mastery Problem] ${qText}`, correctText: cText, falseOptions: [f1, f2, f3] });
+                fullPool.push({ q: `[Dynamic Variant Stream] ${qText}`, correctText: cText, falseOptions: [f1, f2, f3] });
             }
 
-            const scoreState = JSON.parse(localStorage.getItem(`score-${subpartId}`)) || {};
+            let availableIndices = [...Array(fullPool.length).keys()];
+            availableIndices.sort(() => Math.random() - 0.5);
+            let chosenIndices = availableIndices.slice(0, 5);
+            let activeQuestions = chosenIndices.map(idx => fullPool[idx]);
 
-            fullPool.forEach((q, qIdx) => {
+            activeQuestions.forEach((q, qIdx) => {
                 const qCard = document.createElement('div');
                 qCard.className = 'mcq-card';
                 qCard.style.margin = '20px 0';
-                qCard.innerHTML = `<p style="font-weight:600; margin-bottom:12px; color:var(--text-main)">Q${qIdx + 1}: ${q.q}</p>`;
+                
+                let isBookmarked = verifyBookmarkState(subpartId, q.q);
+                
+                qCard.innerHTML = `
+                    <div class="mcq-header">
+                        <span style="font-size:0.8rem; color:var(--text-muted)">Pool Coordinate Module Array</span>
+                        <button class="bookmark-action-btn ${isBookmarked ? 'active' : ''}" onclick="toggleBookmarkVariant('${subpartId}', '${subpartName}', \`${escapeStr(q.q)}\`, '${escapeStr(q.correctText)}', [\`${escapeStr(q.falseOptions[0])}\`,\`${escapeStr(q.falseOptions[1])}\`,\`${escapeStr(q.falseOptions[2])}\`], this)">${isBookmarked ? '★ Flagged' : '☆ Flag'}</button>
+                    </div>
+                    <p style="font-weight:600; margin-bottom:12px; color:var(--text-main)">Q${qIdx + 1}: ${q.q}</p>
+                `;
 
                 let optionMapping = [];
                 let savedMapping = localStorage.getItem(`map-${subpartId}-${qIdx}`);
@@ -236,7 +226,6 @@ function generateRandomizedQuestions(subpartId, subpartName) {
                     }
                     qCard.appendChild(btn);
                 });
-                qCard.appendChild(document.createElement('hr'));
                 testZone.appendChild(qCard);
             });
         })
@@ -322,13 +311,21 @@ function evaluateDiagnosticMetrics(subpartId) {
 
     badge.className = "badge";
     
+    let rawScorePercent = answersAttempted > 0 ? Math.round((correctAnswers / 5) * 100) : 0;
+    
+    const chartRing = document.getElementById('radial-accuracy-ring');
+    const chartText = document.getElementById('radial-percentage-text');
+    if(chartRing && chartText) {
+        let degrees = (rawScorePercent / 100) * 360;
+        chartRing.style.setProperty('--chart-ratio', `${degrees}deg`);
+        chartText.innerText = `${rawScorePercent}%`;
+    }
+
     if (answersAttempted === 0) {
         badge.classList.add("neutral"); badge.innerText = "Clearance Pending";
         textZone.innerHTML = `No quiz submissions found for this module yet. Take the 5-question test on the left to compute telemetry insights.`;
         return;
     }
-
-    let rawScorePercent = Math.round((correctAnswers / 5) * 100);
 
     if (rawScorePercent < 50) {
         badge.classList.add("critical"); badge.innerText = "Critical Zone";
@@ -341,6 +338,89 @@ function evaluateDiagnosticMetrics(subpartId) {
         textZone.innerHTML = `<strong>Performance Profile: ${rawScorePercent}%</strong><br><br>Excellent execution coordinates! 100% precision score mapping recorded in local browser instance. Subpart weight is fully active up top.`;
     }
 }
+
+function verifyBookmarkState(subpartId, qText) {
+    let bookmarks = JSON.parse(localStorage.getItem('jee_bookmarked_pool')) || [];
+    return bookmarks.some(b => b.subpartId === subpartId && b.q === qText);
+}
+
+function toggleBookmarkVariant(subpartId, subpartName, qText, correct, falseOpts, btnEl) {
+    let bookmarks = JSON.parse(localStorage.getItem('jee_bookmarked_pool')) || [];
+    let idx = bookmarks.findIndex(b => b.subpartId === subpartId && b.q === qText);
+    
+    if(idx > -1) {
+        bookmarks.splice(idx, 1);
+        btnEl.innerText = "☆ Flag";
+        btnEl.classList.remove('active');
+    } else {
+        bookmarks.push({ subpartId, subpartName, q: qText, correctText: correct, falseOptions: falseOpts });
+        btnEl.innerText = "★ Flagged";
+        btnEl.classList.add('active');
+    }
+    localStorage.setItem('jee_bookmarked_pool', JSON.stringify(bookmarks));
+    if(document.getElementById('global-bookmark-view').style.display === 'block') renderBookmarkPanelContents();
+}
+
+function toggleBookmarkPanel() {
+    const pane = document.getElementById('global-bookmark-view');
+    const btn = document.getElementById('toggle-bookmark-btn');
+    if(pane.style.display === 'none') {
+        pane.style.display = 'block'; btn.innerText = "Close Flagged Questions"; renderBookmarkPanelContents();
+    } else {
+        pane.style.display = 'none'; btn.innerText = "Open Flagged Questions";
+    }
+}
+
+function renderBookmarkPanelContents() {
+    const container = document.getElementById('bookmark-container');
+    container.innerHTML = '';
+    let bookmarks = JSON.parse(localStorage.getItem('jee_bookmarked_pool')) || [];
+    
+    if(bookmarks.length === 0) {
+        container.innerHTML = '<p class="status-msg">No high-yield variants flagged into revision storage filters yet.</p>';
+        return;
+    }
+    
+    bookmarks.forEach((b, bIdx) => {
+        const div = document.createElement('div');
+        div.className = 'mcq-card';
+        div.style.margin = '12px 0';
+        div.innerHTML = `
+            <strong style="color:var(--accent-aqua); font-size:0.85rem;">${b.subpartName} Mapping Layer</strong>
+            <p style="margin-top:6px; color:#fff;">${b.q}</p>
+            <div style="margin-top:8px; font-size:0.85rem; color:var(--tag-clear)">Correct Vector Metric Key: ${b.correctText}</div>
+        `;
+        container.appendChild(div);
+    });
+}
+
+function togglePomodoroCycle() {
+    const btn = document.getElementById('pomo-toggle-btn');
+    if(pomoTimerThread) {
+        clearInterval(pomoTimerThread);
+        pomoTimerThread = null;
+        btn.innerText = "Resume Focus Session";
+    } else {
+        btn.innerText = "Pause Session";
+        pomoTimerThread = setInterval(() => {
+            if(pomoSecondsLeft <= 0) {
+                clearInterval(pomoTimerThread);
+                pomoTimerThread = null;
+                alert("Focus Session Complete! Commencing revision interval state maps.");
+                pomoSecondsLeft = 1500;
+                document.getElementById('pomo-timer-display').innerText = "25:00";
+                btn.innerText = "Start Focus Session";
+            } else {
+                pomoSecondsLeft--;
+                let mins = Math.floor(pomoSecondsLeft / 60).toString().padStart(2, '0');
+                let secs = (pomoSecondsLeft % 60).toString().padStart(2, '0');
+                document.getElementById('pomo-timer-display').innerText = `${mins}:${secs}`;
+            }
+        }, 1000);
+    }
+}
+
+function escapeStr(str) { return str.replace(/`/g, '\\`').replace(/'/g, "\\'"); }
 
 function switchWorkspaceTab(tabId) {
     document.querySelectorAll('.tabs-header .tab-btn').forEach(btn => btn.classList.remove('active'));

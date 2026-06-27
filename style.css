@@ -8,6 +8,7 @@
     --tag-critical: #f43f5e;
     --tag-warn: #fbbf24;
     --tag-clear: #10b981;
+    --chart-ratio: 0deg;
 }
 
 * {
@@ -64,6 +65,34 @@ body {
     margin-bottom: 20px;
 }
 
+.pomo-interceptor {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: rgba(0,0,0,0.3);
+    padding: 8px 16px;
+    border-radius: 12px;
+    border: 1px solid var(--border-glass);
+}
+
+#pomo-timer-display {
+    font-family: monospace;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--accent-aqua);
+}
+
+#pomo-toggle-btn {
+    background: var(--accent-aqua);
+    color: var(--bg-dark);
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+
 .sync-controls .ctrl-btn {
     background: rgba(255, 255, 255, 0.03);
     color: var(--text-main);
@@ -91,7 +120,7 @@ body {
 .stat-meta {
     display: flex;
     align-items: center;
-    gap: 32px;
+    gap: 16px;
     width: 100%;
 }
 
@@ -118,22 +147,25 @@ body {
     color: var(--accent-aqua);
 }
 
-#toggle-vault-btn {
-    background: rgba(0, 240, 255, 0.05);
-    color: var(--accent-aqua);
-    border: 1px solid rgba(0, 240, 255, 0.15);
+#toggle-vault-btn, #toggle-bookmark-btn {
+    background: rgba(255, 255, 255, 0.02);
+    color: var(--text-main);
+    border: 1px solid var(--border-glass);
     padding: 12px 20px;
     border-radius: 12px;
     cursor: pointer;
     font-weight: 600;
     font-size: 0.9rem;
     transition: all 0.2s ease;
-    margin-left: auto;
 }
 
-#toggle-vault-btn:hover {
-    background: rgba(0, 240, 255, 0.12);
-    box-shadow: 0 0 20px rgba(0, 240, 255, 0.1);
+#toggle-vault-btn:hover, #toggle-bookmark-btn:hover {
+    border-color: var(--accent-aqua);
+    color: var(--accent-aqua);
+}
+
+#toggle-bookmark-btn {
+    margin-left: auto;
 }
 
 .dashboard-body {
@@ -339,19 +371,15 @@ body {
     border-color: var(--accent-aqua);
 }
 
-#save-note-btn {
+#save-note-btn, #reset-module-btn {
     background: var(--accent-aqua);
     color: var(--bg-dark);
-    padding: 12px 24px;
+    padding: 10px 20px;
     border: none;
     border-radius: 8px;
     font-weight: 700;
     cursor: pointer;
-    transition: transform 0.1s ease;
-}
-
-#save-note-btn:active {
-    transform: scale(0.98);
+    font-size: 0.85rem;
 }
 
 .mcq-card {
@@ -361,13 +389,74 @@ body {
     padding: 16px;
 }
 
-.mcq-opt-btn {
-    transition: all 0.2s ease;
+.mcq-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
 }
 
-.mcq-opt-btn:hover:not(:disabled) {
-    background: rgba(255,255,255,0.05) !important;
-    border-color: rgba(255,255,255,0.2) !important;
+.bookmark-action-btn {
+    background: none;
+    border: 1px solid var(--border-glass);
+    color: var(--text-muted);
+    padding: 4px 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.75rem;
+}
+
+.bookmark-action-btn.active {
+    border-color: var(--accent-aqua);
+    color: var(--accent-aqua);
+    background: rgba(0,240,255,0.05);
+}
+
+.visual-chart-matrix {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.chart-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.radial-chart-fill {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: conic-gradient(var(--accent-aqua) 0deg, var(--accent-aqua) var(--chart-ratio), rgba(255,255,255,0.05) var(--chart-ratio), rgba(255,255,255,0.05) 360deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease;
+}
+
+.radial-center-hole {
+    width: 90px;
+    height: 90px;
+    background: var(--bg-dark);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#radial-percentage-text {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--accent-aqua);
+}
+
+.chart-caption {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
 .badge {

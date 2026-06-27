@@ -12,7 +12,11 @@
             <div class="header-main-row">
                 <div class="brand-group">
                     <h1>JEE Mastery Progress Engine</h1>
-                    <div class="version-tag">v2.0 Production-Ready</div>
+                    <div class="version-tag">v3.0 Production-Ready</div>
+                </div>
+                <div class="pomo-interceptor">
+                    <span id="pomo-timer-display">25:00</span>
+                    <button id="pomo-toggle-btn" onclick="togglePomodoroCycle()">Start Focus Session</button>
                 </div>
                 <div class="sync-controls">
                     <button id="export-state-btn" class="ctrl-btn" onclick="exportAppState()">Export Session</button>
@@ -27,6 +31,7 @@
                         <strong id="global-percent" class="stat-value">0%</strong>
                     </div>
                     <button id="toggle-vault-btn" onclick="toggleNotesVault()">Open Global Notes Vault</button>
+                    <button id="toggle-bookmark-btn" onclick="toggleBookmarkPanel()">Open Flagged Questions</button>
                 </div>
             </div>
         </header>
@@ -79,6 +84,16 @@
                                 <span class="metric-label">Subject Metric Profile:</span>
                                 <div id="analytics-badge" class="badge neutral">Clearance Pending</div>
                             </div>
+                            
+                            <div class="visual-chart-matrix">
+                                <div class="chart-wrapper">
+                                    <div class="radial-chart-fill" id="radial-accuracy-ring">
+                                        <div class="radial-center-hole"><span id="radial-percentage-text">0%</span></div>
+                                    </div>
+                                    <span class="chart-caption">Accuracy Ratio Index</span>
+                                </div>
+                            </div>
+
                             <div class="analytics-breakdown">
                                 <p id="analytics-summary-text" class="status-msg">Select a subtopic area to review automated analytics profiles.</p>
                             </div>
@@ -89,6 +104,11 @@
                 <div id="global-vault-view" class="card" style="display: none; margin-top: 20px;">
                     <h3>Global Revision Vault Array</h3>
                     <div id="vault-notes-container"></div>
+                </div>
+
+                <div id="global-bookmark-view" class="card" style="display: none; margin-top: 20px;">
+                    <h3>Flagged Revision Variants Matrix</h3>
+                    <div id="bookmark-container"></div>
                 </div>
             </section>
         </main>
