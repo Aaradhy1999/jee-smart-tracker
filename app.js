@@ -163,7 +163,7 @@ function generateRandomizedQuestions(subpartId, subpartName) {
                         qText = `Variant #${i}: An excited structural electronic state tracking orbit path properties for "${subpartName}" maps discrete orbital domains. If atomic drops transition across bounds releasing a localized field frequency metric of $\\nu = ${v1} \\times 10^{14} \\text{ Hz}$, compute the squared electronic probability coordinate factor.`;
                         cText = `${v1 * v1}`; f1 = `${v1 * 2}`; f2 = `${v1 + v2}`; f3 = `${v1 * v1 + v2}`;
                     } else {
-                        qText = `Variant #${i}: A thermodynamic gas expansion setup investigating properties of "${subpartName}" processes internal changes. If absolute system enthalpy updates record $\Delta H = ${v1} \\text{ kJ}$ while external system boundary configurations perform work energy transfers of $W = ${v2} \\text{ kJ}$, find the true internal energy profile adjustment value ($\\Delta H - W$).`;
+                        qText = `Variant #${i}: A thermodynamic gas expansion setup investigating properties of "${subpartName}" processes internal changes. If absolute system enthalpy updates record $\\Delta H = ${v1} \\text{ kJ}$ while external system boundary configurations perform work energy transfers of $W = ${v2} \\text{ kJ}$, find the true internal energy profile adjustment value ($\\Delta H - W$).`;
                         cText = `${v1 - v2} kJ`; f1 = `${v1 + v2} kJ`; f2 = `${v1 * v2} kJ`; f3 = `${Math.abs(v1 - v2) * 2} kJ`;
                     }
                 } else {
@@ -210,9 +210,9 @@ function generateRandomizedQuestions(subpartId, subpartName) {
                 qCard.innerHTML = `
                     <div class="mcq-header">
                         <span style="font-size:0.8rem; color:var(--text-muted)">High-Yield Challenge Array</span>
-                        <button class="bookmark-action-btn ${isBookmarked ? 'active' : ''}" onclick="toggleBookmarkVariant('${subpartId}', '${subpartName}', ${qIdx}, '${escapeStr(q.correctText)}', [\`${escapeStr(q.falseOptions[0])}\`,\`${escapeStr(q.falseOptions[1])}\`,\`${escapeStr(q.falseOptions[2])}\`], this)">${isBookmarked ? '★ Flagged' : '☆ Flag'}</button>
+                        <button class="bookmark-action-btn ${isBookmarked ? 'active' : ''}" onclick="toggleBookmarkVariantDirect('${subpartId}', '${subpartName}', ${qIdx}, '${escapeStr(q.correctText)}', this)">${isBookmarked ? '★ Flagged' : '☆ Flag'}</button>
                     </div>
-                    <p style="font-weight:600; margin-bottom:12px; color:var(--text-main)">Q${qIdx + 1}: ${savedText}</p>
+                    <p class="question-text-paragraph" style="font-weight:600; margin-bottom:12px; color:var(--text-main)">Q${qIdx + 1}: ${savedText}</p>
                 `;
 
                 let optionMapping = [];
@@ -351,6 +351,7 @@ function evaluatePercentages() {
     updateGlobalMetrics();
 }
 
+/* Updated for real JEE marks logic */
 function updateChapterProgressUI(chapterId) {
     let chapter = null;
     for (let sub in jeeSyllabusData) {
@@ -403,9 +404,10 @@ function evaluateDiagnosticMetrics(subpartId) {
     
     const answersAttempted = Object.keys(scoreState).length;
     const correctAnswers = checkState.filter(Boolean).length;
+    const wrongAnswers = answersAttempted - correctAnswers;
 
-    badge.className = "badge";
-    
+    /* JEE Marks Equation: +4 for accurate item, -1 for penalty */
+    let totalJeeMarks = (correctAnswers * 4) - (wrongAnswers * 1);
     let rawScorePercent = answersAttempted > 0 ? Math.round((correctAnswers / 5) * 100) : 0;
     
     const chartRing = document.getElementById('radial-accuracy-ring');
@@ -417,25 +419,25 @@ function evaluateDiagnosticMetrics(subpartId) {
     }
 
     if (answersAttempted === 0) {
-        badge.classList.add("neutral"); badge.innerText = "Clearance Pending";
+        badge.className = "badge neutral"; badge.innerText = "Clearance Pending";
         textZone.innerHTML = `No quiz submissions found for this module yet. Take the 5-question test on the left to compute telemetry insights.`;
         return;
     }
 
     let simulatedRank = "N/A";
-    if (rawScorePercent >= 80) simulatedRank = `AIR ${Math.floor(Math.random() * 500) + 1} (Elite Bracket)`;
-    else if (rawScorePercent >= 60) simulatedRank = `AIR ${Math.floor(Math.random() * 4000) + 2000} (NIT/IIIT Safe Zone)`;
+    if (totalJeeMarks >= 15) simulatedRank = `AIR ${Math.floor(Math.random() * 500) + 1} (Elite Bracket)`;
+    else if (totalJeeMarks >= 8) simulatedRank = `AIR ${Math.floor(Math.random() * 4000) + 2000} (NIT/IIIT Safe Zone)`;
     else simulatedRank = "AIR > 50,000 (Requires Sprint Revision)";
 
-    if (rawScorePercent < 50) {
-        badge.classList.add("critical"); badge.innerText = "Critical Zone";
-        textZone.innerHTML = `<strong>Performance Profile: ${rawScorePercent}%</strong><br><strong>Predictor Matrix: ${simulatedRank}</strong><br><br>Fundamental concept blocks require revision. Trigger a new data shuffler pool selection by hitting the 'Reset Test' tool option.`;
-    } else if (rawScorePercent >= 50 && rawScorePercent < 80) {
-        badge.classList.add("warn"); badge.innerText = "Revision Needed";
-        textZone.innerHTML = `<strong>Performance Profile: ${rawScorePercent}%</strong><br><strong>Predictor Matrix: ${simulatedRank}</strong><br><br>Solid baseline understanding, but you triggered alternative calculation trap states. Log derivation formulas on your right pad.`;
+    if (totalJeeMarks < 10) {
+        badge.className = "badge critical"; badge.innerText = "Critical Zone";
+        textZone.innerHTML = `<strong>JEE Marks Metric: ${totalJeeMarks} / 20 Score</strong><br><strong>Predictor Matrix: ${simulatedRank}</strong><br><br>Negative marks penalty is draining your matrix safety. Slow down calculations and log your specific derivations inside your error book tab files.`;
+    } else if (totalJeeMarks >= 10 && totalJeeMarks < 16) {
+        badge.className = "badge warn"; badge.innerText = "Revision Needed";
+        textZone.innerHTML = `<strong>JEE Marks Metric: ${totalJeeMarks} / 20 Score</strong><br><strong>Predictor Matrix: ${simulatedRank}</strong><br><br>Good raw base score accuracy, but accuracy leaks occurred. Track the alternative equation steps option items to secure a top 2000 spot.`;
     } else {
-        badge.classList.add("clear"); badge.innerText = "Mastered";
-        textZone.innerHTML = `<strong>Performance Profile: ${rawScorePercent}%</strong><br><strong>Predictor Matrix: ${simulatedRank}</strong><br><br>Excellent execution coordinates! 100% precision score mapping recorded in local browser instance. Subpart weight is fully active up top.`;
+        badge.className = "badge clear"; badge.innerText = "Mastered";
+        textZone.innerHTML = `<strong>JEE Marks Metric: ${totalJeeMarks} / 20 Score</strong><br><strong>Predictor Matrix: ${simulatedRank}</strong><br><br>Phenomenal accuracy telemetry coordinates logged! Safe from negative marking penalty traps. Weight vector completely optimized.`;
     }
 }
 
@@ -444,17 +446,20 @@ function verifyBookmarkState(subpartId, qText) {
     return bookmarks.some(b => b.subpartId === subpartId && b.q === qText);
 }
 
-function toggleBookmarkVariant(subpartId, subpartName, qIdx, correct, falseOpts, btnEl) {
-    let qText = localStorage.getItem(`textSnap-${subpartId}-${qIdx}`) || "Dynamic Metric Variant Question Block";
+function toggleBookmarkVariantDirect(subpartId, subpartName, qIdx, correct, btnEl) {
+    let cardElement = btnEl.closest('.mcq-card');
+    let qTextElement = cardElement.querySelector('.question-text-paragraph');
+    let rawQuestionText = qTextElement.innerText.replace(/^Q\d+:\s*/, '');
+
     let bookmarks = JSON.parse(localStorage.getItem('jee_bookmarked_pool')) || [];
-    let idx = bookmarks.findIndex(b => b.subpartId === subpartId && b.q === qText);
+    let idx = bookmarks.findIndex(b => b.subpartId === subpartId && b.q === rawQuestionText);
     
     if(idx > -1) {
         bookmarks.splice(idx, 1);
         btnEl.innerText = "☆ Flag";
         btnEl.classList.remove('active');
     } else {
-        bookmarks.push({ subpartId, subpartName, q: qText, correctText: correct, falseOptions: falseOpts });
+        bookmarks.push({ subpartId, subpartName, q: rawQuestionText, correctText: correct });
         btnEl.innerText = "★ Flagged";
         btnEl.classList.add('active');
     }
