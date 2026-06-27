@@ -102,32 +102,89 @@ function generateRandomizedQuestions(subpartId, subpartName) {
 
             if (fullPool.length === 0) {
                 fullPool = [];
-                for (let i = 1; i <= 5; i++) {
-                    let v1 = Math.floor(Math.random() * 12) + 4;
-                    let v2 = Math.floor(Math.random() * 6) + 2;
-                    fullPool.push({
-                        q: `[Fallback Algorithmic Question] Evaluate standard baseline relationships for "${subpartName}" given localized boundary parameters of X = ${v1} and Y = ${v2}.`,
-                        correctText: `${v1 * v2}`,
-                        falseOptions: [`${v1 + v2}`, `${v1 * v1}`, `${v2 * v2}`]
-                    });
+                let randomSeeds = [];
+                let savedIndices = localStorage.getItem(`indices-${subpartId}`);
+                if (savedIndices) {
+                    randomSeeds = JSON.parse(savedIndices);
+                } else {
+                    for(let i=0; i<5; i++){
+                        randomSeeds.push({
+                            scenarioIdx: Math.floor(Math.random() * 4),
+                            v1: Math.floor(Math.random() * 15) + 3,
+                            v2: Math.floor(Math.random() * 8) + 2
+                        });
+                    }
+                    localStorage.setItem(`indices-${subpartId}`, JSON.stringify(randomSeeds));
                 }
+
+                randomSeeds.forEach((seed, qIdx) => {
+                    let v1 = seed.v1;
+                    let v2 = seed.v2;
+                    let qText = "", cText = "", f1 = "", f2 = "", f3 = "";
+
+                    if (subjectPrefix === 'p') {
+                        if (seed.scenarioIdx === 0) {
+                            let ans = v1 * v2;
+                            qText = `A point mass in a mechanical setup for "${subpartName}" accelerates uniformly. If the tracking force vector registers $a = ${v1} \\text{ m/s}^2$ moving across an active window of $t = ${v2} \\text{ s}$, solve for the resultant localized terminal velocity.`;
+                            cText = `${ans} m/s`; f1 = `${v1 + v2} m/s`; f2 = `${Math.abs(v1 - v2)} m/s`; f3 = `${ans * 2} m/s`;
+                        } else if (seed.scenarioIdx === 1) {
+                            let ans = v1 + v2;
+                            qText = `An experimental system modeling fields in "${subpartName}" receives concurrent inputs. If linear vector potentials register magnitudes $E_1 = ${v1} \\text{ units}$ and $E_2 = ${v2} \\text{ units}$ along a single plane, compute the maximum consolidated superposition value.`;
+                            cText = `${ans} units`; f1 = `${v1 * v2} units`; f2 = `${Math.abs(v1 - v2)} units`; f3 = `${ans * 2} units`;
+                        } else if (seed.scenarioIdx === 2) {
+                            let ans = v1 * v1 * v2;
+                            qText = `A structural element under calculations for "${subpartName}" maps a potential distribution path $U(x) = ${v2}x^2$. Determine the clear systemic energy profile evaluated at a boundary limit coordinate node of $x = ${v1} \\text{ m}$.`;
+                            cText = `${ans} J`; f1 = `${v1 * v2} J`; f2 = `${v1 + v2} J`; f3 = `${ans + v1} J`;
+                        } else {
+                            let ans = Math.round((v1 * 100) / v2);
+                            qText = `A continuous fluid stream analyzing "${subpartName}" transitions through internal dimensions. Given an initial volume rate parameter of $Q = ${v1} \\text{ L/min}$ moving across an entry aperture constant of ${v2} units, evaluate the scaled output flow velocity index ($100Q / \\text{factor}$).`;
+                            cText = `${ans}`; f1 = `${v1 * v2}`; f2 = `${v1 + v2}`; f3 = `${Math.round(ans / 2)}`;
+                        }
+                    } else if (subjectPrefix === 'c') {
+                        if (seed.scenarioIdx === 0) {
+                            let ans = v1 * v2;
+                            qText = `An aqueous solution layer examining parameters of "${subpartName}" undergoes analytical mixing. If a reactive flask isolates exactly ${v1} moles of solute dissolved in an operational matrix factor constant of ${v2}, compute the net molar tracking concentration mass.`;
+                            cText = `${ans} g/mol`; f1 = `${v1 + v2} g/mol`; f2 = `${Math.abs(v1 - v2)} g/mol`; f3 = `${ans * 2} g/mol`;
+                        } else if (seed.scenarioIdx === 1) {
+                            let ans = v1 + v2;
+                            qText = `During a titration sequence analyzing properties of "${subpartName}", an indicator tracks a concentration profile shift. If an initial baseline layer of $M_1 = ${v1} \\text{ M}$ is treated with an additive reagent changing parameters by $M_2 = ${v2} \\text{ M}$, calculate the compound mixture index.`;
+                            cText = `${ans} M`; f1 = `${v1 * v2} M`; f2 = `${v1} M`; f3 = `${v2} M`;
+                        } else if (seed.scenarioIdx === 2) {
+                            let ans = v1 * v1;
+                            qText = `An excited atomic orbital electron tracing boundaries for "${subpartName}" maps discrete energy levels. If a spectral transition line maps a localized frequency metric of $\\nu = ${v1} \\times 10^{14} \\text{ Hz}$, compute the squared electronic probability distribution metric.`;
+                            cText = `${ans} units`; f1 = `${v1 * 2} units`; f2 = `${v1 + v2} units`; f3 = `${ans + v2} units`;
+                        } else {
+                            let ans = v1 - v2;
+                            qText = `A thermodynamic gas expansion modeling configurations for "${subpartName}" releases localized heat energy. If total internal enthalpy transformations register $\\Delta H = ${v1} \\text{ kJ}$ while boundary work variables perform $W = ${v2} \\text{ kJ}$, evaluate the net internal energy state change ($\\Delta H - W$).`;
+                            cText = `${ans} kJ`; f1 = `${v1 + v2} kJ`; f2 = `${v1 * v2} kJ`; f3 = `${Math.abs(ans * 2)} kJ`;
+                        }
+                    } else {
+                        if (seed.scenarioIdx === 0) {
+                            let ans = v1 + v2;
+                            qText = `Let a sequence array tracing mathematical steps for "${subpartName}" form a regular arithmetic series. If the progression launches from a baseline index of $a = ${v1}$ with a common difference step factor of $d = ${v2}$, calculate the explicit numeric value of the second term.`;
+                            cText = `${ans}`; f1 = `${v1 * v2}`; f2 = `${v1}`; f3 = `${v2}`;
+                        } else if (seed.scenarioIdx === 1) {
+                            let ans = v1 * v2;
+                            qText = `A multi-dimensional coordinate transformation system parsing intersections for "${subpartName}" processes matrix matrices. If a column projection maps an original matrix of determinant magnitude $|A| = ${v1}$ scaling evenly by structural row parameters of ${v2}, find the resulting Cramer scalar value.`;
+                            cText = `${ans}`; f1 = `${v1 + v2}`; f2 = `${v1 * v1}`; f3 = `${v2 * v2}`;
+                        } else if (seed.scenarioIdx === 2) {
+                            let ans = v1 * v1 - v2;
+                            qText = `The structural focal bounds of a parabolic curve tracking axes coordinates for "${subpartName}" cut axes boundaries. Given a real root parameter matrix defined by quadratic equations criteria $x^2 = ${v1}x + ${v2}$, evaluate the active tracking indicator matching calculation value for ($v_1^2 - v_2$).`;
+                            cText = `${ans}`; f1 = `${v1 + v2}`; f2 = `${v1 * v1}`; f3 = `${v2 * v2}`;
+                        } else {
+                            let ans = v1 * v2 + 1;
+                            qText = `A set of permutation combinations processing layout maps for "${subpartName}" evaluates discrete system choices. If total grouping choices trace an intersection matrix boundary of $n = ${v1}$ elements matched to an array selector index of $r = ${v2}$, determine the complete configuration space value ($n \\cdot r + 1$).`;
+                            cText = `${ans}`; f1 = `${v1 * v2}`; f2 = `${v1 + v2}`; f3 = `${ans * 2}`;
+                        }
+                    }
+
+                    fullPool.push({ q: `[API Dynamic Problem Stream] ${qText}`, correctText: cText, falseOptions: [f1, f2, f3] });
+                });
             }
 
-            let indices = [];
-            let savedIndices = localStorage.getItem(`indices-${subpartId}`);
-            if (savedIndices) {
-                indices = JSON.parse(savedIndices);
-            } else {
-                let availableIndices = [...Array(fullPool.length).keys()];
-                availableIndices.sort(() => Math.random() - 0.5);
-                indices = availableIndices.slice(0, 5);
-                localStorage.setItem(`indices-${subpartId}`, JSON.stringify(indices));
-            }
-
-            let activeQuestions = indices.map(idx => fullPool[idx]);
             const scoreState = JSON.parse(localStorage.getItem(`score-${subpartId}`)) || {};
 
-            activeQuestions.forEach((q, qIdx) => {
+            fullPool.forEach((q, qIdx) => {
                 const qCard = document.createElement('div');
                 qCard.className = 'mcq-card';
                 qCard.style.margin = '20px 0';
