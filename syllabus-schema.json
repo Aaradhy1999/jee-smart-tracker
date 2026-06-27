@@ -33,7 +33,7 @@
       "subparts": [
         { "id": "p-wep-1", "name": "Work Done by Constant and Variable Forces", "weight": 35 },
         { "id": "p-wep-2", "name": "Kinetic/Potential Energy & Work-Energy Theorem", "weight": 35 },
-        { "id": "p-wep-3", "name": "Conservative Forces, Power, and Vertical SHM Loops", "weight": 30 }
+        { "id": "p-wep-3", "name": "Conservative Forces, Power, and Vertical Circular Motion", "weight": 30 }
       ]
     },
     {
@@ -65,20 +65,37 @@
     },
     {
       "id": "p-thermodynamics",
-      "name": "Thermodynamics & Kinetic Theory",
+      "name": "Thermodynamics",
       "subparts": [
-        { "id": "p-therm-1", "name": "Thermal Equilibrium, Zeroth & First Law calculations", "weight": 30 },
-        { "id": "p-therm-2", "name": "Isothermal, Adiabatic, Isobaric, and Isochoric processes", "weight": 45 },
-        { "id": "p-therm-3", "name": "Second Law, Reversible Engine Efficiency & KTG Laws", "weight": 25 }
+        { "id": "p-therm-1", "name": "Thermal Equilibrium, Zeroth & First Law Calculations", "weight": 30 },
+        { "id": "p-therm-2", "name": "Isothermal, Adiabatic, Isobaric, and Isochoric Processes", "weight": 45 },
+        { "id": "p-therm-3", "name": "Second Law, Reversible Engine Efficiency & Carnot Cycle", "weight": 25 }
       ]
     },
     {
-      "id": "p-oscillations-waves",
-      "name": "Oscillations and Waves",
+      "id": "p-ktg",
+      "name": "Kinetic Theory of Gases",
       "subparts": [
-        { "id": "p-ow-1", "name": "Simple Harmonic Motion Kinetic & Potential Profiles", "weight": 35 },
-        { "id": "p-ow-2", "name": "Wave Motion, Superposition Principle & Beats on Strings", "weight": 35 },
-        { "id": "p-ow-3", "name": "Resonance, Organ Pipes, and the Doppler Effect", "weight": 30 }
+        { "id": "p-ktg-1", "name": "Equation of State of a Perfect Gas & Kinetic Parameters", "weight": 50 },
+        { "id": "p-ktg-2", "name": "Degrees of Freedom & Law of Equipartition of Energy", "weight": 50 }
+      ]
+    },
+    {
+      "id": "p-oscillations",
+      "name": "Oscillations",
+      "subparts": [
+        { "id": "p-osc-1", "name": "Simple Harmonic Motion Displacement & Equations", "weight": 40 },
+        { "id": "p-osc-2", "name": "Kinetic and Potential Energy Real Time SHM Transmissions", "weight": 30 },
+        { "id": "p-osc-3", "name": "Simple Pendulum Time Period & Damped/Forced Vibrations", "weight": 30 }
+      ]
+    },
+    {
+      "id": "p-waves",
+      "name": "Waves",
+      "subparts": [
+        { "id": "p-wav-1", "name": "Wave Motion, Longitudinal/Transverse Speed & Displacement", "weight": 35 },
+        { "id": "p-wav-2", "name": "Superposition Principle, Wave Reflections & Beats on Strings", "weight": 35 },
+        { "id": "p-wav-3", "name": "Resonance, Standing Waves, Organ Pipes & Doppler Effect", "weight": 30 }
       ]
     },
     {
@@ -86,7 +103,7 @@
       "name": "Electrostatics",
       "subparts": [
         { "id": "p-el-1", "name": "Coulomb's Law, Electric Field Lines & Flux Theorems", "weight": 35 },
-        { "id": "p-el-2", "name": "Gauss's Law Applications & Electric Potential", "weight": 35 },
+        { "id": "p-el-2", "name": "Gauss's Law Applications & Electric Potential Profiles", "weight": 35 },
         { "id": "p-el-3", "name": "Capacitors, Parallel Plates & Dielectric Mediums", "weight": 30 }
       ]
     },
@@ -101,20 +118,36 @@
     },
     {
       "id": "p-magnetic-effects",
-      "name": "Magnetic Effects of Current and Magnetism",
+      "name": "Magnetic Effects of Current",
       "subparts": [
         { "id": "p-mag-1", "name": "Biot-Savart Law, Ampere's Law & Solenoid Fields", "weight": 35 },
-        { "id": "p-mag-2", "name": "Lorentz Force on Moving Charges & Cyclotron paths", "weight": 35 },
-        { "id": "p-mag-3", "name": "Magnetic Dipole Moment & Earth's Magnetic Fields", "weight": 30 }
+        { "id": "p-mag-2", "name": "Lorentz Force on Moving Charges & Cyclotron Paths", "weight": 35 },
+        { "id": "p-mag-3", "name": "Force on Current-Carrying Conductor & Galvanometer Maps", "weight": 30 }
       ]
     },
     {
-      "id": "p-emi-ac",
-      "name": "Electromagnetic Induction and AC",
+      "id": "p-magnetism",
+      "name": "Magnetism",
       "subparts": [
-        { "id": "p-emi-1", "name": "Faraday's Law, Lenz's Law & Self/Mutual Induction", "weight": 35 },
-        { "id": "p-emi-2", "name": "Alternating Currents LCR Series Circuit Inversions", "weight": 45 },
-        { "id": "p-emi-3", "name": "Quality Factor, Power in AC Circuits & Transformers", "weight": 20 }
+        { "id": "p-mg-1", "name": "Magnetic Dipole Moment, Bar Magnet Properties & Earth Field", "weight": 50 },
+        { "id": "p-mg-2", "name": "Para-, Dia-, and Ferro-magnetic Substances Configurations", "weight": 50 }
+      ]
+    },
+    {
+      "id": "p-emi",
+      "name": "Electromagnetic Induction",
+      "subparts": [
+        { "id": "p-emi-1", "name": "Electromagnetic Induction, Magnetic Flux & Faraday's Law", "weight": 40 },
+        { "id": "p-emi-2", "name": "Lenz's Law, Induced EMF, Self and Mutual Inductance", "weight": 60 }
+      ]
+    },
+    {
+      "id": "p-ac",
+      "name": "Alternating Currents",
+      "subparts": [
+        { "id": "p-ac-1", "name": "Peak and RMS values of AC, Reactance and Impedance", "weight": 35 },
+        { "id": "p-ac-2", "name": "LCR Series Circuit Resonance & Quality Factor metrics", "weight": 45 },
+        { "id": "p-ac-3", "name": "Power in AC Circuits, Wattless Current & Transformers", "weight": 20 }
       ]
     },
     {
@@ -122,25 +155,42 @@
       "name": "Electromagnetic Waves",
       "subparts": [
         { "id": "p-emw-1", "name": "Displacement Current & Maxwell's Equations", "weight": 50 },
-        { "id": "p-emw-2", "name": "Electromagnetic Spectrum & Transverse wave characteristics", "weight": 50 }
+        { "id": "p-emw-2", "name": "Electromagnetic Spectrum & Transverse wave features", "weight": 50 }
       ]
     },
     {
-      "id": "p-optics",
-      "name": "Optics",
+      "id": "p-ray-optics",
+      "name": "Ray Optics",
       "subparts": [
-        { "id": "p-opt-1", "name": "Reflection, Refraction, Total Internal Reflection & Prisms", "weight": 35 },
-        { "id": "p-opt-2", "name": "Lens Formula, Magnification & Optical Microscopes", "weight": 35 },
-        { "id": "p-opt-3", "name": "Wave Optics Wavefronts, Huygen's Principle & YDSE", "weight": 30 }
+        { "id": "p-ro-1", "name": "Reflection, Refraction, Total Internal Reflection & Prisms", "weight": 40 },
+        { "id": "p-ro-2", "name": "Refraction at Spherical Surfaces, Lenses & Thin Lens Formula", "weight": 40 },
+        { "id": "p-ro-3", "name": "Magnifying Power of Microscopes & Astronomical Telescopes", "weight": 20 }
       ]
     },
     {
-      "id": "p-modern-physics",
+      "id": "p-wave-optics",
+      "name": "Wave Optics",
+      "subparts": [
+        { "id": "p-wo-1", "name": "Wavefronts, Huygens' Principle & Laws of Reflection/Refraction", "weight": 40 },
+        { "id": "p-wo-2", "name": "Interference of Light & Young's Double Slit Experiment", "weight": 40 },
+        { "id": "p-wo-3", "name": "Diffraction of Light due to a Single Slit Width", "weight": 20 }
+      ]
+    },
+    {
+      "id": "p-dual-nature",
       "name": "Dual Nature of Matter & Radiation",
       "subparts": [
-        { "id": "p-mod-1", "name": "Photoelectric Effect, Einstein Equation & de Broglie waves", "weight": 40 },
-        { "id": "p-mod-2", "name": "Alpha-particle Scattering, Bohr Model Orbits & Radii", "weight": 30 },
-        { "id": "p-mod-3", "name": "Hydrogen Spectrum, Mass-Energy Equivalence & Radioactivity", "weight": 30 }
+        { "id": "p-dn-1", "name": "Dual Nature of Radiation, Photoelectric Effect & Hertz Observations", "weight": 50 },
+        { "id": "p-dn-2", "name": "Einstein's Photoelectric Equation & de Broglie Waves", "weight": 50 }
+      ]
+    },
+    {
+      "id": "p-atoms-nuclei",
+      "name": "Atoms and Nuclei",
+      "subparts": [
+        { "id": "p-an-1", "name": "Alpha-particle Scattering, Rutherford & Bohr Model Orbits", "weight": 35 },
+        { "id": "p-an-2", "name": "Composition/Size of Nucleus, Atomic Masses & Isotopes", "weight": 35 },
+        { "id": "p-an-3", "name": "Mass-Energy Equivalence, Nuclear Fission, Fusion & Radioactivity", "weight": 30 }
       ]
     },
     {
@@ -307,12 +357,20 @@
       ]
     },
     {
-      "id": "m-complex-quadratic",
-      "name": "Complex Numbers & Quadratic Equations",
+      "id": "m-complex-numbers",
+      "name": "Complex Numbers",
       "subparts": [
-        { "id": "m-cq-1", "name": "Complex Numbers Complex Algebra, Modulus & Argument Form", "weight": 35 },
-        { "id": "m-cq-2", "name": "Quadratic Equations, Real/Complex Roots Nature & Coefficients", "weight": 45 },
-        { "id": "m-cq-3", "name": "Location of Roots and Common Root algebraic conditions", "weight": 20 }
+        { "id": "m-cn-1", "name": "Complex Representation, Algebraic Operations, Modulus & Argument", "weight": 50 },
+        { "id": "m-cn-2", "name": "Triangle Inequality, Cube Roots of Unity & Geometric Layouts", "weight": 50 }
+      ]
+    },
+    {
+      "id": "m-quadratic-eq",
+      "name": "Quadratic Equations",
+      "subparts": [
+        { "id": "m-qe-1", "name": "Quadratic Equations, Real/Complex Roots Nature & Coefficients", "weight": 40 },
+        { "id": "m-qe-2", "name": "Symmetric Functions of Roots & Formulations of Equations", "weight": 30 },
+        { "id": "m-qe-3", "name": "Location of Roots and Common Root Algebraic Conditions", "weight": 30 }
       ]
     },
     {
@@ -350,21 +408,44 @@
       ]
     },
     {
-      "id": "m-differential-calculus",
-      "name": "Limit, Continuity, and Differentiability",
+      "id": "m-limit-continuity",
+      "name": "Limits and Continuity",
       "subparts": [
-        { "id": "m-dc-1", "name": "Limits Evaluation, Trigonometric/Exponential forms & Continuity", "weight": 35 },
-        { "id": "m-dc-2", "name": "Differentiability, Chain Rule, Implicit & Parametric Derivatives", "weight": 35 },
-        { "id": "m-dc-3", "name": "Rolle's & Lagrange's Theorems, Monotonicity & Maxima/Minima", "weight": 30 }
+        { "id": "m-lc-1", "name": "Real-Valued Functions, Standard Algebra Limits Evaluation", "weight": 50 },
+        { "id": "m-lc-2", "name": "Continuity Definitions, Points of Discontinuity Remediation", "weight": 50 }
       ]
     },
     {
-      "id": "m-integral-calculus",
-      "name": "Integral Calculus",
+      "id": "m-differentiability",
+      "name": "Differentiability & Derivatives",
       "subparts": [
-        { "id": "m-ic-1", "name": "Indefinite Integrals by Substitution & Parts methods", "weight": 30 },
-        { "id": "m-ic-2", "name": "Definite Integrals Properties, Fundamental Calculus Theorems", "weight": 45 },
-        { "id": "m-ic-3", "name": "Area Determination bounded by standard mathematical curves", "weight": 25 }
+        { "id": "m-diff-1", "name": "Differentiability Check, Derivative Relations & Operations", "weight": 50 },
+        { "id": "m-diff-2", "name": "Chain Rule, Trigonometric, Logarithmic & Implicit Differentiation", "weight": 50 }
+      ]
+    },
+    {
+      "id": "m-tangents-maxima",
+      "name": "Applications of Derivatives",
+      "subparts": [
+        { "id": "m-aod-1", "name": "Rolle's and Lagrange's Mean Value Theorems Implementation", "weight": 30 },
+        { "id": "m-aod-2", "name": "Rate of Change of Quantities, Tangents and Normals Loci", "weight": 35 },
+        { "id": "m-aod-3", "name": "Monotonicity Functions, Maxima and Minima Peak Telemetry", "weight": 35 }
+      ]
+    },
+    {
+      "id": "m-indefinite-integral",
+      "name": "Indefinite Integration",
+      "subparts": [
+        { "id": "m-ii-1", "name": "Integrals as Anti-derivatives, Standard Algebro Fundamental Forms", "weight": 50 },
+        { "id": "m-ii-2", "name": "Integration by Substitution, Partial Fractions and Parts Methods", "weight": 50 }
+      ]
+    },
+    {
+      "id": "m-definite-integral",
+      "name": "Definite Integration & Area",
+      "subparts": [
+        { "id": "m-di-1", "name": "Definite Integrals Evaluation Evaluation Properties & Theorems", "weight": 60 },
+        { "id": "m-di-2", "name": "Area Determination bounded by standard mathematical curves", "weight": 40 }
       ]
     },
     {
